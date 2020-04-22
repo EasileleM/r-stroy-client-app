@@ -9,5 +9,10 @@ npm run dev
 
 <hr/>
 
-**To run the application in production mode use** <br/><br/>
+**To run the application build use** <br/><br/>
 npm run build
+
+<hr/>
+
+**To run the application in production mode use** <br/><br/>
+npm run start
