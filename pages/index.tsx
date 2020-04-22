@@ -1,6 +1,6 @@
 import React from 'react';
-import Layout from '../components/layout';
+import Layout from '../components/layout/layout';
 
 export default function Home() {
-  return <Layout>Test</Layout>;
+  return <Layout>Main content</Layout>;
 }
