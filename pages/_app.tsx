@@ -1,7 +1,23 @@
 import React from 'react';
-import '../styles/global.scss';
+import { Store } from 'redux';
+import { Provider } from 'react-redux';
+import withRedux from 'next-redux-wrapper';
 import { AppProps } from 'next/app';
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+import { store as newStore } from '../redux/store';
+
+import '../styles/global.scss';
+
+export interface AppReduxProps extends AppProps{
+  store: Store
 }
+
+function App({ Component, pageProps, store }: AppReduxProps) {
+  return (
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
+  );
+}
+
+export default withRedux(() => newStore)(App);
