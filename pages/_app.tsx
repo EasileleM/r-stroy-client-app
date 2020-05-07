@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { AppProps } from 'next/app';
 
-import { store as newStore } from '../redux/store';
+import { store as storeInstance } from '../redux/store';
 
 import '../styles/global.scss';
 
@@ -20,4 +20,4 @@ function App({ Component, pageProps, store }: AppReduxProps) {
   );
 }
 
-export default withRedux(() => newStore)(App);
+export default withRedux(() => storeInstance)(App);
