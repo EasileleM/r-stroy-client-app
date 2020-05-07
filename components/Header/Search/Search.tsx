@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './Search.module.scss';
+import SearchIcon from '../../../public/images/search.svg';
 
 export function Search() {
   return (
@@ -9,7 +10,7 @@ export function Search() {
       <label htmlFor='searchQuery' className={styles.input__label}>Search</label>
 
       <button id='searchButton' type='button'>
-        search
+        <SearchIcon className={styles.searchButton__icon} />
       </button>
     </form>
   );
