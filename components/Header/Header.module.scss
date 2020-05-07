@@ -4,7 +4,7 @@
 
 .header {
   width: 100%;
-  background-color: $main-color-dark;
+  background-color: $main-color-light;
   box-sizing: border-box;
   padding: 0 $max-content-padding;
 }
@@ -40,19 +40,26 @@
 
 .link {
   display: block;
-  text-decoration: none;
+  transition: 200ms ease;
 
-  font-size: $md-font-size;
-  font-family: $main-font;
-  color: $main-color-medium;
+  text-decoration: none;
+  font: 700 $md-font-size $main-font;
+  color: $main-color-dark;
+
+  &:hover {
+    opacity: .7;
+  }
 
   &_number {
     border: 0;
     padding: 0;
     background: transparent;
+
+    cursor: pointer;
   }
 
   &_small {
+    color: $main-color-semi-dark;
     font-size: $sm-font-size;
   }
 }
@@ -64,4 +71,6 @@
 .logo {
   font-size: $l-font-size;
   font-family: $company-font;
+  text-decoration: none;
+  color: $main-color-dark;
 }
