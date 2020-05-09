@@ -15,13 +15,16 @@
   max-width: $max-content-width;
   box-sizing: border-box;
 
-
   &_upper {
     padding: 10px 0;
   }
 
   &_lower {
     padding: 0 0 20px 0;
+
+    @media screen and (max-width: $mobile-screen-size) {
+      padding: 10px 0 10px 0;
+    }
   }
 
   &__content {
@@ -56,12 +59,12 @@
   font: 700 $md-font-size $main-font;
   color: $main-color-dark;
 
-  @media screen and (max-width: $md-screen-size) {
+  @media screen and (max-width: $tablet-screen-size) {
     font-size: $s-font-size;
   }
 
   &:hover {
-    opacity: .7;
+    opacity: 0.7;
   }
 
   &_number {
@@ -77,12 +80,18 @@
     font-size: $xxs-font-size;
   }
 
-  &_small &__icon {
+  &__icon {
     width: 17px;
     height: 17px;
     margin-right: 5px;
 
     fill: $main-color-semi-dark;
+
+    @media screen and (max-width: $mobile-screen-size) {
+      margin-right: 0;
+      width: 24px;
+      height: 24px;
+    }
   }
 
   &__text {
@@ -100,7 +109,51 @@
   text-decoration: none;
   color: $main-color-dark;
 
-  @media screen and (max-width: $md-screen-size) {
+  @media screen and (max-width: $tablet-screen-size) {
     font-size: $l-font-size;
+  }
+
+  @media screen and (max-width: $mobile-screen-size) {
+    font-size: $md-font-size;
+  }
+
+  @media screen and (max-width: $mobile-screen-size-small) {
+    font-size: 1.4em; // TODO here
+  }
+}
+
+.counterButton {
+  position: relative;
+  transition: 200ms ease;
+
+  @media screen and (max-width: $mobile-screen-size) {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__text {
+    margin: 0;
+  }
+
+  &__counter {
+    position: absolute;
+    top: 7px;
+    left: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: $main-color-dark;
+
+    font-size: 0.65em;
+    color: white; // TODO
+
+    @media screen and (max-width: $mobile-screen-size) {
+      top: 12px;
+      left: 16px;
+    }
   }
 }

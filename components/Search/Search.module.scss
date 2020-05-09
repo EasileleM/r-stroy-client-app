@@ -2,7 +2,7 @@
 @import '../../styles/fonts';
 
 .container {
-  opacity: .9;
+  opacity: 0.9;
   display: flex;
   height: 40px;
   max-width: 500px;
@@ -29,7 +29,7 @@
 
 .searchButton {
   display: flex;
-  align-items:center;
+  align-items: center;
   height: 100%;
   margin-left: -43px;
   padding: 0;

@@ -8,7 +8,6 @@ import { Footer } from '../Footer/Footer';
 export function Layout({ children }) {
   return (
     <div className={styles.container}>
-
       <Head>
         <title>Р-cтрой</title>
         <meta name="description" content="fill it" />
@@ -19,7 +18,6 @@ export function Layout({ children }) {
       <main className={styles.main}>{children}</main>
 
       <Footer />
-
     </div>
   );
 }
