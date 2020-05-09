@@ -96,6 +96,10 @@
 
   &__text {
     margin: 0;
+
+    @media screen and (max-width: $mobile-screen-size) {
+      display: none;
+    }
   }
 }
 
@@ -134,6 +138,10 @@
 
   &__text {
     margin: 0;
+
+    @media screen and (max-width: $mobile-screen-size) {
+      display: none;
+    }
   }
 
   &__counter {

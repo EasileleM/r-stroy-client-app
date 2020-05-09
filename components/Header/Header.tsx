@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import cn from 'classnames';
-import { useMediaQuery } from 'react-responsive';
 
 import styles from './Header.module.scss';
 import { CartButton } from './CartButton/CartButton';
@@ -12,19 +11,17 @@ import { Search } from '../Search/Search';
 import PhoneIcon from '../../public/images/phone.svg';
 import LocationIcon from '../../public/images/location.svg';
 
-import {
-  mobileScreenSize,
-  contactNumber,
-} from '../../contants/const';
+import { contactNumber } from '../../contants/const';
+
+import useResponsive from '../../hooks/useResponsive';
 
 export function Header() {
-  const isDesktopOrTablet = useMediaQuery({ minWidth: mobileScreenSize });
-  const isMobile = useMediaQuery({ maxWidth: mobileScreenSize });
+  const device = useResponsive();
 
   return (
     <header className={styles.header}>
       {
-        !isMobile &&
+        device.isDesktop &&
         <div className={cn(styles.row, styles.row_upper)}>
           <nav className={styles.row__content}>
             <div
@@ -59,7 +56,7 @@ export function Header() {
               </button>
             </div>
 
-            <div
+            <div 
               className={cn(styles.containerWithGap, styles.alignItemsCenter)}
             >
               <FavoritesButton
@@ -98,21 +95,21 @@ export function Header() {
               Р-строй
             </a>
           </Link>
-
-          {isMobile && (
-            <>
-              <FavoritesButton
-                containerStyles={cn(styles.containerWithBigGap__item)}
-              />
-              <CartButton
-                containerStyles={cn(styles.containerWithBigGap__item)}
-              />
-              <ProfileButton />
-            </>
-          )}
+          {
+            device.isMobile &&
+              <>
+                <FavoritesButton
+                  containerStyles={cn(styles.containerWithBigGap__item)}
+                />
+                <CartButton
+                  containerStyles={cn(styles.containerWithBigGap__item)}
+                />
+                <ProfileButton />
+              </>
+          }
 
           {
-            isDesktopOrTablet && (
+            !device.isMobile &&
             <>
               <Search styleClass={cn(styles.containerWithBigGap__item)} />
 
@@ -152,7 +149,6 @@ export function Header() {
                 </a>
               </Link>
             </>
-            )
           }
         </nav>
       </div>
