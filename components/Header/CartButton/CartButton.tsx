@@ -3,13 +3,20 @@ import cn from 'classnames';
 import Link from 'next/link';
 
 import styles from './CartButton.module.scss';
-import headerStyles from '../Header.module.scss';
 
-export function CartButton() {
+import CartIcon from '../../../public/images/cart.svg';
+
+export interface CartButtonProps {
+  containerStyles: string
+}
+
+export function CartButton({ containerStyles }: CartButtonProps) {
   return (
     <Link href='/'>
-      <a href='/' className={cn(headerStyles.link, headerStyles.link_small, headerStyles.containerWithGap__item)}>
-        Корзина
+      <a href='/' className={cn(containerStyles, styles.container)}>
+        <CartIcon className={styles.icon} />
+        <div className={styles.counter}>0</div>
+        <p className={styles.text}>Корзина</p>
       </a>
     </Link>
   );

@@ -6,7 +6,10 @@ import styles from './Header.module.scss';
 import { CartButton } from './CartButton/CartButton';
 import { FavoritesButton } from './FavoritesButton/FavoritesButton';
 import { ProfileButton } from './ProfileButton/ProfileButton';
-import { Search } from './Search/Search';
+import { Search } from '../Search/Search';
+
+import PhoneIcon from '../../public/images/phone.svg';
+import LocationIcon from '../../public/images/location.svg';
 
 export function Header() {
   return (
@@ -16,17 +19,37 @@ export function Header() {
           <div className={cn(styles.containerWithGap, styles.alignItemsCenter)}>
             <Link href='/'>
               <a href='/' className={cn(styles.link, styles.link_small, styles.containerWithGap__item)}>
-                ул. Лапшова, 10-14, Татищево
+                <LocationIcon className={cn(styles.link__icon)} />
+                <p className={cn(styles.link__text)}>
+                  ул. Лапшова, 10-14, Татищево
+                </p>
               </a>
             </Link>
             <button type='button' className={cn(styles.link, styles.link_small, styles.link_number, styles.containerWithGap__item)}>
-              +7-961-648-38-00
+              <PhoneIcon className={cn(styles.link__icon)} />
+              <p className={cn(styles.link__text)}>+7-961-648-38-00</p>
             </button>
           </div>
 
           <div className={cn(styles.containerWithGap, styles.alignItemsCenter)}>
-            <FavoritesButton />
-            <CartButton />
+            <FavoritesButton
+              containerStyles={
+                cn(
+                  styles.link,
+                  styles.link_small,
+                  styles.containerWithGap__item
+                )
+              }
+            />
+            <CartButton
+              containerStyles={
+                cn(
+                  styles.link,
+                  styles.link_small,
+                  styles.containerWithGap__item
+                )
+              }
+            />
             <ProfileButton />
           </div>
         </div>
@@ -36,39 +59,39 @@ export function Header() {
         <div className={
             cn(
               styles.row__content,
-              styles.containerWithGap,
+              styles.containerWithBigGap,
               styles.alignItemsCenter
             )
           }
         >
           <Link href='/'>
-            <a href='/' className={cn(styles.logo, styles.containerWithGap__item)}>
+            <a href='/' className={cn(styles.logo, styles.containerWithBigGap__item)}>
               Р-строй
             </a>
           </Link>
 
-          <Search />
+          <Search styleClass={cn(styles.containerWithBigGap__item)} />
 
           <Link href='/'>
-            <a href='/' className={cn(styles.link, styles.containerWithGap__item)}>
+            <a href='/' className={cn(styles.link, styles.containerWithBigGap__item)}>
               Каталог
             </a>
           </Link>
 
           <Link href='/'>
-            <a href='/' className={cn(styles.link, styles.containerWithGap__item)}>
+            <a href='/' className={cn(styles.link, styles.containerWithBigGap__item)}>
               Доставка
             </a>
           </Link>
 
           <Link href='/'>
-            <a href='/' className={cn(styles.link, styles.containerWithGap__item)}>
+            <a href='/' className={cn(styles.link, styles.containerWithBigGap__item)}>
               Ваши заказы
             </a>
           </Link>
 
           <Link href='/'>
-            <a href='/' className={cn(styles.link, styles.containerWithGap__item)}>
+            <a href='/' className={cn(styles.link, styles.containerWithBigGap__item)}>
               О нас
             </a>
           </Link>
