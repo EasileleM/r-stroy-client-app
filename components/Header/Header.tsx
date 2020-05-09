@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import cn from 'classnames';
 
@@ -14,14 +14,16 @@ import LocationIcon from '../../public/images/location.svg';
 import { contactNumber } from '../../contants/const';
 
 import useResponsive from '../../hooks/useResponsive';
+import { HamburgerMenuButton } from '../HamburgerMenuButton/HamburgerMenuButton';
 
 export function Header() {
   const device = useResponsive();
+  const [menuOpened, setMenuOpened] = useState(false);
 
   return (
     <header className={styles.header}>
       {
-        device.isDesktop &&
+        !device.isMobile &&
         <div className={cn(styles.row, styles.row_upper)}>
           <nav className={styles.row__content}>
             <div
@@ -95,6 +97,7 @@ export function Header() {
               Р-строй
             </a>
           </Link>
+          
           {
             device.isMobile &&
               <>
@@ -105,6 +108,10 @@ export function Header() {
                   containerStyles={cn(styles.containerWithBigGap__item)}
                 />
                 <ProfileButton />
+                <HamburgerMenuButton
+                  toggleMenu={() => setMenuOpened(!menuOpened)}
+                  containerStyles={cn(styles.containerWithBigGap__item)}
+                />
               </>
           }
 

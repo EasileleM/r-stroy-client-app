@@ -1,0 +1,56 @@
+@import '../../styles/colorsPallete';
+
+.button {
+  position: relative;
+  transition: 200ms ease;
+  height: 30px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+
+  &:focus, &:hover {
+    opacity: .6;
+  }
+}
+
+.hamburger {
+  transition: 200ms ease;
+  height: 4px;
+  width: 32px;
+  border-radius: 5px;
+  background: $main-color-semi-dark;
+
+  &:after, &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    transition: 200ms ease;
+    height: 4px;
+    width: 32px;
+    border-radius: 5px;
+    background: $main-color-semi-dark;
+  }
+
+  &:after {
+    transform: translateY(-9px);
+  }
+
+  &:before {
+    transform: translateY(9px);
+  }
+}
+
+.opened {
+  transform: translateX(-50%);
+  background: transparent;
+
+  &:after {
+    transform: rotate(45deg) translate(10px, -10px);
+  }
+
+  &:before {
+    transform: rotate(-45deg) translate(10px, 10px);
+  }
+}

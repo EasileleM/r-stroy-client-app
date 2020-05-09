@@ -46,8 +46,16 @@
   display: flex;
   margin: 0 -10px;
 
+  @media screen and (max-width: $mobile-screen-size) {
+    margin: 0 -8px;
+  }
+
   &__item {
     margin: 0 10px;
+
+    @media screen and (max-width: $mobile-screen-size) {
+      margin: 0 8px;
+    }
   }
 }
 
@@ -56,7 +64,7 @@
   transition: 200ms ease;
 
   text-decoration: none;
-  font: 700 $md-font-size $main-font;
+  font: 700 $l-font-size $main-font;
   color: $main-color-dark;
 
   @media screen and (max-width: $tablet-screen-size) {
@@ -108,21 +116,21 @@
 }
 
 .logo {
-  font-size: $xl-font-size;
+  font-size: $xxl-font-size;
   font-family: $company-font;
   text-decoration: none;
   color: $main-color-dark;
 
   @media screen and (max-width: $tablet-screen-size) {
-    font-size: $l-font-size;
+    font-size: $xl-font-size;
   }
 
   @media screen and (max-width: $mobile-screen-size) {
-    font-size: $md-font-size;
+    font-size: $l-font-size;
   }
 
   @media screen and (max-width: $mobile-screen-size-small) {
-    font-size: 1.4em; // TODO here
+    font-size: $md-font-size;
   }
 }
 
@@ -157,7 +165,7 @@
     background: $main-color-dark;
 
     font-size: 0.65em;
-    color: white; // TODO
+    color: $counter-color;
 
     @media screen and (max-width: $mobile-screen-size) {
       top: 12px;
