@@ -1,0 +1,32 @@
+@import '../../../styles/colorsPallete';
+
+.text {
+  margin: 0;
+}
+
+.counter {
+  position: absolute;
+  top: 7px;
+  left: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: $main-color-dark;
+
+  font-size: .75em;
+  color: white;
+}
+
+.container {
+  position: relative;
+}
+
+.icon {
+  fill: $favorites-color;
+  width: 17px;
+  height: 17px;
+  margin-right: 8px;
+}
