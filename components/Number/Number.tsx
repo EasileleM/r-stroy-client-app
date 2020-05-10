@@ -1,5 +1,6 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { toast } from 'react-toastify';
 
 import PhoneIcon from '../../public/images/phone.svg';
 
@@ -11,15 +12,15 @@ export interface ProfileButtonInterface {
   textStyles?: string
 }
 
-const handleCopySideEffect = () => {
-  alert('Copied into clipboard!'); // TODO add notifications functionality
+const onCopy = () => {
+  toast.info('Номер скопирован в буфер обмена');
 };
 
 export function Number({ containerStyles, iconStyles, textStyles }) {
   return (
     <CopyToClipboard
       text={contactNumberToCopy}
-      onCopy={handleCopySideEffect}
+      onCopy={onCopy}
     >
       <button
         type="button"
