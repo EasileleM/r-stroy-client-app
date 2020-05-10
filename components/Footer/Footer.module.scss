@@ -1,3 +1,30 @@
+@import '../../styles/constants';
+@import '../../styles/colorsPallete';
+@import '../../styles/constants';
+@import '../../styles/fonts';
+
 .footer {
   width: 100%;
+  background-color: $main-color-light;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  max-width: $max-content-width;
+  margin: 0 auto;
+  padding: 0 $max-content-padding;
+  box-sizing: border-box;
+}
+
+.copyright {
+  margin: 0;
+  font: 400 $xs-font-size $main-font;
+  color: $main-color-semi-dark;
+}
+
+.logo {
+  font: 400 $xs-font-size $company-font;
 }
