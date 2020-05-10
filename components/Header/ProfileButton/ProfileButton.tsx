@@ -14,7 +14,6 @@ export function ProfileButton({ containerStyles }: ProfileButtonInterface) {
   return (
     <Link href="/">
       <a
-        href="/"
         className={cn(headerStyles.specialButton, containerStyles)}
       >
         <UserIcon className={headerStyles.link__icon} />

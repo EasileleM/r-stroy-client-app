@@ -24,6 +24,7 @@
         "some": [ "nesting", "id"  ]
       }
     }],
+    "jsx-a11y/anchor-is-valid": 0,
     "object-curly-spacing": ["warn", "always"],
     "no-unused-vars": [
       "warn",

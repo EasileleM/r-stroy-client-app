@@ -83,7 +83,6 @@ export function Header() {
           >
             <Link href="/">
               <a
-                href="/"
                 className={cn(styles.logo, styles.containerWithBigGap__item)}
               >
                 Р-строй
@@ -114,9 +113,8 @@ export function Header() {
             <>
               <Search styleClass={cn(styles.containerWithBigGap__item)} />
 
-              <Link href="/">
+              <Link href="/catalog">
                 <a
-                  href="/"
                   className={cn(styles.link, styles.containerWithBigGap__item)}
                 >
                   Каталог
@@ -125,7 +123,6 @@ export function Header() {
 
               <Link href="/">
                 <a
-                  href="/"
                   className={cn(styles.link, styles.containerWithBigGap__item)}
                 >
                   Доставка
@@ -134,7 +131,6 @@ export function Header() {
 
               <Link href="/">
                 <a
-                  href="/"
                   className={cn(styles.link, styles.containerWithBigGap__item)}
                 >
                   Ваши заказы
@@ -143,7 +139,6 @@ export function Header() {
 
               <Link href="/">
                 <a
-                  href="/"
                   className={cn(styles.link, styles.containerWithBigGap__item)}
                 >
                   О нас

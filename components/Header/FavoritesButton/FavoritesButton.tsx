@@ -14,7 +14,7 @@ export interface FavoritesButtonProps {
 export function FavoritesButton({ containerStyles }: FavoritesButtonProps) {
   return (
     <Link href="/">
-      <a href="/" className={cn(headerStyles.specialButton, containerStyles)}>
+      <a className={cn(headerStyles.specialButton, containerStyles)}>
         <FavoritesActiveIcon
           className={cn(headerStyles.link__icon, styles.icon)}
         />

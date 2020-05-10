@@ -9,7 +9,6 @@ export function LocationLink() {
   return (
     <Link href="/">
       <a
-        href="/"
         className={cn(
           headerStyles.link,
           headerStyles.link_small,

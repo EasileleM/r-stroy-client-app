@@ -25,9 +25,8 @@ export function MobileMenu({ opened }: MobileMenuProps) {
     >
       <Search />
 
-      <Link href="/">
+      <Link href="/catalog">
         <a
-          href="/"
           className={
             cn(
               headerStyles.link, headerStyles.containerWithBigGap__item
@@ -40,7 +39,6 @@ export function MobileMenu({ opened }: MobileMenuProps) {
 
       <Link href="/">
         <a
-          href="/"
           className={
             cn(
               headerStyles.link, headerStyles.containerWithBigGap__item
@@ -53,7 +51,6 @@ export function MobileMenu({ opened }: MobileMenuProps) {
 
       <Link href="/">
         <a
-          href="/"
           className={
             cn(
               headerStyles.link, headerStyles.containerWithBigGap__item
@@ -66,7 +63,6 @@ export function MobileMenu({ opened }: MobileMenuProps) {
 
       <Link href="/">
         <a
-          href="/"
           className={
             cn(
               headerStyles.link, headerStyles.containerWithBigGap__item

@@ -14,7 +14,7 @@ export interface CartButtonProps {
 export function CartButton({ containerStyles }: CartButtonProps) {
   return (
     <Link href="/">
-      <a href="/" className={cn(containerStyles, headerStyles.specialButton)}>
+      <a className={cn(containerStyles, headerStyles.specialButton)}>
         <CartIcon className={cn(headerStyles.link__icon, styles.icon)} />
         <div className={headerStyles.specialButton__counter}>0</div>
         <p className={headerStyles.specialButton__text}>Корзина</p>
