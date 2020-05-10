@@ -76,6 +76,8 @@
   font: 700 $l-font-size $main-font;
   color: $main-color-dark;
 
+  outline: none;
+
   @media screen and (max-width: $tablet-screen-size) {
     font-size: $s-font-size;
   }
