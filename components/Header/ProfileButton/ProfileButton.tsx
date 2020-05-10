@@ -4,7 +4,6 @@ import Link from 'next/link';
 
 import UserIcon from '../../../public/images/user.svg';
 
-import styles from './ProfileButton.module.scss';
 import headerStyles from '../Header.module.scss';
 
 export interface ProfileButtonInterface {
@@ -18,7 +17,7 @@ export function ProfileButton({ containerStyles }: ProfileButtonInterface) {
         href="/"
         className={cn(headerStyles.specialButton, containerStyles)}
       >
-        <UserIcon className={cn(headerStyles.link__icon, styles.icon)} />
+        <UserIcon className={headerStyles.link__icon} />
         <p className={cn(headerStyles.specialButton__text)}>Личный кабинет</p>
       </a>
     </Link>
