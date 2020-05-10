@@ -5,23 +5,35 @@
 
 .header {
   width: 100%;
-  background-color: $main-color-light;
   box-sizing: border-box;
-  padding: 0 $max-content-padding;
+  transition: 200ms ease;
+
+  background-color: $main-color-light;
 }
 
 .row {
+  position: relative;
+  z-index: 3;
   margin: 0 auto;
   max-width: $max-content-width;
+  padding: 0 $max-content-padding;
   box-sizing: border-box;
 
+  background-color: $main-color-light;
 
   &_upper {
-    padding: 10px 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   &_lower {
-    padding: 0 0 20px 0;
+    padding-top: 0;
+    padding-bottom: 20px;
+
+    @media screen and (max-width: $mobile-screen-size) {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
   }
 
   &__content {
@@ -43,8 +55,16 @@
   display: flex;
   margin: 0 -10px;
 
+  @media screen and (max-width: $mobile-screen-size) {
+    margin: 0 -6px;
+  }
+
   &__item {
     margin: 0 10px;
+
+    @media screen and (max-width: $mobile-screen-size) {
+      margin: 0 6px;
+    }
   }
 }
 
@@ -53,15 +73,20 @@
   transition: 200ms ease;
 
   text-decoration: none;
-  font: 700 $md-font-size $main-font;
+  font: 700 $l-font-size $main-font;
   color: $main-color-dark;
 
-  @media screen and (max-width: $md-screen-size) {
+  @media screen and (max-width: $tablet-screen-size) {
     font-size: $s-font-size;
   }
 
+  @media screen and (max-width: $mobile-screen-size) {
+    font-size: $xl-font-size;
+    margin: 10px;
+  }
+
   &:hover {
-    opacity: .7;
+    opacity: 0.7;
   }
 
   &_number {
@@ -75,14 +100,28 @@
   &_small {
     color: $main-color-semi-dark;
     font-size: $xxs-font-size;
+
+    @media screen and (max-width: $mobile-screen-size) {
+      font-size: $s-font-size;
+
+      & .link__icon {
+        display: none;
+      }
+    }
   }
 
-  &_small &__icon {
+  &__icon {
     width: 17px;
     height: 17px;
     margin-right: 5px;
 
     fill: $main-color-semi-dark;
+
+    @media screen and (max-width: $mobile-screen-size) {
+      margin-right: 0;
+      width: 24px;
+      height: 24px;
+    }
   }
 
   &__text {
@@ -95,12 +134,60 @@
 }
 
 .logo {
-  font-size: $xl-font-size;
+  font-size: $xxl-font-size;
   font-family: $company-font;
   text-decoration: none;
   color: $main-color-dark;
 
-  @media screen and (max-width: $md-screen-size) {
+  @media screen and (max-width: $tablet-screen-size) {
+    font-size: $xl-font-size;
+  }
+
+  @media screen and (max-width: $mobile-screen-size) {
     font-size: $l-font-size;
+  }
+
+  @media screen and (max-width: $mobile-screen-size-small) {
+    font-size: $md-font-size;
+  }
+}
+
+.specialButton {
+  position: relative;
+  transition: 200ms ease;
+
+  @media screen and (max-width: $mobile-screen-size) {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__text {
+    margin: 0;
+
+    @media screen and (max-width: $mobile-screen-size) {
+      display: none;
+    }
+  }
+
+  &__counter {
+    position: absolute;
+    top: 7px;
+    left: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: $main-color-dark;
+
+    font-size: 0.65em;
+    color: $counter-color;
+
+    @media screen and (max-width: $mobile-screen-size) {
+      top: 12px;
+      left: 16px;
+    }
   }
 }

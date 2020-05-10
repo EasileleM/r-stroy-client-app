@@ -1,12 +1,19 @@
 @import '../../styles/colorsPallete';
 @import '../../styles/fonts';
+@import '../../styles/breakpoints';
 
 .container {
-  opacity: .9;
+  opacity: 0.9;
   display: flex;
   height: 40px;
   max-width: 500px;
   flex-grow: 1;
+
+  @media screen and (max-width: $mobile-screen-size) {
+    max-width: none;
+    flex-grow: 0;
+    align-self: stretch;
+  }
 }
 
 .input {
@@ -22,6 +29,10 @@
   outline: none;
   color: $search-text-color;
 
+  @media screen and (max-width: $mobile-screen-size) {
+    border-radius: 0;
+  }
+
   &__label {
     display: none;
   }
@@ -29,7 +40,7 @@
 
 .searchButton {
   display: flex;
-  align-items:center;
+  align-items: center;
   height: 100%;
   margin-left: -43px;
   padding: 0;

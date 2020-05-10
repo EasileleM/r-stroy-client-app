@@ -8,8 +8,8 @@ import { store as storeInstance } from '../redux/store';
 
 import '../styles/global.scss';
 
-export interface AppReduxProps extends AppProps{
-  store: Store
+export interface AppReduxProps extends AppProps {
+  store: Store;
 }
 
 function App({ Component, pageProps, store }: AppReduxProps) {
