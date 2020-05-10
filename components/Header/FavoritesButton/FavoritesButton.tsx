@@ -8,18 +8,18 @@ import headerStyles from '../Header.module.scss';
 import FavoritesActiveIcon from '../../../public/images/favoritesActive.svg';
 
 export interface FavoritesButtonProps {
-  containerStyles: string;
+  containerStyles?: string;
 }
 
 export function FavoritesButton({ containerStyles }: FavoritesButtonProps) {
   return (
     <Link href="/">
-      <a href="/" className={cn(headerStyles.counterButton, containerStyles)}>
+      <a href="/" className={cn(headerStyles.specialButton, containerStyles)}>
         <FavoritesActiveIcon
           className={cn(headerStyles.link__icon, styles.icon)}
         />
-        <div className={headerStyles.counterButton__counter}>0</div>
-        <p className={headerStyles.counterButton__text}>Избранное</p>
+        <div className={headerStyles.specialButton__counter}>0</div>
+        <p className={headerStyles.specialButton__text}>Избранное</p>
       </a>
     </Link>
   );

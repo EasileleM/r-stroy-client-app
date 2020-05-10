@@ -5,25 +5,34 @@
 
 .header {
   width: 100%;
-  background-color: $main-color-light;
   box-sizing: border-box;
-  padding: 0 $max-content-padding;
+  transition: 200ms ease;
+
+  background-color: $main-color-light;
 }
 
 .row {
+  position: relative;
+  z-index: 3;
   margin: 0 auto;
   max-width: $max-content-width;
+  padding: 0 $max-content-padding;
   box-sizing: border-box;
 
+  background-color: $main-color-light;
+
   &_upper {
-    padding: 10px 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   &_lower {
-    padding: 0 0 20px 0;
+    padding-top: 0;
+    padding-bottom: 20px;
 
     @media screen and (max-width: $mobile-screen-size) {
-      padding: 10px 0 10px 0;
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
   }
 
@@ -47,14 +56,14 @@
   margin: 0 -10px;
 
   @media screen and (max-width: $mobile-screen-size) {
-    margin: 0 -8px;
+    margin: 0 -6px;
   }
 
   &__item {
     margin: 0 10px;
 
     @media screen and (max-width: $mobile-screen-size) {
-      margin: 0 8px;
+      margin: 0 6px;
     }
   }
 }
@@ -69,6 +78,11 @@
 
   @media screen and (max-width: $tablet-screen-size) {
     font-size: $s-font-size;
+  }
+
+  @media screen and (max-width: $mobile-screen-size) {
+    font-size: $xl-font-size;
+    margin: 10px;
   }
 
   &:hover {
@@ -86,6 +100,14 @@
   &_small {
     color: $main-color-semi-dark;
     font-size: $xxs-font-size;
+
+    @media screen and (max-width: $mobile-screen-size) {
+      font-size: $s-font-size;
+
+      & .link__icon {
+        display: none;
+      }
+    }
   }
 
   &__icon {
@@ -104,10 +126,6 @@
 
   &__text {
     margin: 0;
-
-    @media screen and (max-width: $mobile-screen-size) {
-      display: none;
-    }
   }
 }
 
@@ -134,7 +152,7 @@
   }
 }
 
-.counterButton {
+.specialButton {
   position: relative;
   transition: 200ms ease;
 

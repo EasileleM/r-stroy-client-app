@@ -15,14 +15,16 @@ import { contactNumber } from '../../contants/const';
 
 import useResponsive from '../../hooks/useResponsive';
 import { HamburgerMenuButton } from '../HamburgerMenuButton/HamburgerMenuButton';
+import { MobileMenu } from './MobileMenu/MobileMenu';
 
 export function Header() {
   const device = useResponsive();
   const [menuOpened, setMenuOpened] = useState(false);
 
   return (
-    <header className={styles.header}>
-      {
+    <>
+      <header className={styles.header}>
+        {
         !device.isMobile &&
         <div className={cn(styles.row, styles.row_upper)}>
           <nav className={styles.row__content}>
@@ -75,30 +77,36 @@ export function Header() {
                   styles.containerWithGap__item
                 )}
               />
-              <ProfileButton />
+              <ProfileButton
+                containerStyles={cn(
+                  styles.link,
+                  styles.link_small,
+                  styles.containerWithGap__item
+                )}
+              />
             </div>
           </nav>
         </div>
       }
 
-      <div className={cn(styles.row, styles.row_lower)}>
-        <nav
-          className={cn(
-            styles.row__content,
-            styles.containerWithBigGap,
-            styles.alignItemsCenter
-          )}
-        >
-          <Link href="/">
-            <a
-              href="/"
-              className={cn(styles.logo, styles.containerWithBigGap__item)}
-            >
-              Р-строй
-            </a>
-          </Link>
+        <div className={cn(styles.row, styles.row_lower)}>
+          <nav
+            className={cn(
+              styles.row__content,
+              styles.containerWithBigGap,
+              styles.alignItemsCenter
+            )}
+          >
+            <Link href="/">
+              <a
+                href="/"
+                className={cn(styles.logo, styles.containerWithBigGap__item)}
+              >
+                Р-строй
+              </a>
+            </Link>
           
-          {
+            {
             device.isMobile &&
               <>
                 <FavoritesButton
@@ -107,7 +115,9 @@ export function Header() {
                 <CartButton
                   containerStyles={cn(styles.containerWithBigGap__item)}
                 />
-                <ProfileButton />
+                <ProfileButton 
+                  containerStyles={cn(styles.containerWithBigGap__item)}
+                />
                 <HamburgerMenuButton
                   toggleMenu={() => setMenuOpened(!menuOpened)}
                   containerStyles={cn(styles.containerWithBigGap__item)}
@@ -115,7 +125,7 @@ export function Header() {
               </>
           }
 
-          {
+            {
             !device.isMobile &&
             <>
               <Search styleClass={cn(styles.containerWithBigGap__item)} />
@@ -157,8 +167,13 @@ export function Header() {
               </Link>
             </>
           }
-        </nav>
-      </div>
-    </header>
+          </nav>
+        </div>
+        {
+          device.isMobile &&
+          <MobileMenu opened={menuOpened} />
+        }
+      </header>
+    </>
   );
 }

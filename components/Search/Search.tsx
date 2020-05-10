@@ -5,7 +5,7 @@ import styles from './Search.module.scss';
 import SearchIcon from '../../public/images/search.svg';
 
 export interface SearchProps {
-  styleClass: string;
+  styleClass?: string;
 }
 
 export function Search({ styleClass }: SearchProps) {

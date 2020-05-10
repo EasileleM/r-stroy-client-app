@@ -1,5 +1,6 @@
 @import '../../styles/colorsPallete';
 @import '../../styles/fonts';
+@import '../../styles/breakpoints';
 
 .container {
   opacity: 0.9;
@@ -7,6 +8,12 @@
   height: 40px;
   max-width: 500px;
   flex-grow: 1;
+
+  @media screen and (max-width: $mobile-screen-size) {
+    max-width: none;
+    flex-grow: 0;
+    align-self: stretch;
+  }
 }
 
 .input {
@@ -21,6 +28,10 @@
   font: 400 $xs-font-size $main-font;
   outline: none;
   color: $search-text-color;
+
+  @media screen and (max-width: $mobile-screen-size) {
+    border-radius: 0;
+  }
 
   &__label {
     display: none;
