@@ -3,19 +3,17 @@ import Link from 'next/link';
 import cn from 'classnames';
 
 import styles from './Header.module.scss';
+
 import { CartButton } from './CartButton/CartButton';
 import { FavoritesButton } from './FavoritesButton/FavoritesButton';
 import { ProfileButton } from './ProfileButton/ProfileButton';
 import { Search } from '../Search/Search';
 
-import PhoneIcon from '../../public/images/phone.svg';
-import LocationIcon from '../../public/images/location.svg';
-
-import { contactNumber } from '../../contants/const';
-
 import useResponsive from '../../hooks/useResponsive';
 import { HamburgerMenuButton } from '../HamburgerMenuButton/HamburgerMenuButton';
 import { MobileMenu } from './MobileMenu/MobileMenu';
+import { Number } from '../Number/Number';
+import { LocationLink } from './LocationLink/LocationLink';
 
 export function Header() {
   const device = useResponsive();
@@ -31,33 +29,19 @@ export function Header() {
             <div
               className={cn(styles.containerWithGap, styles.alignItemsCenter)}
             >
-              <Link href="/">
-                <a
-                  href="/"
-                  className={cn(
+              <LocationLink />
+              <Number
+                containerStyles={
+                  cn(
                     styles.link,
                     styles.link_small,
+                    styles.link_number,
                     styles.containerWithGap__item
-                  )}
-                >
-                  <LocationIcon className={cn(styles.link__icon)} />
-                  <p className={cn(styles.link__text)}>
-                    ул. Лапшова, 10-14, Татищево
-                  </p>
-                </a>
-              </Link>
-              <button
-                type="button"
-                className={cn(
-                  styles.link,
-                  styles.link_small,
-                  styles.link_number,
-                  styles.containerWithGap__item
-                )}
-              >
-                <PhoneIcon className={cn(styles.link__icon)} />
-                <p className={cn(styles.link__text)}>{contactNumber}</p>
-              </button>
+                  )
+                }
+                iconStyles={styles.link__icon}
+                textStyles={styles.link__text}
+              />
             </div>
 
             <div 

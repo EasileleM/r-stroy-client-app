@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 import styles from './MobileMenu.module.scss';
 import headerStyles from '../Header.module.scss';
+
 import { Search } from '../../Search/Search';
-import LocationIcon from '../../../public/images/location.svg';
-import PhoneIcon from '../../../public/images/phone.svg';
-import { contactNumber } from '../../../contants/const';
+import { Number } from '../../Number/Number';
+import { LocationLink } from '../LocationLink/LocationLink';
 
 export interface MobileMenuProps {
   opened: boolean
@@ -78,34 +78,20 @@ export function MobileMenu({ opened }: MobileMenuProps) {
       </Link>
 
       <div className={styles.footer}>
-        <Link href="/">
-          <a
-            href="/"
-            className={cn(
+        <LocationLink />
+
+        <Number
+          containerStyles={
+            cn(
               headerStyles.link,
               headerStyles.link_small,
+              headerStyles.link_number,
               headerStyles.containerWithGap__item
-            )}
-          >
-            <LocationIcon className={cn(headerStyles.link__icon)} />
-            <p className={cn(headerStyles.link__text)}>
-              ул. Лапшова, 10-14, Татищево
-            </p>
-          </a>
-        </Link>
-
-        <button
-          type="button"
-          className={cn(
-            headerStyles.link,
-            headerStyles.link_small,
-            headerStyles.link_number,
-            headerStyles.containerWithGap__item
-          )}
-        >
-          <PhoneIcon className={cn(headerStyles.link__icon)} />
-          <p className={cn(headerStyles.link__text)}>{contactNumber}</p>
-        </button>
+            )
+          }
+          iconStyles={headerStyles.link__icon}
+          textStyles={headerStyles.link__text}
+        />
       </div>
     </div>
   );
