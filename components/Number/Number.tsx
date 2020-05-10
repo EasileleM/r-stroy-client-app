@@ -24,6 +24,7 @@ export function Number({ containerStyles, iconStyles, textStyles }) {
       <button
         type="button"
         className={containerStyles}
+        title='Нажмите, чтобы скопировать'
       >
         <PhoneIcon className={iconStyles} />
         <p className={textStyles}>{contactNumber}</p>
