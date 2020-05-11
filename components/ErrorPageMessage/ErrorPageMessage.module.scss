@@ -1,0 +1,33 @@
+@import '../../styles/constants';
+@import '../../styles/colorsPallete';
+@import '../../styles/constants';
+@import '../../styles/fonts';
+@import '../../styles/breakpoints';
+
+.container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 $max-content-padding;
+  box-sizing: border-box;
+
+  background-color: $main-color-semi-dark;
+}
+
+.message {
+  margin: 0;
+  font: 700 $xxl-font-size $main-font;
+  color: $main-color-dark;
+  text-align: center;
+
+  @media screen and (max-width: $mobile-screen-size-medium) {
+    font: 700 $xl-font-size $main-font;
+  }
+
+  @media screen and (max-width: $mobile-screen-size-small) {
+    font: 700 $l-font-size $main-font;
+  }
+}
