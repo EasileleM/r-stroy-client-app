@@ -1,19 +1,11 @@
 import { AppThunk } from '../../rootTypes';
-import { productsArray } from '../../../contants/const';
-import { CatalogActionTypes, FILL_CATALOG } from '../interfaces';
+import { updateProductsAction } from './updateProductsAction';
+import { updateFiltersAction } from './updateFiltersAction';
 
-function fillCatalogActionCreator(products): CatalogActionTypes {
-  return {
-    type: FILL_CATALOG,
-    payload: products
-  };
-}
-
-export const fillCatalogAction = (): AppThunk => async dispatch => {
-  const products = await fetchProducts();
-  dispatch(fillCatalogActionCreator(products));
+/**
+ * Fills catalog with products and filters
+ */
+export const fillCatalogAction = (): AppThunk => async (dispatch) => {
+  dispatch(updateFiltersAction());
+  dispatch(updateProductsAction());
 };
-
-function fetchProducts() {
-  return Promise.resolve(productsArray);
-}

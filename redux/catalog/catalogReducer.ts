@@ -1,7 +1,10 @@
-import { CatalogActionTypes, CatalogState, FILL_CATALOG } from './interfaces';
+import { APPLY_FILTERS, CatalogActionTypes, CatalogState, UPDATE_FILTERS, UPDATE_PRODUCTS } from './interfaces';
 
 const initialState: CatalogState = {
-  products: []
+  products: [],
+  filters: null,
+  appliedFilters: null,
+  searchQuery: ''
 };
 
 export function catalogReducer(
@@ -9,9 +12,20 @@ export function catalogReducer(
   action: CatalogActionTypes
 ): CatalogState {
   switch (action.type) {
-    case FILL_CATALOG:
+    case UPDATE_PRODUCTS:
       return {
+        ...state,
         products: action.payload
+      };
+    case UPDATE_FILTERS:
+      return {
+        ...state,
+        filters: action.payload
+      };
+    case APPLY_FILTERS:
+      return {
+        ...state,
+        appliedFilters: action.payload
       };
     default:
       return state;

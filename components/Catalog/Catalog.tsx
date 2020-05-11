@@ -6,6 +6,7 @@ import styles from './Catalog.module.scss';
 import ProductContainer from '../ProductContainer/ProductContainer';
 import { AppDispatch, RootState } from '../../redux/rootTypes';
 import { fillCatalogAction } from '../../redux/catalog/actions/fillCatalogAction';
+import Filters from '../Filters/Filters';
 
 export interface CatalogProps {
   className?: string;
@@ -22,6 +23,7 @@ export function Catalog({ className, products, fillCatalog }: Props) {
   
   return (
     <div className={cn(styles.container, className)}>
+      <Filters />
       <ProductContainer products={products} />
     </div>
   );
