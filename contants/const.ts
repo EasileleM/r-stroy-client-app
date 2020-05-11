@@ -22,7 +22,7 @@ export const productsArray: Array<Product> = [
     inFavorites: false
   },
   {
-    id: '1',
+    id: '2',
     name: 'first',
     description: 'here',
     amount: 12,
@@ -33,7 +33,7 @@ export const productsArray: Array<Product> = [
     inFavorites: false
   },
   {
-    id: '1',
+    id: '3',
     name: 'first',
     description: 'here',
     amount: 12,

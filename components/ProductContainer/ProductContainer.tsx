@@ -10,6 +10,7 @@ export interface ProductContainerProps {
   readonly products: Array<Product>;
 }
 
+// eslint-disable-next-line max-len
 export default function ProductContainer({ styleContainer, products }: ProductContainerProps) {
   return (
     <div className={cn(styles.container, styleContainer)}>
