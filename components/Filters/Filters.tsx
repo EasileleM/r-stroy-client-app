@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import cn from 'classnames';
 
+import { useRouter } from 'next/router';
 import styles from './Filters.module.scss';
 
-import { AppDispatch, RootState } from '../../redux/rootTypes';
+import { RootState } from '../../redux/rootTypes';
 import { Filters as FiltersInterface } from '../../interfaces/Filters';
-import { updateProductsAction } from '../../redux/catalog/actions/updateProductsAction';
+import { QueryInputToAppliedFilters } from '../../utils/QueryInputToAppliedFilters';
 
 export interface FiltersProps {
   className?: string;
+  applyFilters: (appliedFilters: FiltersInterface) => void;
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -22,10 +24,20 @@ export function Filters({ className, filters, applyFilters }: Props) {
   const [currentHighestPrice, setCurrentHighestPrice] = useState(0);
   const [currentLowestPrice, setCurrentLowestPrice] = useState(0);
 
+  const router = useRouter();
+
   useEffect(() => {
     if (filters) {
-      setCurrentHighestPrice(filters.highestPrice);
-      setCurrentLowestPrice(filters.lowestPrice);
+      const initialFilters = QueryInputToAppliedFilters(router.query, filters);
+      setCurrentHighestPrice(initialFilters.highestPrice);
+      setCurrentLowestPrice(initialFilters.lowestPrice);
+      const typesObject = initialFilters.types.reduce((types, type) => {
+        return {
+          ...types,
+          [type]: true
+        };
+      }, {});
+      setCurrentTypes(typesObject);
     }
   }, [filters]);
 
@@ -35,12 +47,12 @@ export function Filters({ className, filters, applyFilters }: Props) {
     setCurrentTypes(newTypes);
   };
 
-  const setHighestPrice = (price) => {
-    setCurrentHighestPrice(price);
+  const setHighestPrice = (e) => {
+    setCurrentHighestPrice(Number(e.target.value));
   };
 
-  const setLowestPrice = (price) => {
-    setCurrentLowestPrice(price);
+  const setLowestPrice = (e) => {
+    setCurrentLowestPrice(Number(e.target.value));
   };
 
   const handleApplyFilters = () => {
@@ -52,6 +64,16 @@ export function Filters({ className, filters, applyFilters }: Props) {
       highestPrice: currentHighestPrice,
       lowestPrice: currentLowestPrice
     });
+  };
+
+  const handleClearFilters = () => {
+    applyFilters({
+      ...filters,
+      types: []
+    });
+    setCurrentTypes({});
+    setCurrentLowestPrice(filters.lowestPrice);
+    setCurrentHighestPrice(filters.highestPrice);
   };
 
   return (
@@ -73,10 +95,23 @@ export function Filters({ className, filters, applyFilters }: Props) {
             );
           })
       }
-      highest price: <input onChange={(e) => setHighestPrice(Number(e.target.value))} type='text' value={currentHighestPrice} />
-      lowest price: <input onChange={(e) => setLowestPrice(Number(e.target.value))} type='text' value={currentLowestPrice} />
+      highest price:
+      <input
+        onChange={(e) => setHighestPrice(e)}
+        type='text'
+        value={currentHighestPrice}
+      />
+      lowest price:
+      <input
+        onChange={(e) => setLowestPrice(e)}
+        type='text'
+        value={currentLowestPrice}
+      />
       <button type='button' onClick={handleApplyFilters}>
         apply filters
+      </button>
+      <button type='button' onClick={handleClearFilters}>
+        clear filters
       </button>
     </div>
   );
@@ -86,12 +121,6 @@ const mapStateToProps = (state: RootState) => ({
   filters: state.catalog.filters
 });
 
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  applyFilters: (appliedFilters: FiltersInterface) => {
-    dispatch(updateProductsAction({ appliedFilters }));
-  }
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 
 export default connector(Filters);

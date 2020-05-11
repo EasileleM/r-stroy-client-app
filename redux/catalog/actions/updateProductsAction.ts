@@ -2,6 +2,7 @@ import { AppThunk } from '../../rootTypes';
 import { CatalogActionTypes, UPDATE_PRODUCTS } from '../interfaces';
 import { fetchProducts } from '../../../dataFetching/fetchProducts';
 import { Product } from '../../../interfaces/Product';
+import { Filters } from '../../../interfaces/Filters';
 
 // eslint-disable-next-line max-len
 function updateProductsActionCreator(products: Array<Product>): CatalogActionTypes {
@@ -14,9 +15,9 @@ function updateProductsActionCreator(products: Array<Product>): CatalogActionTyp
 /**
  * Fetches products with applied filters and search query
  */
-// eslint-disable-next-line max-len
 export const updateProductsAction = (
-  { appliedFilters = null, searchQuery = null }
+  appliedFilters: Filters = null,
+  searchQuery: string
 ): AppThunk => async (dispatch) => {
   const products = await fetchProducts(appliedFilters, searchQuery);
   dispatch(updateProductsActionCreator(products));

@@ -2,7 +2,7 @@ import { Product } from '../interfaces/Product';
 import { Filters } from '../interfaces/Filters';
 
 // eslint-disable-next-line max-len
-export async function fetchProducts(appliedFilters: Filters, searchQuery): Promise<Array<Product>> {
+export async function fetchProducts(appliedFilters: Filters, searchQuery: string): Promise<Array<Product>> {
   return productsArray;
 }
 

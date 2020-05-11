@@ -1,29 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
+import Link from 'next/link';
 
+import { useRouter } from 'next/router';
 import styles from './Search.module.scss';
 import SearchIcon from '../../public/images/search.svg';
 
 export interface SearchProps {
-  styleClass?: string;
+  className?: string;
 }
 
-export function Search({ styleClass }: SearchProps) {
+export function Search({ className }: SearchProps) {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState(router.pathname.includes('catalog') && router.query.q ? router.query.q : '');
+  const [targetURL, setTargetURL] = useState({ pathname: '/catalog', query: {} });
+
+  useEffect(() => {
+    setTargetURL({
+      ...targetURL,
+      query: {
+        ...router.query,
+        q: searchQuery
+      }
+    });
+  }, [searchQuery, router]);
+
+  const handleOnChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
-    <form className={cn(styles.container, styleClass)}>
+    <form className={cn(styles.container, className)}>
       <input
         placeholder="Более 5 тысяч товаров"
         id="searchQuery"
         className={styles.input}
         type="text"
+        onChange={handleOnChange}
+        value={searchQuery}
       />
       <label htmlFor="searchQuery" className={styles.input__label}>
         Поиск
       </label>
 
-      <button className={styles.searchButton} type="button">
-        <SearchIcon className={styles.searchButton__icon} />
-      </button>
+      <Link href={targetURL}>
+        <a className={styles.searchButton}>
+          <SearchIcon className={styles.searchButton__icon} />
+        </a>
+      </Link>
     </form>
   );
 }

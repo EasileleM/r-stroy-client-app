@@ -13,7 +13,9 @@ function updateFiltersActionCreator(filters: Filters): CatalogActionTypes {
 /**
  * Fetches filters
  */
-export const updateFiltersAction = (): AppThunk => async (dispatch) => {
+// eslint-disable-next-line max-len
+export const updateFiltersAction = (): AppThunk<Promise<Filters>> => async (dispatch) => {
   const filters = await fetchFilters();
   dispatch(updateFiltersActionCreator(filters));
+  return filters;
 };
