@@ -7,5 +7,5 @@ import { updateFiltersAction } from './updateFiltersAction';
  */
 export const fillCatalogAction = (): AppThunk => async (dispatch) => {
   dispatch(updateFiltersAction());
-  dispatch(updateProductsAction());
+  dispatch(updateProductsAction({}));
 };

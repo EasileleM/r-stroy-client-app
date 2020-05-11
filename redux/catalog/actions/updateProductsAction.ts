@@ -15,8 +15,9 @@ function updateProductsActionCreator(products: Array<Product>): CatalogActionTyp
  * Fetches products with applied filters and search query
  */
 // eslint-disable-next-line max-len
-export const updateProductsAction = (): AppThunk => async (dispatch, getState) => {
-  const { appliedFilters, searchQuery } = getState().catalog;
+export const updateProductsAction = (
+  { appliedFilters = null, searchQuery = null }
+): AppThunk => async (dispatch) => {
   const products = await fetchProducts(appliedFilters, searchQuery);
   dispatch(updateProductsActionCreator(products));
 };
