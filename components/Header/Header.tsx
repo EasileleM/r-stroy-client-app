@@ -111,7 +111,7 @@ export function Header() {
             {
             !device.isMobile &&
             <>
-              <Search styleClass={cn(styles.containerWithBigGap__item)} />
+              <Search className={cn(styles.containerWithBigGap__item)} />
 
               <Link href="/catalog">
                 <a
