@@ -3,10 +3,14 @@ import { Filters } from '../../interfaces/Filters';
 
 export const UPDATE_FILTERS = 'LOAD_FILTERS';
 export const UPDATE_PRODUCTS = 'LOAD_PRODUCTS';
+export const APPLY_SEARCH = 'APPLY_SEARCH';
+export const APPLY_FILTERS = 'APPLY_FILTERS';
 
 export interface CatalogState {
   products: Array<Product>;
-  filters: Filters
+  filters: Filters;
+  appliedFilters: Filters;
+  searchQuery: string;
 }
 
 export interface LoadFiltersAction {
@@ -19,5 +23,17 @@ export interface LoadProductsAction {
   payload: Array<Product>;
 }
 
+export interface ApplySearchAction {
+  type: typeof APPLY_SEARCH;
+  payload: string;
+}
+
+export interface ApplyFiltersAction {
+  type: typeof APPLY_FILTERS;
+  payload: Filters;
+}
+
 export type CatalogActionTypes = LoadFiltersAction |
-LoadProductsAction;
+LoadProductsAction | 
+ApplySearchAction |
+ApplyFiltersAction;

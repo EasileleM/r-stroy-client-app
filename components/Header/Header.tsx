@@ -7,7 +7,7 @@ import styles from './Header.module.scss';
 import { CartButton } from './CartButton/CartButton';
 import { FavoritesButton } from './FavoritesButton/FavoritesButton';
 import { ProfileButton } from './ProfileButton/ProfileButton';
-import { Search } from '../Search/Search';
+import Search from '../Search/Search';
 
 import useResponsive from '../../hooks/useResponsive';
 import { HamburgerMenuButton } from '../HamburgerMenuButton/HamburgerMenuButton';

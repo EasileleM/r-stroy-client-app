@@ -3,34 +3,59 @@ import cn from 'classnames';
 import Link from 'next/link';
 
 import { useRouter } from 'next/router';
+import { connect, ConnectedProps } from 'react-redux';
 import styles from './Search.module.scss';
 import SearchIcon from '../../public/images/search.svg';
+import { AppDispatch } from '../../redux/rootTypes';
+import { applySearchAction } from '../../redux/catalog/actions/applySearchAction';
+import {applyCatalogArgumentsAction} from "../../redux/catalog/actions/applyCatalogArgumentsAction";
 
 export interface SearchProps {
   className?: string;
 }
 
-export function Search({ className }: SearchProps) {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = SearchProps & PropsFromRedux;
+
+export function Search({ className, applySearch }: Props) {
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState(router.pathname.includes('catalog') && router.query.q ? router.query.q : '');
+
+  const inCatalog = router.pathname.includes('catalog');
+  const [searchQuery, setSearchQuery] = useState(inCatalog && router.query.q ? router.query.q : '');
   const [targetURL, setTargetURL] = useState({ pathname: '/catalog', query: {} });
 
   useEffect(() => {
-    setTargetURL({
-      ...targetURL,
-      query: {
-        ...router.query,
-        q: searchQuery
-      }
-    });
-  }, [searchQuery, router]);
+    if (!inCatalog) {
+      setTargetURL({
+        ...targetURL,
+        query: {
+          ...router.query,
+          q: searchQuery
+        }
+      });
+    }
+  }, [searchQuery, router, inCatalog]);
+
+  useEffect(() => {
+    if (inCatalog) {
+      setSearchQuery(router.query.q || '');
+    }
+  }, [router.query.q, inCatalog]);
 
   const handleOnChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    if (inCatalog) {
+      e.preventDefault();
+      applySearch(searchQuery, router);
+    }
+  };
+
   return (
-    <form className={cn(styles.container, className)}>
+    <form onSubmit={handleSubmit} className={cn(styles.container, className)}>
       <input
         placeholder="Более 5 тысяч товаров"
         id="searchQuery"
@@ -43,11 +68,32 @@ export function Search({ className }: SearchProps) {
         Поиск
       </label>
 
-      <Link href={targetURL}>
-        <a className={styles.searchButton}>
-          <SearchIcon className={styles.searchButton__icon} />
-        </a>
-      </Link>
+      {
+        inCatalog ?
+          (
+            <button className={styles.searchButton} type='submit'>
+              <SearchIcon className={styles.searchButton__icon} />
+            </button>
+          ) :
+          (
+            <Link href={targetURL}>
+              <a className={styles.searchButton}>
+                <SearchIcon className={styles.searchButton__icon} />
+              </a>
+            </Link>
+          )
+      }
+      
     </form>
   );
 }
+
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  applySearch: (searchQuery, router) => {
+    dispatch(applyCatalogArgumentsAction({ searchQuery }, router));
+  }
+});
+
+const connector = connect(null, mapDispatchToProps);
+
+export default connector(Search);

@@ -1,8 +1,17 @@
-import { CatalogActionTypes, CatalogState, UPDATE_FILTERS, UPDATE_PRODUCTS } from './interfaces';
+import {
+  APPLY_FILTERS,
+  APPLY_SEARCH,
+  CatalogActionTypes,
+  CatalogState,
+  UPDATE_FILTERS,
+  UPDATE_PRODUCTS
+} from './interfaces';
 
 const initialState: CatalogState = {
   products: [],
-  filters: null
+  filters: null,
+  appliedFilters: null,
+  searchQuery: ''
 };
 
 export function catalogReducer(
@@ -19,6 +28,16 @@ export function catalogReducer(
       return {
         ...state,
         filters: action.payload
+      };
+    case APPLY_SEARCH:
+      return {
+        ...state,
+        searchQuery: action.payload
+      };
+    case APPLY_FILTERS:
+      return {
+        ...state,
+        appliedFilters: action.payload
       };
     default:
       return state;

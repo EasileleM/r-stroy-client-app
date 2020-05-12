@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import cn from 'classnames';
 
-import { useRouter } from 'next/router';
 import styles from './Filters.module.scss';
 
 import { RootState } from '../../redux/rootTypes';
 import { Filters as FiltersInterface } from '../../interfaces/Filters';
-import { queryInputToAppliedFilters } from '../../utils/queryInputToAppliedFilters';
 
 export interface FiltersProps {
   className?: string;
   applyFilters: (appliedFilters: FiltersInterface) => void;
+  cleanFilters: () => void;
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -19,16 +18,14 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = FiltersProps & PropsFromRedux;
 
 // eslint-disable-next-line max-len
-export function Filters({ className, filters, applyFilters }: Props) {
+export function Filters({ className, filters, applyFilters, appliedFilters, cleanFilters }: Props) {
   const [currentTypes, setCurrentTypes] = useState({});
   const [currentHighestPrice, setCurrentHighestPrice] = useState(0);
   const [currentLowestPrice, setCurrentLowestPrice] = useState(0);
 
-  const router = useRouter();
-
   useEffect(() => {
-    if (filters) {
-      const initialFilters = queryInputToAppliedFilters(router.query, filters);
+    if (filters && appliedFilters) {
+      const initialFilters = appliedFilters;
       setCurrentHighestPrice(initialFilters.highestPrice);
       setCurrentLowestPrice(initialFilters.lowestPrice);
       const typesObject = initialFilters.types.reduce((types, type) => {
@@ -39,7 +36,7 @@ export function Filters({ className, filters, applyFilters }: Props) {
       }, {});
       setCurrentTypes(typesObject);
     }
-  }, [filters]);
+  }, [filters, appliedFilters]);
 
   const toggleType = (name) => {
     const newTypes = { ...currentTypes };
@@ -64,16 +61,6 @@ export function Filters({ className, filters, applyFilters }: Props) {
       highestPrice: currentHighestPrice,
       lowestPrice: currentLowestPrice
     });
-  };
-
-  const handleClearFilters = () => {
-    applyFilters({
-      ...filters,
-      types: []
-    });
-    setCurrentTypes({});
-    setCurrentLowestPrice(filters.lowestPrice);
-    setCurrentHighestPrice(filters.highestPrice);
   };
 
   return (
@@ -110,7 +97,7 @@ export function Filters({ className, filters, applyFilters }: Props) {
       <button type='button' onClick={handleApplyFilters}>
         apply filters
       </button>
-      <button type='button' onClick={handleClearFilters}>
+      <button type='button' onClick={cleanFilters}>
         clear filters
       </button>
     </div>
@@ -118,7 +105,8 @@ export function Filters({ className, filters, applyFilters }: Props) {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  filters: state.catalog.filters
+  filters: state.catalog.filters,
+  appliedFilters: state.catalog.appliedFilters
 });
 
 const connector = connect(mapStateToProps);

@@ -1,7 +1,11 @@
 import { Filters } from '../../interfaces/Filters';
 
 export async function fetchFilters(): Promise<Filters> {
-  return filters;
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(filters);
+    }, 1000);
+  });
 }
 
 const filters: Filters = {
