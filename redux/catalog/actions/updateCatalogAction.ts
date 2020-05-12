@@ -7,7 +7,7 @@ import { applyCatalogArgumentsAction } from './applyCatalogArgumentsAction';
  * Fills catalog with products and filters
  */
 // eslint-disable-next-line max-len
-export const updateCatalogAction = ({ appliedFilters, searchQuery }, router: Router): AppThunk => async (dispatch) => {
+export const updateCatalogAction = ({ appliedFilters = null, searchQuery = null }, router: Router): AppThunk => async (dispatch) => {
   await dispatch(
     applyCatalogArgumentsAction({ appliedFilters, searchQuery }, router)
   );
