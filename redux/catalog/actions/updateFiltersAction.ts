@@ -1,7 +1,7 @@
 import { AppThunk } from '../../rootTypes';
 import { CatalogActionTypes, UPDATE_FILTERS } from '../interfaces';
 import { Filters } from '../../../interfaces/Filters';
-import { fetchFilters } from '../../../dataFetching/fetchFilters';
+import { fetchFilters } from '../../../utils/data/fetchFilters';
 
 function updateFiltersActionCreator(filters: Filters): CatalogActionTypes {
   return {
@@ -16,6 +16,6 @@ function updateFiltersActionCreator(filters: Filters): CatalogActionTypes {
 // eslint-disable-next-line max-len
 export const updateFiltersAction = (): AppThunk<Promise<Filters>> => async (dispatch) => {
   const filters = await fetchFilters();
-  dispatch(updateFiltersActionCreator(filters));
+  await dispatch(updateFiltersActionCreator(filters));
   return filters;
 };

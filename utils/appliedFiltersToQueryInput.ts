@@ -1,8 +1,9 @@
 import { ParsedUrlQueryInput } from 'querystring';
 import { Filters } from '../interfaces/Filters';
 
+// TODO REWORK
 // eslint-disable-next-line max-len
-export function AppliedFiltersToQueryInput(appliedFilters: Filters, initialFilters: Filters): ParsedUrlQueryInput {
+export function appliedFiltersToQueryInput(appliedFilters: Filters, initialFilters: Filters): ParsedUrlQueryInput {
   const result: ParsedUrlQueryInput = {};
   if (appliedFilters.lowestPrice !== initialFilters.lowestPrice) {
     result.lowestPrice = appliedFilters.lowestPrice;
