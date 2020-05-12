@@ -3,7 +3,6 @@ import { Filters } from '../../interfaces/Filters';
 
 // eslint-disable-next-line max-len
 export async function fetchProducts(appliedFilters: Filters, searchQuery: string): Promise<Array<Product>> {
-  return Promise.reject();
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(productsArray);
