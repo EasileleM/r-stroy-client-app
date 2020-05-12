@@ -1,4 +1,4 @@
-import { Filters } from '../interfaces/Filters';
+import { Filters } from '../../interfaces/Filters';
 
 export async function fetchFilters(): Promise<Filters> {
   return filters;

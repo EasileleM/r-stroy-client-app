@@ -7,7 +7,7 @@ import styles from './Filters.module.scss';
 
 import { RootState } from '../../redux/rootTypes';
 import { Filters as FiltersInterface } from '../../interfaces/Filters';
-import { QueryInputToAppliedFilters } from '../../utils/QueryInputToAppliedFilters';
+import { queryInputToAppliedFilters } from '../../utils/queryInputToAppliedFilters';
 
 export interface FiltersProps {
   className?: string;
@@ -28,7 +28,7 @@ export function Filters({ className, filters, applyFilters }: Props) {
 
   useEffect(() => {
     if (filters) {
-      const initialFilters = QueryInputToAppliedFilters(router.query, filters);
+      const initialFilters = queryInputToAppliedFilters(router.query, filters);
       setCurrentHighestPrice(initialFilters.highestPrice);
       setCurrentLowestPrice(initialFilters.lowestPrice);
       const typesObject = initialFilters.types.reduce((types, type) => {

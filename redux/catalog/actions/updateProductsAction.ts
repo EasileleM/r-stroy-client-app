@@ -1,6 +1,6 @@
 import { AppThunk } from '../../rootTypes';
 import { CatalogActionTypes, UPDATE_PRODUCTS } from '../interfaces';
-import { fetchProducts } from '../../../dataFetching/fetchProducts';
+import { fetchProducts } from '../../../utils/data/fetchProducts';
 import { Product } from '../../../interfaces/Product';
 import { Filters } from '../../../interfaces/Filters';
 
@@ -20,5 +20,5 @@ export const updateProductsAction = (
   searchQuery: string
 ): AppThunk => async (dispatch) => {
   const products = await fetchProducts(appliedFilters, searchQuery);
-  dispatch(updateProductsActionCreator(products));
+  await dispatch(updateProductsActionCreator(products));
 };

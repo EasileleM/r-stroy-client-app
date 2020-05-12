@@ -12,8 +12,8 @@ import { fillCatalogAction } from '../../redux/catalog/actions/fillCatalogAction
 import Filters from '../Filters/Filters';
 import ProductContainer from '../ProductContainer/ProductContainer';
 import { Filters as FiltersInterface } from '../../interfaces/Filters';
-import { AppliedFiltersToQueryInput } from '../../utils/AppliedFiltersToQueryInput';
-import { ClearQueryFromFilters } from '../../utils/CleanQueryFromFilters';
+import { appliedFiltersToQueryInput } from '../../utils/appliedFiltersToQueryInput';
+import { clearQueryFromFilters } from '../../utils/cleanQueryFromFilters';
 
 export interface CatalogProps {
   className?: string;
@@ -33,8 +33,8 @@ export function Catalog({ className, products, fillCatalog, updateProducts, filt
 
   const applyFilters = (appliedFilters: FiltersInterface) => {
     const query = {
-      ...ClearQueryFromFilters(router.query, filters),
-      ...AppliedFiltersToQueryInput(appliedFilters, filters)
+      ...clearQueryFromFilters(router.query, filters),
+      ...appliedFiltersToQueryInput(appliedFilters, filters)
     };
 
     router.push({

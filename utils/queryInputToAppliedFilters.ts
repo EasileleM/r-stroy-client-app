@@ -2,7 +2,7 @@ import { ParsedUrlQueryInput } from 'querystring';
 import { Filters } from '../interfaces/Filters';
 
 // eslint-disable-next-line max-len
-export function QueryInputToAppliedFilters(query: ParsedUrlQueryInput, initialFilters: Filters): Filters {
+export function queryInputToAppliedFilters(query: ParsedUrlQueryInput, initialFilters: Filters): Filters {
   const result: Filters = {
     types: [],
     highestPrice: initialFilters.highestPrice,
