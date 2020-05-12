@@ -22,8 +22,20 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = CatalogProps & PropsFromRedux;
 
-// eslint-disable-next-line max-len
-export function Catalog({ className, products, searchQuery, filters, fillCatalog, updateCatalog, cleanCatalog }: Props) {
+
+export function Catalog(
+  {
+    className,
+    products,
+    searchQuery,
+    filters,
+    fillCatalog,
+    updateCatalog,
+    cleanCatalog,
+    isLoading,
+    areProductsLoading
+  }: Props
+) {
   const router = useRouter();
 
   useEffect(() => {
@@ -47,11 +59,24 @@ export function Catalog({ className, products, searchQuery, filters, fillCatalog
   
   return (
     <div className={cn(styles.container, className)}>
-      <Filters
-        cleanFilters={handleCleanFilters}
-        applyFilters={handleApplyFilters}
-      />
-      <ProductContainer products={products} />
+      {
+        isLoading ?
+          <p>Loading</p>
+          :
+          <>
+            <Filters
+              cleanFilters={handleCleanFilters}
+              applyFilters={handleApplyFilters}
+            />
+            {
+              areProductsLoading ?
+                <p>Loading</p>
+                :
+                <ProductContainer products={products} />
+            }
+          </>
+      }
+
     </div>
   );
 }
@@ -59,7 +84,9 @@ export function Catalog({ className, products, searchQuery, filters, fillCatalog
 const mapStateToProps = (state: RootState) => ({
   products: state.catalog.products,
   filters: state.catalog.filters,
-  searchQuery: state.catalog.searchQuery
+  searchQuery: state.catalog.searchQuery,
+  isLoading: state.catalog.isLoading,
+  areProductsLoading: state.catalog.areProductsLoading
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({

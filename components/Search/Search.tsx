@@ -7,8 +7,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import styles from './Search.module.scss';
 import SearchIcon from '../../public/images/search.svg';
 import { AppDispatch } from '../../redux/rootTypes';
-import { applySearchAction } from '../../redux/catalog/actions/applySearchAction';
-import {applyCatalogArgumentsAction} from "../../redux/catalog/actions/applyCatalogArgumentsAction";
+import { applyCatalogArgumentsAction } from '../../redux/catalog/actions/applyCatalogArgumentsAction';
 
 export interface SearchProps {
   className?: string;
@@ -89,8 +88,8 @@ export function Search({ className, applySearch }: Props) {
 }
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  applySearch: (searchQuery, router) => {
-    dispatch(applyCatalogArgumentsAction({ searchQuery }, router));
+  applySearch: async (searchQuery, router) => {
+    await dispatch(applyCatalogArgumentsAction({ searchQuery }, router));
   }
 });
 
