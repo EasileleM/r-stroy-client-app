@@ -1,15 +1,15 @@
-import { fork, call, take, cancel } from 'redux-saga/effects';
-import { CATALOG_RESET } from '../interfaces';
+import { fork, call } from 'redux-saga/effects';
 import { watchCatalogUpdate } from './catalogUpdate';
 import { catalogInit } from './catalogInit';
 import { catalogReset } from './catalogReset';
 
+/**
+ * Controls catalog data flow
+ */
 export function* catalogFlow() {
   while (true) {
     yield call(catalogInit);
     const updateTask = yield fork(watchCatalogUpdate);
-    yield take(CATALOG_RESET);
-    yield cancel(updateTask);
-    yield call(catalogReset);
+    yield call(catalogReset, updateTask);
   }
 }

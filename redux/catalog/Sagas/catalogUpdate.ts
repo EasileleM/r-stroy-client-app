@@ -1,17 +1,39 @@
-import { select, takeLatest } from 'redux-saga/effects';
-import { CATALOG_UPDATE, CatalogUpdateAction } from '../interfaces';
-import { syncHistoryWithCatalog } from '../../../utils/syncHistoryWithCatalog';
+import { put, select, takeLatest } from 'redux-saga/effects';
+import { CATALOG_UPDATE, CatalogUpdateAction } from '../types';
+import { syncPageURLWithCatalog } from '../../../utils/syncPageURLWithCatalog';
 import { loadProducts } from './loadProducts';
+import { applyFiltersAction } from '../actions/applyFiltersAction';
+import { applySearchAction } from '../actions/applySearchAction';
 
+/**
+ * Watches for latest CATALOG_UPDATE action
+ * and starts catalogUpdate tasks each
+ * CATALOG_UPDATE dispatch.
+ */
 export function* watchCatalogUpdate() {
   yield takeLatest(CATALOG_UPDATE, catalogUpdate);
 }
 
-function* catalogUpdate(action: CatalogUpdateAction) {
-  const { appliedFilters, searchQuery, router } = action.payload;
+/**
+ * catalogUpdate - updates catalog with products,
+ * fetched with passed filters and searchQuery.
+ * Updates catalog with passed filters and searchQuery.
+ * Also synchronize passed filters and searchQuery
+ * with page URL query.
+ *
+ * @param appliedFilters
+ * @param searchQuery
+ * @param router
+ */
+function* catalogUpdate({
+  payload: { appliedFilters, searchQuery, router }
+}: CatalogUpdateAction) {
   const { filters } = yield select((state) => state.catalog);
 
-  yield syncHistoryWithCatalog(appliedFilters, searchQuery, filters, router);
+  yield syncPageURLWithCatalog(appliedFilters, searchQuery, filters, router);
+
+  yield put(applyFiltersAction(appliedFilters));
+  yield put(applySearchAction(searchQuery));
 
   yield loadProducts(appliedFilters, searchQuery);
 }

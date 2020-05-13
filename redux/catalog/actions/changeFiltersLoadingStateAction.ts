@@ -1,9 +1,10 @@
-import { CatalogActionTypes, CHANGE_FILTERS_LOADING_STATE } from '../interfaces';
+import { CatalogActionTypes, CHANGE_FILTERS_LOADING_STATE } from '../types';
 
-// eslint-disable-next-line max-len
-export function changeFiltersLoadingStateAction(isLoading: boolean): CatalogActionTypes {
+export function changeFiltersLoadingStateAction(
+  areFiltersLoading: boolean
+): CatalogActionTypes {
   return {
     type: CHANGE_FILTERS_LOADING_STATE,
-    payload: isLoading
+    payload: areFiltersLoading
   };
 }

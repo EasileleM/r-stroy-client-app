@@ -10,33 +10,36 @@ import { Filters as FiltersInterface } from '../../interfaces/Filters';
 export interface FiltersProps {
   className?: string;
   applyFilters: (appliedFilters: FiltersInterface) => void;
-  cleanFilters: () => void;
+  clearFilters: () => void;
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = FiltersProps & PropsFromRedux;
 
-// eslint-disable-next-line max-len
-export function Filters({ className, filters, applyFilters, appliedFilters, cleanFilters }: Props) {
+export function Filters({
+  className,
+  filters,
+  applyFilters,
+  appliedFilters,
+  clearFilters
+}: Props) {
   const [currentTypes, setCurrentTypes] = useState({});
   const [currentHighestPrice, setCurrentHighestPrice] = useState(0);
   const [currentLowestPrice, setCurrentLowestPrice] = useState(0);
 
   useEffect(() => {
-    if (filters && appliedFilters) {
-      const initialFilters = appliedFilters;
-      setCurrentHighestPrice(initialFilters.highestPrice);
-      setCurrentLowestPrice(initialFilters.lowestPrice);
-      const typesObject = initialFilters.types.reduce((types, type) => {
-        return {
-          ...types,
-          [type]: true
-        };
-      }, {});
-      setCurrentTypes(typesObject);
-    }
-  }, [filters, appliedFilters]);
+    const initialFilters = appliedFilters;
+    setCurrentHighestPrice(initialFilters.highestPrice);
+    setCurrentLowestPrice(initialFilters.lowestPrice);
+    const typesObject = initialFilters.types.reduce((types, type) => {
+      return {
+        ...types,
+        [type]: true
+      };
+    }, {});
+    setCurrentTypes(typesObject);
+  }, [appliedFilters]);
 
   const toggleType = (name) => {
     const newTypes = { ...currentTypes };
@@ -67,7 +70,6 @@ export function Filters({ className, filters, applyFilters, appliedFilters, clea
     <div className={cn(styles.container, className)}>
       Filters <br />
       {
-        filters &&
         filters.types
           .map(type => {
             return (
@@ -97,7 +99,7 @@ export function Filters({ className, filters, applyFilters, appliedFilters, clea
       <button type='button' onClick={handleApplyFilters}>
         apply filters
       </button>
-      <button type='button' onClick={cleanFilters}>
+      <button type='button' onClick={clearFilters}>
         clear filters
       </button>
     </div>

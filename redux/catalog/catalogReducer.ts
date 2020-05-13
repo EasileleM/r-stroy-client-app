@@ -5,10 +5,9 @@ import {
   CatalogState,
   CHANGE_FILTERS_LOADING_STATE,
   CHANGE_PRODUCTS_LOADING_STATE,
-  SET_ERROR,
   UPDATE_FILTERS,
   UPDATE_PRODUCTS
-} from './interfaces';
+} from './types';
 
 const initialState: CatalogState = {
   products: [],
@@ -16,8 +15,7 @@ const initialState: CatalogState = {
   appliedFilters: null,
   searchQuery: '',
   areFiltersLoading: true,
-  areProductsLoading: true,
-  hasError: false
+  areProductsLoading: true
 };
 
 export function catalogReducer(
@@ -34,11 +32,6 @@ export function catalogReducer(
       return {
         ...state,
         filters: action.payload
-      };
-    case SET_ERROR:
-      return {
-        ...state,
-        hasError: action.payload
       };
     case CHANGE_FILTERS_LOADING_STATE:
       return {

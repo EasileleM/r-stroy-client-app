@@ -1,4 +1,4 @@
-import { CATALOG_RESET } from '../interfaces';
+import { CATALOG_RESET } from '../types';
 
 export function catalogResetAction() {
   return {

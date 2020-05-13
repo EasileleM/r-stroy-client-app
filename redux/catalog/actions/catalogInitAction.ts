@@ -1,5 +1,5 @@
 import { ParsedUrlQueryInput } from 'querystring';
-import { CATALOG_INIT } from '../interfaces';
+import { CATALOG_INIT } from '../types';
 
 export function catalogInitAction(query: ParsedUrlQueryInput) {
   return {

@@ -6,13 +6,14 @@ import { Filters } from '../../interfaces/Filters';
 export const CATALOG_INIT = 'CATALOG_INIT';
 export const CATALOG_UPDATE = 'CATALOG_UPDATE';
 export const CATALOG_RESET = 'CATALOG_RESET';
+
 export const UPDATE_FILTERS = 'LOAD_FILTERS';
-export const UPDATE_PRODUCTS = 'LOAD_PRODUCTS';
 export const APPLY_SEARCH = 'APPLY_SEARCH';
 export const APPLY_FILTERS = 'APPLY_FILTERS';
+export const UPDATE_PRODUCTS = 'LOAD_PRODUCTS';
+
 export const CHANGE_FILTERS_LOADING_STATE = 'CHANGE_FILTERS_LOADING_STATE';
 export const CHANGE_PRODUCTS_LOADING_STATE = 'CHANGE_PRODUCTS_LOADING_STATE';
-export const SET_ERROR = 'SET_ERROR';
 
 export interface CatalogState {
   products: Array<Product>;
@@ -20,7 +21,6 @@ export interface CatalogState {
   appliedFilters: Filters;
   searchQuery: string;
   areFiltersLoading: boolean;
-  hasError: boolean;
   areProductsLoading: boolean;
 }
 
@@ -52,11 +52,6 @@ export interface ChangeProductsLoadingStateAction {
   payload: boolean;
 }
 
-export interface SetErrorAction {
-  type: typeof SET_ERROR;
-  payload: boolean;
-}
-
 export interface LoadFiltersAction {
   type: typeof UPDATE_FILTERS;
   payload: Filters;
@@ -83,7 +78,6 @@ ApplySearchAction |
 ApplyFiltersAction |
 ChangeLoadingStateAction |
 ChangeProductsLoadingStateAction |
-SetErrorAction |
 CatalogInitAction |
 CatalogUpdateAction |
 CatalogResetAction;

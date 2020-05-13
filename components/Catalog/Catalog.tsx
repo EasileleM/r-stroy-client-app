@@ -22,7 +22,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = CatalogProps & PropsFromRedux;
 
-
 export function Catalog(
   {
     className,
@@ -47,8 +46,7 @@ export function Catalog(
     catalogUpdate(appliedFilters, searchQuery, router);
   };
 
-  // Clears appliedFilters and searchQuery from redux store
-  const handleCleanQueryArguments = async () => {
+  const handleClearQueryArguments = async () => {
     const initialFilters = {
       ...filters,
       types: []
@@ -65,7 +63,7 @@ export function Catalog(
           :
           <>
             <Filters
-              cleanFilters={handleCleanQueryArguments}
+              clearFilters={handleClearQueryArguments}
               applyFilters={handleApplyFilters}
             />
             {
@@ -90,7 +88,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  catalogInit: (appliedFilters) => dispatch(catalogInitAction(appliedFilters)),
+  catalogInit: (query) => dispatch(catalogInitAction(query)),
   catalogUpdate: (appliedFilters, searchQuery, router) => {
     dispatch(catalogUpdateAction(appliedFilters, searchQuery, router));
   },

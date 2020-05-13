@@ -1,8 +1,15 @@
 import { ParsedUrlQueryInput } from 'querystring';
 import { Filters } from '../interfaces/Filters';
 
-// eslint-disable-next-line max-len
-export function getAppliedFiltersFromQuery(query: ParsedUrlQueryInput, initialFilters: Filters): Filters {
+/**
+ * Returns filters parsed from given query
+ *
+ * @param query
+ * @param initialFilters
+ */
+export function getAppliedFiltersFromQuery(
+  query: ParsedUrlQueryInput, initialFilters: Filters
+): Filters {
   const result: Filters = {
     ...initialFilters,
     types: []
@@ -14,10 +21,8 @@ export function getAppliedFiltersFromQuery(query: ParsedUrlQueryInput, initialFi
     result.highestPrice = Number(query.highestPrice);
   }
   if (query.types) {
-    if (typeof query.types === 'object') {
-      if (query.types.length) {
-        result.types = query.types as string[];
-      }
+    if (Array.isArray(query.types) && query.types.length) {
+      result.types = query.types as string[];
     } else {
       result.types = [query.types as string];
     }

@@ -1,7 +1,10 @@
 import { Filters } from '../../interfaces/Filters';
 
+/**
+ * Fetches initial filters.
+ */
 export async function fetchFilters(): Promise<Filters> {
-  return new Promise((resolve) => {
+  return new Promise((resolve) => { // TODO make request real
     setTimeout(() => {
       resolve(filters);
     }, 1000);
