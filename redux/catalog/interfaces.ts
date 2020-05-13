@@ -39,8 +39,7 @@ export interface CatalogUpdateAction {
 }
 
 export interface CatalogResetAction {
-  type: typeof CATALOG_UPDATE;
-  payload: void;
+  type: typeof CATALOG_RESET;
 }
 
 export interface ChangeLoadingStateAction {

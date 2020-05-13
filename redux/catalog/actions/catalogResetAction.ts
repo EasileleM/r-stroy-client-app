@@ -1,15 +1,7 @@
-import { AppThunk } from '../../types';
-import { updateProductsActionCreator } from './updateProductsAction';
-import { applyFiltersAction } from './applyFiltersAction';
-import { applySearchAction } from './applySearchAction';
+import { CATALOG_RESET } from '../interfaces';
 
-/**
- * Fills catalog with products and filters
- */
-// eslint-disable-next-line max-len
-export const catalogResetAction = (): AppThunk => async (dispatch, getState) => {
-  const { filters } = getState().catalog;
-  dispatch(updateProductsActionCreator([]));
-  dispatch(applyFiltersAction({ ...filters, types: [] }));
-  dispatch(applySearchAction(''));
-};
+export function catalogResetAction() {
+  return {
+    type: CATALOG_RESET
+  };
+}
