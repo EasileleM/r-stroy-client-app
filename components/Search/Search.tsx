@@ -6,8 +6,8 @@ import { useRouter } from 'next/router';
 import { connect, ConnectedProps } from 'react-redux';
 import styles from './Search.module.scss';
 import SearchIcon from '../../public/images/search.svg';
-import { AppDispatch } from '../../redux/rootTypes';
-import { updateCatalogAction } from '../../redux/catalog/actions/updateCatalogAction';
+import { AppDispatch, RootState } from '../../redux/types';
+import { catalogUpdateAction } from '../../redux/catalog/actions/catalogUpdateAction';
 
 export interface SearchProps {
   className?: string;
@@ -17,7 +17,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = SearchProps & PropsFromRedux;
 
-export function Search({ className, applySearch }: Props) {
+export function Search({ className, applySearch, appliedFilters }: Props) {
   const router = useRouter();
 
   const inCatalog = router.pathname.includes('catalog');
@@ -49,7 +49,7 @@ export function Search({ className, applySearch }: Props) {
   const handleSubmit = (e) => {
     if (inCatalog) {
       e.preventDefault();
-      applySearch(searchQuery, router);
+      applySearch(appliedFilters, searchQuery, router);
     }
   };
 
@@ -87,12 +87,16 @@ export function Search({ className, applySearch }: Props) {
   );
 }
 
+const mapStateToProps = (state: RootState) => ({
+  appliedFilters: state.catalog.appliedFilters
+});
+
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  applySearch: async (searchQuery, router) => {
-    await dispatch(updateCatalogAction({ searchQuery }, router));
+  applySearch: async (appliedFilters, searchQuery, router) => {
+    await dispatch(catalogUpdateAction(appliedFilters, searchQuery, router));
   }
 });
 
-const connector = connect(null, mapDispatchToProps);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default connector(Search);

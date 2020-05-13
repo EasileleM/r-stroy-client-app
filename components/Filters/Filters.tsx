@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import styles from './Filters.module.scss';
 
-import { RootState } from '../../redux/rootTypes';
+import { RootState } from '../../redux/types';
 import { Filters as FiltersInterface } from '../../interfaces/Filters';
 
 export interface FiltersProps {

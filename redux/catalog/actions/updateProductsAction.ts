@@ -1,4 +1,4 @@
-import { AppThunk } from '../../rootTypes';
+import { AppThunk } from '../../types';
 import { CatalogActionTypes, UPDATE_PRODUCTS } from '../interfaces';
 import { fetchProducts } from '../../../utils/data/fetchProducts';
 import { Product } from '../../../interfaces/Product';
