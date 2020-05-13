@@ -1,28 +1,11 @@
 import { Router } from 'next/router';
 import { ParsedUrlQueryInput } from 'querystring';
 import { Filters } from '../../../interfaces/Filters';
-import { APPLY_FILTERS, APPLY_SEARCH, CatalogActionTypes } from '../interfaces';
 import { clearQueryFromFilters } from '../../../utils/cleanQueryFromFilters';
 import { appliedFiltersToQueryInput } from '../../../utils/appliedFiltersToQueryInput';
 import { AppThunk } from '../../rootTypes';
 import { applySearchAction } from './applySearchAction';
 import { applyFiltersAction } from './applyFiltersAction';
-
-// eslint-disable-next-line max-len
-export function applyFiltersActionCreator(appliedFilters: Filters): CatalogActionTypes {
-  return {
-    type: APPLY_FILTERS,
-    payload: appliedFilters
-  };
-}
-
-// eslint-disable-next-line max-len
-export function applySearchActionCreator(searchQuery: string): CatalogActionTypes {
-  return {
-    type: APPLY_SEARCH,
-    payload: searchQuery
-  };
-}
 
 type Options = {
   appliedFilters?: Filters;
