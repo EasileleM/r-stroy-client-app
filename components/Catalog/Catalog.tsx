@@ -40,7 +40,7 @@ export function Catalog(
 
   useEffect(() => {
     fillCatalog(router.query);
-    return () => cleanCatalog(router);
+    return () => cleanCatalog();
   }, []);
 
   const handleApplyFilters = (appliedFilters: FiltersInterface) => {
@@ -94,7 +94,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   updateCatalog: ({ appliedFilters, searchQuery }, router) => {
     dispatch(updateCatalogAction({ appliedFilters, searchQuery }, router));
   },
-  cleanCatalog: (router) => dispatch(cleanCatalogAction(router))
+  cleanCatalog: () => dispatch(cleanCatalogAction())
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
