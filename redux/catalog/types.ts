@@ -15,6 +15,8 @@ export const UPDATE_PRODUCTS = 'LOAD_PRODUCTS';
 export const CHANGE_FILTERS_LOADING_STATE = 'CHANGE_FILTERS_LOADING_STATE';
 export const CHANGE_PRODUCTS_LOADING_STATE = 'CHANGE_PRODUCTS_LOADING_STATE';
 
+export const CATALOG_ERROR = 'CATALOG_ERROR';
+
 export interface CatalogState {
   products: Array<Product>;
   filters: Filters;
@@ -22,6 +24,7 @@ export interface CatalogState {
   searchQuery: string;
   areFiltersLoading: boolean;
   areProductsLoading: boolean;
+  hasError: boolean;
 }
 
 export interface CatalogInitAction {
@@ -40,6 +43,11 @@ export interface CatalogUpdateAction {
 
 export interface CatalogResetAction {
   type: typeof CATALOG_RESET;
+}
+
+export interface CatalogErrorAction {
+  type: typeof CATALOG_ERROR;
+  payload: boolean;
 }
 
 export interface ChangeLoadingStateAction {
@@ -80,4 +88,5 @@ ChangeLoadingStateAction |
 ChangeProductsLoadingStateAction |
 CatalogInitAction |
 CatalogUpdateAction |
-CatalogResetAction;
+CatalogResetAction |
+CatalogErrorAction;

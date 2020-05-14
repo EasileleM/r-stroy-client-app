@@ -32,7 +32,8 @@ export function Catalog(
     catalogUpdate,
     catalogReset,
     areFiltersLoading,
-    areProductsLoading
+    areProductsLoading,
+    hasError
   }: Props
 ) {
   const router = useRouter();
@@ -41,6 +42,12 @@ export function Catalog(
     catalogInit(router.query);
     return () => catalogReset();
   }, []);
+
+  useEffect(() => {
+    if (hasError) {
+      router.push('/error');
+    }
+  }, [hasError]);
 
   const handleApplyFilters = (appliedFilters: FiltersInterface) => {
     catalogUpdate(appliedFilters, searchQuery, router);
@@ -84,7 +91,8 @@ const mapStateToProps = (state: RootState) => ({
   filters: state.catalog.filters,
   searchQuery: state.catalog.searchQuery,
   areFiltersLoading: state.catalog.areFiltersLoading,
-  areProductsLoading: state.catalog.areProductsLoading
+  areProductsLoading: state.catalog.areProductsLoading,
+  hasError: state.catalog.hasError
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
