@@ -4,6 +4,8 @@ import { applySearchAction } from '../actions/applySearchAction';
 import { updateProductsAction } from '../actions/updateProductsAction';
 import { CATALOG_RESET } from '../types';
 import { updateFiltersAction } from '../actions/updateFiltersAction';
+import { changeFiltersLoadingStateAction } from '../actions/changeFiltersLoadingStateAction';
+import { changeProductsLoadingStateAction } from '../actions/changeProductsLoadingStateAction';
 
 /**
  * Resets catalog with default values and cancels updateTask
@@ -20,4 +22,6 @@ export function* catalogReset(updateTask = null) {
   yield put(updateFiltersAction(null));
   yield put(applySearchAction(''));
   yield put(updateProductsAction([]));
+  yield put(changeFiltersLoadingStateAction(true));
+  yield put(changeProductsLoadingStateAction(true));
 }
