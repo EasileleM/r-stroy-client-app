@@ -1,5 +1,4 @@
 import { ParsedUrlQueryInput } from 'querystring';
-import { Router } from 'next/router';
 import { Product } from '../../interfaces/Product';
 import { Filters } from '../../interfaces/Filters';
 
@@ -36,8 +35,7 @@ export interface CatalogUpdateAction {
   type: typeof CATALOG_UPDATE;
   payload: {
     appliedFilters: Filters,
-    searchQuery: string,
-    router: Router
+    searchQuery: string
   };
 }
 

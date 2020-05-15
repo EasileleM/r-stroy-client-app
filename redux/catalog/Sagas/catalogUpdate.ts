@@ -23,14 +23,13 @@ export function* watchCatalogUpdate() {
  *
  * @param appliedFilters
  * @param searchQuery
- * @param router
  */
 function* catalogUpdate({
-  payload: { appliedFilters, searchQuery, router }
+  payload: { appliedFilters, searchQuery }
 }: CatalogUpdateAction) {
   const { filters } = yield select((state) => state.catalog);
 
-  yield syncPageURLWithCatalog(appliedFilters, searchQuery, filters, router);
+  syncPageURLWithCatalog(appliedFilters, searchQuery, filters);
 
   yield put(applyFiltersAction(appliedFilters));
   yield put(applySearchAction(searchQuery));

@@ -13,6 +13,7 @@ import ProductContainer from '../ProductContainer/ProductContainer';
 import { Filters as FiltersInterface } from '../../interfaces/Filters';
 import { catalogResetAction } from '../../redux/catalog/actions/catalogResetAction';
 import { catalogUpdateAction } from '../../redux/catalog/actions/catalogUpdateAction';
+import { ERROR_URL } from '../../contants/const';
 
 export interface CatalogProps {
   className?: string;
@@ -45,21 +46,21 @@ export function Catalog(
 
   useEffect(() => {
     if (hasError) {
-      router.push('/error');
+      router.push(ERROR_URL);
     }
   }, [hasError]);
 
   const handleApplyFilters = (appliedFilters: FiltersInterface) => {
-    catalogUpdate(appliedFilters, searchQuery, router);
+    catalogUpdate(appliedFilters, searchQuery);
   };
 
-  const handleClearQueryArguments = async () => {
+  const handleClearQueryArguments = () => {
     const initialFilters = {
       ...filters,
       types: []
     };
     const emptySearch = '';
-    catalogUpdate(initialFilters, emptySearch, router);
+    catalogUpdate(initialFilters, emptySearch);
   };
   
   return (
@@ -97,8 +98,8 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   catalogInit: (query) => dispatch(catalogInitAction(query)),
-  catalogUpdate: (appliedFilters, searchQuery, router) => {
-    dispatch(catalogUpdateAction(appliedFilters, searchQuery, router));
+  catalogUpdate: (appliedFilters, searchQuery) => {
+    dispatch(catalogUpdateAction(appliedFilters, searchQuery));
   },
   catalogReset: () => dispatch(catalogResetAction())
 });

@@ -1,12 +1,13 @@
-import { CATALOG_UPDATE } from '../types';
+import { CATALOG_UPDATE, CatalogActionTypes } from '../types';
 
-export function catalogUpdateAction(appliedFilters, searchQuery, router) {
+export function catalogUpdateAction(
+  appliedFilters, searchQuery
+): CatalogActionTypes {
   return {
     type: CATALOG_UPDATE,
     payload: {
       appliedFilters,
-      searchQuery,
-      router
+      searchQuery
     }
   };
 }

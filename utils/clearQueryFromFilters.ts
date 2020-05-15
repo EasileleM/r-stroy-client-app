@@ -1,4 +1,3 @@
-import { ParsedUrlQueryInput } from 'querystring';
 import { Filters } from '../interfaces/Filters';
 
 /**
@@ -9,11 +8,11 @@ import { Filters } from '../interfaces/Filters';
  * @return cleared query
  */
 export function clearQueryFromFilters(
-  query: ParsedUrlQueryInput, initialFilters: Filters
-): ParsedUrlQueryInput {
-  const result: ParsedUrlQueryInput = { ...query };
+  query: URLSearchParams, initialFilters: Filters
+): URLSearchParams {
+  const newQuery = new URLSearchParams(query);
   Object.keys(initialFilters).forEach(filter => {
-    delete result[filter];
+    newQuery.delete(filter);
   });
-  return result;
+  return newQuery;
 }

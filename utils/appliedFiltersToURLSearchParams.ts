@@ -1,28 +1,29 @@
-import { ParsedUrlQueryInput } from 'querystring';
 import { Filters } from '../interfaces/Filters';
 
 /**
  * Converts appliedFilters to
- * query input, removing filters with default values.
+ * URLSearchParams, removing filters with default values.
  *
  * @param appliedFilters
  * @param initialFilters
  */
-export function appliedFiltersToQueryInput(
+export function appliedFiltersToURLSearchParams(
   appliedFilters: Filters, initialFilters: Filters
-): ParsedUrlQueryInput {
-  const result: ParsedUrlQueryInput = {};
+): URLSearchParams {
+  const result: URLSearchParams = new URLSearchParams();
 
   if (appliedFilters.lowestPrice !== initialFilters.lowestPrice) {
-    result.lowestPrice = appliedFilters.lowestPrice;
+    result.append('lowestPrice', String(appliedFilters.lowestPrice));
   }
 
   if (appliedFilters.highestPrice !== initialFilters.highestPrice) {
-    result.highestPrice = appliedFilters.highestPrice;
+    result.append('highestPrice', String(appliedFilters.highestPrice));
   }
 
   if (appliedFilters.types && appliedFilters.types.length) {
-    result.types = appliedFilters.types;
+    for (const type of appliedFilters.types) {
+      result.append('types', type);
+    }
   }
 
   return result;

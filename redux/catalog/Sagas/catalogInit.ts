@@ -7,6 +7,7 @@ import { getAppliedFiltersFromQuery } from '../../../utils/getAppliedFiltersFrom
 import { loadProducts } from './loadProducts';
 import { applyFiltersAction } from '../actions/applyFiltersAction';
 import { applySearchAction } from '../actions/applySearchAction';
+import { getSearchValueFromQuery } from '../../../utils/getSearchValueFromQuery';
 
 /**
  * Loads initial filters with loading indicator - areFiltersLoading.
@@ -14,13 +15,13 @@ import { applySearchAction } from '../actions/applySearchAction';
  * Loads products with that filters and searchQuery.
  */
 export function* catalogInit() {
-  const { payload: query } = yield take(CATALOG_INIT);
+  yield take(CATALOG_INIT);
   yield put(changeFiltersLoadingStateAction(true));
   const filters = yield call(fetchFilters);
   yield put(updateFiltersAction(filters));
 
-  const appliedFilters = getAppliedFiltersFromQuery(query, filters);
-  const searchQuery = query.q as string || '';
+  const appliedFilters = getAppliedFiltersFromQuery(filters);
+  const searchQuery = getSearchValueFromQuery();
 
   yield put(applyFiltersAction(appliedFilters));
   yield put(applySearchAction(searchQuery));

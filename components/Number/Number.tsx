@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import PhoneIcon from '../../public/images/phone.svg';
 
-import { contactNumber, contactNumberToCopy } from '../../contants/const';
+import { CONTACT_NUMBER, CONTACT_NUMBER_TO_COPY } from '../../contants/const';
 
 export interface ProfileButtonInterface {
   containerStyles?: string,
@@ -19,7 +19,7 @@ const onCopy = () => {
 export function Number({ containerStyles, iconStyles, textStyles }) {
   return (
     <CopyToClipboard
-      text={contactNumberToCopy}
+      text={CONTACT_NUMBER_TO_COPY}
       onCopy={onCopy}
     >
       <button
@@ -28,7 +28,7 @@ export function Number({ containerStyles, iconStyles, textStyles }) {
         title='Нажмите, чтобы скопировать'
       >
         <PhoneIcon className={iconStyles} />
-        <p className={textStyles}>{contactNumber}</p>
+        <p className={textStyles}>{CONTACT_NUMBER}</p>
       </button>
     </CopyToClipboard>
   );

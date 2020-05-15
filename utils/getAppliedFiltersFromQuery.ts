@@ -1,31 +1,26 @@
-import { ParsedUrlQueryInput } from 'querystring';
 import { Filters } from '../interfaces/Filters';
+import { router } from '../services/router';
 
 /**
- * Returns filters parsed from given query
+ * Returns filters parsed from current query string
  *
- * @param query
  * @param initialFilters
  */
-export function getAppliedFiltersFromQuery(
-  query: ParsedUrlQueryInput, initialFilters: Filters
-): Filters {
+export function getAppliedFiltersFromQuery(initialFilters: Filters): Filters {
   const result: Filters = {
     ...initialFilters,
     types: []
   };
-  if (query.lowestPrice) {
-    result.lowestPrice = Number(query.lowestPrice);
+  const query = router.getQuery();
+  
+  if (query.get('lowestPrice')) {
+    result.lowestPrice = Number(query.get('lowestPrice'));
   }
-  if (query.highestPrice) {
-    result.highestPrice = Number(query.highestPrice);
+  if (query.get('highestPrice')) {
+    result.highestPrice = Number(query.get('highestPrice'));
   }
-  if (query.types) {
-    if (Array.isArray(query.types) && query.types.length) {
-      result.types = query.types as string[];
-    } else {
-      result.types = [query.types as string];
-    }
+  if (query.getAll('types')) {
+    result.types = query.getAll('types');
   }
   return result;
 }

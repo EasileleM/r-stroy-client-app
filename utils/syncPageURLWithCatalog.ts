@@ -1,6 +1,7 @@
-import { ParsedUrlQueryInput } from 'querystring';
-import { clearQueryFromFilters } from './cleanQueryFromFilters';
-import { appliedFiltersToQueryInput } from './appliedFiltersToQueryInput';
+import { Filters } from '../interfaces/Filters';
+import { appliedFiltersToURLSearchParams } from './appliedFiltersToURLSearchParams';
+import { router } from '../services/router';
+import { clearQueryFromFilters } from './clearQueryFromFilters';
 
 /**
  * Synchronizes appliedFilters and searchQuery
@@ -9,23 +10,25 @@ import { appliedFiltersToQueryInput } from './appliedFiltersToQueryInput';
  * @param appliedFilters
  * @param searchQuery
  * @param initialFilters
- * @param router
  */
-export async function syncPageURLWithCatalog(
-  appliedFilters, searchQuery, initialFilters, router
+export function syncPageURLWithCatalog(
+  appliedFilters: Filters, searchQuery: string, initialFilters: Filters
 ) {
-  const query: ParsedUrlQueryInput = {
-    ...clearQueryFromFilters(router.query, initialFilters),
-    ...appliedFiltersToQueryInput(appliedFilters, initialFilters)
-  };
+  const query: URLSearchParams = new URLSearchParams(
+    clearQueryFromFilters(router.getQuery(), initialFilters)
+  );
 
-  delete query.q;
-  if (searchQuery !== '') {
-    query.q = searchQuery;
+  const filtersQuery = appliedFiltersToURLSearchParams(
+    appliedFilters, initialFilters
+  );
+  for (const [key, value] of filtersQuery.entries()) {
+    query.append(key, value);
   }
 
-  await router.push({
-    pathname: '/catalog',
-    query
-  });
+  query.delete('q');
+  if (searchQuery !== '') {
+    query.set('q', searchQuery);
+  }
+
+  router.updateQuery(query);
 }
