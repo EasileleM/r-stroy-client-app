@@ -6,8 +6,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import styles from './Search.module.scss';
 import SearchIcon from '../../public/images/search.svg';
 import { AppDispatch, RootState } from '../../redux/types';
-import { catalogUpdateAction } from '../../redux/catalog/actions/catalogUpdateAction';
-import {CATALOG_URL} from "../../contants/const";
+import { CATALOG_URL } from '../../contants/const';
+import { applySearchAction } from '../../redux/catalog/actions/applySearchAction';
 
 export interface SearchProps {
   className?: string;
@@ -19,8 +19,7 @@ type Props = SearchProps & PropsFromRedux;
 
 export function Search({
   className,
-  updateCatalog,
-  appliedFilters,
+  applySearch,
   searchQueryFromStore
 }: Props) {
   const router = useRouter();
@@ -45,7 +44,7 @@ export function Search({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inCatalog) {
-      updateCatalog(appliedFilters, searchQuery);
+      applySearch(searchQuery);
     } else {
       const targetUrl = {
         pathname: CATALOG_URL,
@@ -79,13 +78,12 @@ export function Search({
 }
 
 const mapStateToProps = (state: RootState) => ({
-  appliedFilters: state.catalog.appliedFilters,
   searchQueryFromStore: state.catalog.searchQuery
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  updateCatalog: (appliedFilters, searchQuery) => {
-    dispatch(catalogUpdateAction(appliedFilters, searchQuery));
+  applySearch: (searchQuery) => {
+    dispatch(applySearchAction(searchQuery));
   }
 });
 

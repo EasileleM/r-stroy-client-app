@@ -8,12 +8,11 @@ import styles from './Catalog.module.scss';
 import { AppDispatch, RootState } from '../../redux/types';
 import { catalogInitAction } from '../../redux/catalog/actions/catalogInitAction';
 
+import { ERROR_URL } from '../../contants/const';
+
 import Filters from '../Filters/Filters';
 import ProductContainer from '../ProductContainer/ProductContainer';
-import { Filters as FiltersInterface } from '../../interfaces/Filters';
 import { catalogResetAction } from '../../redux/catalog/actions/catalogResetAction';
-import { catalogUpdateAction } from '../../redux/catalog/actions/catalogUpdateAction';
-import { ERROR_URL } from '../../contants/const';
 
 export interface CatalogProps {
   className?: string;
@@ -27,10 +26,7 @@ export function Catalog(
   {
     className,
     products,
-    searchQuery,
-    filters,
     catalogInit,
-    catalogUpdate,
     catalogReset,
     areFiltersLoading,
     areProductsLoading,
@@ -40,7 +36,7 @@ export function Catalog(
   const router = useRouter();
 
   useEffect(() => {
-    catalogInit(router.query);
+    catalogInit();
     return () => catalogReset();
   }, []);
 
@@ -49,19 +45,6 @@ export function Catalog(
       router.push(ERROR_URL);
     }
   }, [hasError]);
-
-  const handleApplyFilters = (appliedFilters: FiltersInterface) => {
-    catalogUpdate(appliedFilters, searchQuery);
-  };
-
-  const handleClearQueryArguments = () => {
-    const initialFilters = {
-      ...filters,
-      types: []
-    };
-    const emptySearch = '';
-    catalogUpdate(initialFilters, emptySearch);
-  };
   
   return (
     <div className={cn(styles.container, className)}>
@@ -70,10 +53,7 @@ export function Catalog(
           <p>Loading</p>
           :
           <>
-            <Filters
-              clearFilters={handleClearQueryArguments}
-              applyFilters={handleApplyFilters}
-            />
+            <Filters />
             {
               areProductsLoading ?
                 <p>Loading</p>
@@ -89,18 +69,13 @@ export function Catalog(
 
 const mapStateToProps = (state: RootState) => ({
   products: state.catalog.products,
-  filters: state.catalog.filters,
-  searchQuery: state.catalog.searchQuery,
   areFiltersLoading: state.catalog.areFiltersLoading,
   areProductsLoading: state.catalog.areProductsLoading,
   hasError: state.catalog.hasError
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  catalogInit: (query) => dispatch(catalogInitAction(query)),
-  catalogUpdate: (appliedFilters, searchQuery) => {
-    dispatch(catalogUpdateAction(appliedFilters, searchQuery));
-  },
+  catalogInit: () => dispatch(catalogInitAction()),
   catalogReset: () => dispatch(catalogResetAction())
 });
 

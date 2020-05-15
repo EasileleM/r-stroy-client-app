@@ -4,13 +4,12 @@ import cn from 'classnames';
 
 import styles from './Filters.module.scss';
 
-import { RootState } from '../../redux/types';
-import { Filters as FiltersInterface } from '../../interfaces/Filters';
+import { AppDispatch, RootState } from '../../redux/types';
+import { applyFiltersAction } from '../../redux/catalog/actions/applyFiltersAction';
+import { applySearchAction } from '../../redux/catalog/actions/applySearchAction';
 
 export interface FiltersProps {
   className?: string;
-  applyFilters: (appliedFilters: FiltersInterface) => void;
-  clearFilters: () => void;
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -22,48 +21,45 @@ export function Filters({
   filters,
   applyFilters,
   appliedFilters,
-  clearFilters
+  applySearch
 }: Props) {
-  const [currentTypes, setCurrentTypes] = useState({});
-  const [currentHighestPrice, setCurrentHighestPrice] = useState(0);
-  const [currentLowestPrice, setCurrentLowestPrice] = useState(0);
+  const [nonAppliedFilters, setNonAppliedFilters] = useState({
+    types: [],
+    highestPrice: 0,
+    lowestPrice: 0
+  });
 
   useEffect(() => {
-    const initialFilters = appliedFilters;
-    setCurrentHighestPrice(initialFilters.highestPrice);
-    setCurrentLowestPrice(initialFilters.lowestPrice);
-    const typesObject = initialFilters.types.reduce((types, type) => {
-      return {
-        ...types,
-        [type]: true
-      };
-    }, {});
-    setCurrentTypes(typesObject);
+    setNonAppliedFilters({ ...appliedFilters });
   }, [appliedFilters]);
 
-  const toggleType = (name) => {
-    const newTypes = { ...currentTypes };
-    newTypes[name] = !newTypes[name];
-    setCurrentTypes(newTypes);
-  };
-
-  const setHighestPrice = (e) => {
-    setCurrentHighestPrice(Number(e.target.value));
-  };
-
-  const setLowestPrice = (e) => {
-    setCurrentLowestPrice(Number(e.target.value));
+  const changeFilters = (key, value) => {
+    const newFilters = { ...nonAppliedFilters };
+    if (key === 'types') {
+      const index = newFilters.types.indexOf(value);
+      if (index !== -1) {
+        newFilters.types.splice(index, 1);
+      } else {
+        newFilters.types.push(value);
+      }
+    } else {
+      newFilters[key] = value;
+    }
+    setNonAppliedFilters(newFilters);
   };
 
   const handleApplyFilters = () => {
-    applyFilters({
-      types: Object
-        .entries(currentTypes)
-        .filter(entry => entry[1])
-        .map(entry => entry[0]),
-      highestPrice: currentHighestPrice,
-      lowestPrice: currentLowestPrice
-    });
+    applyFilters(nonAppliedFilters);
+  };
+
+  const handleClearQueryArguments = () => {
+    const initialFilters = {
+      ...filters,
+      types: []
+    };
+    const emptySearch = '';
+    applyFilters(initialFilters);
+    applySearch(emptySearch);
   };
 
   return (
@@ -75,8 +71,8 @@ export function Filters({
             return (
               <div key={type}>
                 <input
-                  checked={Boolean(currentTypes[type])}
-                  onChange={() => toggleType(type)}
+                  checked={nonAppliedFilters.types.includes(type)}
+                  onChange={() => changeFilters('types', type)}
                   type='checkbox'
                 />
                 {type}
@@ -86,20 +82,20 @@ export function Filters({
       }
       highest price:
       <input
-        onChange={(e) => setHighestPrice(e)}
+        onChange={(e) => changeFilters('highestPrice', Number(e.target.value))}
         type='text'
-        value={currentHighestPrice}
+        value={nonAppliedFilters.highestPrice}
       />
       lowest price:
       <input
-        onChange={(e) => setLowestPrice(e)}
+        onChange={(e) => changeFilters('lowestPrice', Number(e.target.value))}
         type='text'
-        value={currentLowestPrice}
+        value={nonAppliedFilters.lowestPrice}
       />
       <button type='button' onClick={handleApplyFilters}>
         apply filters
       </button>
-      <button type='button' onClick={clearFilters}>
+      <button type='button' onClick={handleClearQueryArguments}>
         clear filters
       </button>
     </div>
@@ -111,6 +107,15 @@ const mapStateToProps = (state: RootState) => ({
   appliedFilters: state.catalog.appliedFilters
 });
 
-const connector = connect(mapStateToProps);
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  applyFilters: (appliedFilters) => {
+    dispatch(applyFiltersAction(appliedFilters));
+  },
+  applySearch: (searchQuery) => {
+    dispatch(applySearchAction(searchQuery));
+  }
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default connector(Filters);

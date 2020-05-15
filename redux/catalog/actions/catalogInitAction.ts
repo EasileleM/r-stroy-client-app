@@ -1,11 +1,7 @@
-import { ParsedUrlQueryInput } from 'querystring';
 import { CATALOG_INIT, CatalogActionTypes } from '../types';
 
-export function catalogInitAction(
-  query: ParsedUrlQueryInput
-): CatalogActionTypes {
+export function catalogInitAction(): CatalogActionTypes {
   return {
     type: CATALOG_INIT,
-    payload: query
   };
 }

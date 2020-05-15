@@ -1,9 +1,7 @@
-import { ParsedUrlQueryInput } from 'querystring';
 import { Product } from '../../interfaces/Product';
 import { Filters } from '../../interfaces/Filters';
 
 export const CATALOG_INIT = 'CATALOG_INIT';
-export const CATALOG_UPDATE = 'CATALOG_UPDATE';
 export const CATALOG_RESET = 'CATALOG_RESET';
 
 export const UPDATE_FILTERS = 'LOAD_FILTERS';
@@ -28,15 +26,6 @@ export interface CatalogState {
 
 export interface CatalogInitAction {
   type: typeof CATALOG_INIT;
-  payload: ParsedUrlQueryInput;
-}
-
-export interface CatalogUpdateAction {
-  type: typeof CATALOG_UPDATE;
-  payload: {
-    appliedFilters: Filters,
-    searchQuery: string
-  };
 }
 
 export interface CatalogResetAction {
@@ -85,6 +74,5 @@ ApplyFiltersAction |
 ChangeLoadingStateAction |
 ChangeProductsLoadingStateAction |
 CatalogInitAction |
-CatalogUpdateAction |
 CatalogResetAction |
 CatalogErrorAction;
