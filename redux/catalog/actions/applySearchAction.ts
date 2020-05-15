@@ -1,8 +1,8 @@
-import { APPLY_SEARCH, CatalogActionTypes } from '../interfaces';
+import { APPLY_SEARCH, CatalogActionTypes } from '../types';
 
-
-// eslint-disable-next-line max-len
-export function applySearchAction(searchQuery: string): CatalogActionTypes {
+export function applySearchAction(
+  searchQuery: string
+): CatalogActionTypes {
   return {
     type: APPLY_SEARCH,
     payload: searchQuery

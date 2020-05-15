@@ -1,21 +1,21 @@
 import {
   APPLY_FILTERS,
   APPLY_SEARCH,
+  CATALOG_ERROR,
   CatalogActionTypes,
   CatalogState,
-  CHANGE_LOADING_STATE,
+  CHANGE_FILTERS_LOADING_STATE,
   CHANGE_PRODUCTS_LOADING_STATE,
-  SET_ERROR,
   UPDATE_FILTERS,
   UPDATE_PRODUCTS
-} from './interfaces';
+} from './types';
 
 const initialState: CatalogState = {
   products: [],
   filters: null,
   appliedFilters: null,
   searchQuery: '',
-  isLoading: true,
+  areFiltersLoading: true,
   areProductsLoading: true,
   hasError: false
 };
@@ -35,15 +35,15 @@ export function catalogReducer(
         ...state,
         filters: action.payload
       };
-    case SET_ERROR:
+    case CATALOG_ERROR:
       return {
         ...state,
         hasError: action.payload
       };
-    case CHANGE_LOADING_STATE:
+    case CHANGE_FILTERS_LOADING_STATE:
       return {
         ...state,
-        isLoading: action.payload
+        areFiltersLoading: action.payload
       };
     case CHANGE_PRODUCTS_LOADING_STATE:
       return {

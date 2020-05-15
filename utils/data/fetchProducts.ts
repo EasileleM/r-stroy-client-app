@@ -1,9 +1,16 @@
 import { Product } from '../../interfaces/Product';
 import { Filters } from '../../interfaces/Filters';
 
-// eslint-disable-next-line max-len
-export async function fetchProducts(appliedFilters: Filters, searchQuery: string): Promise<Array<Product>> {
-  return new Promise((resolve) => {
+/**
+ * Fetched products with given appliedFilters and searchQuery.
+ *
+ * @param appliedFilters
+ * @param searchQuery
+ */
+export async function fetchProducts(
+  appliedFilters: Filters, searchQuery: string
+): Promise<Array<Product>> {
+  return new Promise((resolve) => { // TODO make request real
     setTimeout(() => {
       resolve(productsArray);
     }, 1000);

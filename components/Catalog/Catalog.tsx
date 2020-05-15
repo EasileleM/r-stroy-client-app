@@ -5,14 +5,14 @@ import { useRouter } from 'next/router';
 
 import styles from './Catalog.module.scss';
 
-import { AppDispatch, RootState } from '../../redux/rootTypes';
-import { fillCatalogAction } from '../../redux/catalog/actions/fillCatalogAction';
+import { AppDispatch, RootState } from '../../redux/types';
+import { catalogInitAction } from '../../redux/catalog/actions/catalogInitAction';
+
+import { ERROR_URL } from '../../contants/const';
 
 import Filters from '../Filters/Filters';
 import ProductContainer from '../ProductContainer/ProductContainer';
-import { Filters as FiltersInterface } from '../../interfaces/Filters';
-import { cleanCatalogAction } from '../../redux/catalog/actions/cleanCatalogAction';
-import { updateCatalogAction } from '../../redux/catalog/actions/updateCatalogAction';
+import { catalogResetAction } from '../../redux/catalog/actions/catalogResetAction';
 
 export interface CatalogProps {
   className?: string;
@@ -22,52 +22,38 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = CatalogProps & PropsFromRedux;
 
-
 export function Catalog(
   {
     className,
     products,
-    searchQuery,
-    filters,
-    fillCatalog,
-    updateCatalog,
-    cleanCatalog,
-    isLoading,
-    areProductsLoading
+    catalogInit,
+    catalogReset,
+    areFiltersLoading,
+    areProductsLoading,
+    hasError
   }: Props
 ) {
   const router = useRouter();
 
   useEffect(() => {
-    fillCatalog(router.query);
-    return () => cleanCatalog();
+    catalogInit();
+    return () => catalogReset();
   }, []);
 
-  const handleApplyFilters = (appliedFilters: FiltersInterface) => {
-    updateCatalog({ appliedFilters, searchQuery }, router);
-  };
-
-  const handleCleanFilters = async () => {
-    updateCatalog({
-      appliedFilters: {
-        ...filters,
-        types: []
-      },
-      searchQuery: ''
-    }, router);
-  };
+  useEffect(() => {
+    if (hasError) {
+      router.push(ERROR_URL);
+    }
+  }, [hasError]);
   
   return (
     <div className={cn(styles.container, className)}>
       {
-        isLoading ?
+        areFiltersLoading ?
           <p>Loading</p>
           :
           <>
-            <Filters
-              cleanFilters={handleCleanFilters}
-              applyFilters={handleApplyFilters}
-            />
+            <Filters />
             {
               areProductsLoading ?
                 <p>Loading</p>
@@ -83,18 +69,14 @@ export function Catalog(
 
 const mapStateToProps = (state: RootState) => ({
   products: state.catalog.products,
-  filters: state.catalog.filters,
-  searchQuery: state.catalog.searchQuery,
-  isLoading: state.catalog.isLoading,
-  areProductsLoading: state.catalog.areProductsLoading
+  areFiltersLoading: state.catalog.areFiltersLoading,
+  areProductsLoading: state.catalog.areProductsLoading,
+  hasError: state.catalog.hasError
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  fillCatalog: (appliedFilters) => dispatch(fillCatalogAction(appliedFilters)),
-  updateCatalog: ({ appliedFilters, searchQuery }, router) => {
-    dispatch(updateCatalogAction({ appliedFilters, searchQuery }, router));
-  },
-  cleanCatalog: () => dispatch(cleanCatalogAction())
+  catalogInit: () => dispatch(catalogInitAction()),
+  catalogReset: () => dispatch(catalogResetAction())
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

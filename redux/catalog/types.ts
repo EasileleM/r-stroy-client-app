@@ -1,36 +1,49 @@
 import { Product } from '../../interfaces/Product';
 import { Filters } from '../../interfaces/Filters';
 
+export const CATALOG_INIT = 'CATALOG_INIT';
+export const CATALOG_RESET = 'CATALOG_RESET';
+
 export const UPDATE_FILTERS = 'LOAD_FILTERS';
-export const UPDATE_PRODUCTS = 'LOAD_PRODUCTS';
 export const APPLY_SEARCH = 'APPLY_SEARCH';
 export const APPLY_FILTERS = 'APPLY_FILTERS';
-export const CHANGE_LOADING_STATE = 'CHANGE_LOADING_STATE';
+export const UPDATE_PRODUCTS = 'LOAD_PRODUCTS';
+
+export const CHANGE_FILTERS_LOADING_STATE = 'CHANGE_FILTERS_LOADING_STATE';
 export const CHANGE_PRODUCTS_LOADING_STATE = 'CHANGE_PRODUCTS_LOADING_STATE';
-export const SET_ERROR = 'SET_ERROR';
+
+export const CATALOG_ERROR = 'CATALOG_ERROR';
 
 export interface CatalogState {
   products: Array<Product>;
   filters: Filters;
   appliedFilters: Filters;
   searchQuery: string;
-  isLoading: boolean;
-  hasError: boolean;
+  areFiltersLoading: boolean;
   areProductsLoading: boolean;
+  hasError: boolean;
+}
+
+export interface CatalogInitAction {
+  type: typeof CATALOG_INIT;
+}
+
+export interface CatalogResetAction {
+  type: typeof CATALOG_RESET;
+}
+
+export interface CatalogErrorAction {
+  type: typeof CATALOG_ERROR;
+  payload: boolean;
 }
 
 export interface ChangeLoadingStateAction {
-  type: typeof CHANGE_LOADING_STATE;
+  type: typeof CHANGE_FILTERS_LOADING_STATE;
   payload: boolean;
 }
 
 export interface ChangeProductsLoadingStateAction {
   type: typeof CHANGE_PRODUCTS_LOADING_STATE;
-  payload: boolean;
-}
-
-export interface SetErrorAction {
-  type: typeof SET_ERROR;
   payload: boolean;
 }
 
@@ -60,4 +73,6 @@ ApplySearchAction |
 ApplyFiltersAction |
 ChangeLoadingStateAction |
 ChangeProductsLoadingStateAction |
-SetErrorAction;
+CatalogInitAction |
+CatalogResetAction |
+CatalogErrorAction;

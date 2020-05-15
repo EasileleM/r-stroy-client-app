@@ -1,21 +1,21 @@
 import { useState, useLayoutEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { mobileScreenSize, tabletScreenSize } from '../contants/const';
+import { MOBILE_SCREEN_SIZE, TABLET_SCREEN_SIZE } from '../contants/const';
 
 function useResponsive() {
   const [isClient, setIsClient] = useState(false);
 
   const isMobile = useMediaQuery({
-    maxWidth: mobileScreenSize,
+    maxWidth: MOBILE_SCREEN_SIZE,
   });
 
   const isTablet = useMediaQuery({
-    minWidth: mobileScreenSize,
-    maxWidth: tabletScreenSize,
+    minWidth: MOBILE_SCREEN_SIZE,
+    maxWidth: TABLET_SCREEN_SIZE,
   });
 
   const isDesktop = useMediaQuery({
-    minWidth: tabletScreenSize,
+    minWidth: TABLET_SCREEN_SIZE,
   });
 
   useLayoutEffect(() => {
