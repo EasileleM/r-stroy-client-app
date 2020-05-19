@@ -1,8 +1,8 @@
-import { CatalogActionTypes, CHANGE_FILTERS_LOADING_STATE } from '../types';
+import { CHANGE_FILTERS_LOADING_STATE, ChangeFiltersLoadingStateAction } from '../types';
 
 export function changeFiltersLoadingStateAction(
   areFiltersLoading: boolean
-): CatalogActionTypes {
+): ChangeFiltersLoadingStateAction {
   return {
     type: CHANGE_FILTERS_LOADING_STATE,
     payload: areFiltersLoading

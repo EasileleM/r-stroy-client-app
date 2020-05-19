@@ -1,7 +1,6 @@
 import {
   APPLY_FILTERS,
   APPLY_SEARCH,
-  CATALOG_ERROR,
   CatalogActionTypes,
   CatalogState,
   CHANGE_FILTERS_LOADING_STATE,
@@ -16,8 +15,7 @@ const initialState: CatalogState = {
   appliedFilters: null,
   searchQuery: '',
   areFiltersLoading: true,
-  areProductsLoading: true,
-  hasError: false
+  areProductsLoading: true
 };
 
 export function catalogReducer(
@@ -34,11 +32,6 @@ export function catalogReducer(
       return {
         ...state,
         filters: action.payload
-      };
-    case CATALOG_ERROR:
-      return {
-        ...state,
-        hasError: action.payload
       };
     case CHANGE_FILTERS_LOADING_STATE:
       return {

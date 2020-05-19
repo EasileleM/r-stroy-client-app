@@ -12,8 +12,6 @@ export const UPDATE_PRODUCTS = 'LOAD_PRODUCTS';
 export const CHANGE_FILTERS_LOADING_STATE = 'CHANGE_FILTERS_LOADING_STATE';
 export const CHANGE_PRODUCTS_LOADING_STATE = 'CHANGE_PRODUCTS_LOADING_STATE';
 
-export const CATALOG_ERROR = 'CATALOG_ERROR';
-
 export interface CatalogState {
   products: Array<Product>;
   filters: Filters;
@@ -21,7 +19,6 @@ export interface CatalogState {
   searchQuery: string;
   areFiltersLoading: boolean;
   areProductsLoading: boolean;
-  hasError: boolean;
 }
 
 export interface CatalogInitAction {
@@ -32,12 +29,7 @@ export interface CatalogResetAction {
   type: typeof CATALOG_RESET;
 }
 
-export interface CatalogErrorAction {
-  type: typeof CATALOG_ERROR;
-  payload: boolean;
-}
-
-export interface ChangeLoadingStateAction {
+export interface ChangeFiltersLoadingStateAction {
   type: typeof CHANGE_FILTERS_LOADING_STATE;
   payload: boolean;
 }
@@ -47,12 +39,12 @@ export interface ChangeProductsLoadingStateAction {
   payload: boolean;
 }
 
-export interface LoadFiltersAction {
+export interface UpdateFiltersAction {
   type: typeof UPDATE_FILTERS;
   payload: Filters;
 }
 
-export interface LoadProductsAction {
+export interface UpdateProductsAction {
   type: typeof UPDATE_PRODUCTS;
   payload: Array<Product>;
 }
@@ -67,12 +59,12 @@ export interface ApplyFiltersAction {
   payload: Filters;
 }
 
-export type CatalogActionTypes = LoadFiltersAction |
-LoadProductsAction | 
-ApplySearchAction |
-ApplyFiltersAction |
-ChangeLoadingStateAction |
-ChangeProductsLoadingStateAction |
-CatalogInitAction |
-CatalogResetAction |
-CatalogErrorAction;
+export type CatalogActionTypes =
+  UpdateFiltersAction |
+  UpdateProductsAction |
+  ApplySearchAction |
+  ApplyFiltersAction |
+  ChangeFiltersLoadingStateAction |
+  ChangeProductsLoadingStateAction |
+  CatalogInitAction |
+  CatalogResetAction;

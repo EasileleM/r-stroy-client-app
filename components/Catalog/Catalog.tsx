@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import cn from 'classnames';
-import { useRouter } from 'next/router';
 
 import styles from './Catalog.module.scss';
 
 import { AppDispatch, RootState } from '../../redux/types';
 import { catalogInitAction } from '../../redux/catalog/actions/catalogInitAction';
-
-import { ERROR_URL } from '../../contants/const';
 
 import Filters from '../Filters/Filters';
 import ProductContainer from '../ProductContainer/ProductContainer';
@@ -30,21 +27,12 @@ export function Catalog(
     catalogReset,
     areFiltersLoading,
     areProductsLoading,
-    hasError
   }: Props
 ) {
-  const router = useRouter();
-
   useEffect(() => {
     catalogInit();
     return () => catalogReset();
   }, []);
-
-  useEffect(() => {
-    if (hasError) {
-      router.push(ERROR_URL);
-    }
-  }, [hasError]);
   
   return (
     <div className={cn(styles.container, className)}>
@@ -70,8 +58,7 @@ export function Catalog(
 const mapStateToProps = (state: RootState) => ({
   products: state.catalog.products,
   areFiltersLoading: state.catalog.areFiltersLoading,
-  areProductsLoading: state.catalog.areProductsLoading,
-  hasError: state.catalog.hasError
+  areProductsLoading: state.catalog.areProductsLoading
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({

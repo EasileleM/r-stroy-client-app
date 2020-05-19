@@ -1,13 +1,13 @@
 import { call, put, take } from 'redux-saga/effects';
 import { CATALOG_INIT } from '../types';
 import { changeFiltersLoadingStateAction } from '../actions/changeFiltersLoadingStateAction';
-import { fetchFilters } from '../../../utils/data/fetchFilters';
 import { updateFiltersAction } from '../actions/updateFiltersAction';
 import { getAppliedFiltersFromQuery } from '../../../utils/getAppliedFiltersFromQuery';
 import { loadProducts } from './loadProducts';
 import { applyFiltersAction } from '../actions/applyFiltersAction';
 import { applySearchAction } from '../actions/applySearchAction';
 import { getSearchValueFromQuery } from '../../../utils/getSearchValueFromQuery';
+import { apiService } from '../../../services/APIService';
 
 /**
  * Loads initial filters with loading indicator - areFiltersLoading.
@@ -17,7 +17,7 @@ import { getSearchValueFromQuery } from '../../../utils/getSearchValueFromQuery'
 export function* catalogInit() {
   yield take(CATALOG_INIT);
   yield put(changeFiltersLoadingStateAction(true));
-  const filters = yield call(fetchFilters);
+  const filters = yield call(apiService.getFilters);
   yield put(updateFiltersAction(filters));
 
   const appliedFilters = getAppliedFiltersFromQuery(filters);

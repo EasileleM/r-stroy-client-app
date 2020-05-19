@@ -19,7 +19,9 @@ function useResponsive() {
   });
 
   useLayoutEffect(() => {
-    if (typeof window !== 'undefined') setIsClient(true);
+    if (typeof window !== 'undefined') {
+      setIsClient(true);
+    }
   }, []);
 
   return {

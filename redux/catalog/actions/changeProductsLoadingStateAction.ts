@@ -1,8 +1,8 @@
-import { CatalogActionTypes, CHANGE_PRODUCTS_LOADING_STATE } from '../types';
+import { CHANGE_PRODUCTS_LOADING_STATE, ChangeProductsLoadingStateAction } from '../types';
 
 export function changeProductsLoadingStateAction(
   areProductsLoading: boolean
-): CatalogActionTypes {
+): ChangeProductsLoadingStateAction {
   return {
     type: CHANGE_PRODUCTS_LOADING_STATE,
     payload: areProductsLoading

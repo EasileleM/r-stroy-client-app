@@ -1,8 +1,12 @@
 import { all } from '@redux-saga/core/effects';
-import { catalogFlow } from './catalog/Sagas/catalogFlow';
+import { userSaga } from './user/userSaga';
+import { catalogSaga } from './catalog/catalogSaga';
+import { syncProductsSaga } from './productsSync/syncProductsSaga';
 
 export function* rootSaga() {
   yield all([
-    catalogFlow()
+    catalogSaga(),
+    userSaga(),
+    syncProductsSaga()
   ]);
 }

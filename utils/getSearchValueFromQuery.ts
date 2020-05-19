@@ -1,8 +1,8 @@
-import { router } from '../services/router';
+import { routerService } from '../services/RouterService';
 
 /**
  * returns current applied searchQuery string from URL query
  */
 export function getSearchValueFromQuery(): string {
-  return router.getQuery().get('q') || '';
+  return routerService.getQuery().get('q') || '';
 }

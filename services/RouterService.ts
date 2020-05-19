@@ -1,4 +1,4 @@
-export class Router {
+export class RouterService {
   /**
    * returns current query string as URLSearchParams object
    * @return URLSearchParams
@@ -17,11 +17,15 @@ export class Router {
       window.history.pushState({ path:newURL }, '', newURL);
     }
   }
+
+  /**
+   * Redirects to given URL.
+   */
+  redirect(URL: string) {
+    if (window) {
+      window.location.replace(URL);
+    }
+  }
 }
 
-export interface Router {
-  getQuery: () => URLSearchParams;
-  updateQuery: (query: URLSearchParams) => void;
-}
-
-export const router = new Router();
+export const routerService = new RouterService();

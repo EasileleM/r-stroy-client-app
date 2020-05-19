@@ -1,9 +1,9 @@
 import { Filters } from '../../../interfaces/Filters';
-import { APPLY_FILTERS, CatalogActionTypes } from '../types';
+import { APPLY_FILTERS, ApplyFiltersAction } from '../types';
 
 export function applyFiltersAction(
   appliedFilters: Filters
-): CatalogActionTypes {
+): ApplyFiltersAction {
   return {
     type: APPLY_FILTERS,
     payload: appliedFilters
