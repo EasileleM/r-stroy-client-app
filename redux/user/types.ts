@@ -15,6 +15,12 @@ export const LOGOUT = 'LOGOUT';
 export const INIT_USER = 'INIT_USER';
 export const UPDATE_USER_PERSONAL_DATA = 'UPDATE_USER_PERSONAL_DATA';
 export const UPDATE_USER_CREDENTIALS = 'UPDATE_USER_CREDENTIALS';
+export const SET_USER_PERSONAL_DATA = 'SET_USER_PERSONAL_DATA';
+export const SET_USER_CREDENTIALS = 'SET_USER_CREDENTIALS';
+export const SET_PERSONAL_DATA_UPDATE_STATE = 'SET_PERSONAL_DATA_UPDATE_STATE';
+export const SET_CREDENTIALS_UPDATE_STATE = 'SET_CREDENTIALS_UPDATE_STATE';
+export const SET_PERSONAL_DATA_UPDATE_ERROR = 'SET_PERSONAL_DATA_UPDATE_ERROR';
+export const SET_CREDENTIALS_UPDATE_ERROR = 'SET_CREDENTIALS_UPDATE_ERROR';
 
 // CART
 export const ADD_TO_CART = 'ADD_TO_CART';
@@ -31,7 +37,12 @@ export const CANCEL_ORDER = 'CANCEL_ORDER';
 export const CREATE_ORDER = 'CREATE_ORDER';
 export const UPDATE_ORDERS = 'UPDATE_ORDERS';
 
-export interface UserState extends User {}
+export interface UserState extends User {
+  isPersonalDataUpdates: boolean;
+  personalDataUpdateError: string;
+  areCredentialsUpdate: boolean;
+  credentialsUpdateError: string;
+}
 
 // AUTHORIZATION FLOW
 export interface SignInAction {
@@ -99,12 +110,42 @@ export interface CancelOrderAction {
 // USER COMMONS
 export interface UpdateUserPersonalDataAction {
   type: typeof UPDATE_USER_PERSONAL_DATA;
+  payload: SignUpData;
+}
+
+export interface SetUserPersonalDataAction {
+  type: typeof SET_USER_PERSONAL_DATA;
   payload: PersonalData;
 }
 
 export interface UpdateUserCredentialsAction {
   type: typeof UPDATE_USER_CREDENTIALS;
   payload: Credentials;
+}
+
+export interface SetUserCredentialsAction {
+  type: typeof SET_USER_CREDENTIALS;
+  payload: Credentials;
+}
+
+export interface SetCredentialsUpdateStateAction {
+  type: typeof SET_CREDENTIALS_UPDATE_STATE;
+  payload: boolean;
+}
+
+export interface SetCredentialsUpdateErrorAction {
+  type: typeof SET_CREDENTIALS_UPDATE_ERROR;
+  payload: string;
+}
+
+export interface SetPersonalDataUpdateStateAction {
+  type: typeof SET_PERSONAL_DATA_UPDATE_STATE;
+  payload: boolean;
+}
+
+export interface SetPersonalDataUpdateErrorAction {
+  type: typeof SET_PERSONAL_DATA_UPDATE_ERROR;
+  payload: string;
 }
 
 export interface InitUserAction {
@@ -127,4 +168,10 @@ export type UserActionTypes =
   AddToFavoritesAction |
   RemoveFromFavoritesAction |
   AddToCartAction |
-  RemoveFromCartAction;
+  RemoveFromCartAction |
+  SetCredentialsUpdateStateAction |
+  SetCredentialsUpdateErrorAction |
+  SetPersonalDataUpdateErrorAction |
+  SetPersonalDataUpdateStateAction |
+  SetUserPersonalDataAction |
+  SetUserCredentialsAction;

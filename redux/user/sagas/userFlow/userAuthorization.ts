@@ -1,9 +1,9 @@
 import { call, take } from 'redux-saga/effects';
-import { SIGN_IN, SIGN_UP, SignInAction, SignUpAction } from '../types';
+import { SIGN_IN, SIGN_UP, SignInAction, SignUpAction } from '../../types';
 import { signUp } from './signUp';
 import { signIn } from './signIn';
-import { SignUpData } from '../../../interfaces/SignUpData';
-import { SignInData } from '../../../interfaces/SignInData';
+import { SignUpData } from '../../../../interfaces/SignUpData';
+import { SignInData } from '../../../../interfaces/SignInData';
 
 export function* userAuthorization() {
   const {

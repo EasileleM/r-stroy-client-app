@@ -7,7 +7,7 @@ import { loadProducts } from './loadProducts';
 import { applyFiltersAction } from '../actions/applyFiltersAction';
 import { applySearchAction } from '../actions/applySearchAction';
 import { getSearchValueFromQuery } from '../../../utils/getSearchValueFromQuery';
-import { apiService } from '../../../services/APIService';
+import { catalogApiService } from '../../../services/catalogApiService';
 
 /**
  * Loads initial filters with loading indicator - areFiltersLoading.
@@ -17,7 +17,7 @@ import { apiService } from '../../../services/APIService';
 export function* catalogInit() {
   yield take(CATALOG_INIT);
   yield put(changeFiltersLoadingStateAction(true));
-  const filters = yield call(apiService.getFilters);
+  const filters = yield call(catalogApiService.getFilters);
   yield put(updateFiltersAction(filters));
 
   const appliedFilters = getAppliedFiltersFromQuery(filters);

@@ -5,20 +5,20 @@ import { loadProducts } from './loadProducts';
 
 /**
  * Watches for latest CATALOG_UPDATE action
- * and starts catalogUpdate tasks each
+ * and starts watchCatalogUpdates tasks each
  * APPLY_FILTERS or APPLY_SEARCH dispatch.
  */
-export function* watchCatalogUpdate() {
-  yield takeLatest([APPLY_FILTERS, APPLY_SEARCH], catalogUpdate);
+export function* watchCatalogUpdates() {
+  yield takeLatest([APPLY_FILTERS, APPLY_SEARCH], watchCatalogUpdate);
 }
 
 /**
- * catalogUpdate - updates catalog with products,
+ * watchCatalogUpdates - updates catalog with products,
  * fetched with current filters and searchQuery.
  * Also synchronize current filters and searchQuery
  * with page URL query.
  */
-function* catalogUpdate() {
+function* watchCatalogUpdate() {
   const {
     filters, appliedFilters, searchQuery
   } = yield select((state) => state.catalog);

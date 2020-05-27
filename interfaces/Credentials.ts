@@ -1,4 +1,6 @@
 export interface Credentials {
   login: string;
-  password: string;
+  newLogin?: string;
+  password?: string;
+  newPassword?: string;
 }

@@ -1,5 +1,5 @@
 import { fork, call } from 'redux-saga/effects';
-import { watchCatalogUpdate } from './catalogUpdate';
+import { watchCatalogUpdates } from './watchCatalogUpdates';
 import { catalogInit } from './catalogInit';
 import { catalogReset } from './catalogReset';
 
@@ -9,7 +9,7 @@ import { catalogReset } from './catalogReset';
 export function* catalogFlow() {
   while (true) {
     yield call(catalogInit);
-    const updateTask = yield fork(watchCatalogUpdate);
+    const updateTask = yield fork(watchCatalogUpdates);
     yield call(catalogReset, updateTask);
   }
 }

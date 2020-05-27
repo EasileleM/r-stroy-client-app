@@ -25,6 +25,7 @@ export function mergeUsersData(remoteUser: User, localUser: User) {
     localUser.favoritesProducts
   );
 
+  // TODO sort orders somehow
   newUser.orders = mergeArrayOfItemsWithId(
     remoteUser.orders,
     localUser.orders
