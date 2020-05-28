@@ -1,6 +1,7 @@
-import { put, select, takeEvery } from '@redux-saga/core/effects';
+import { call, put, select, takeEvery } from '@redux-saga/core/effects';
 import { ADD_TO_CART, AddToCartAction, REMOVE_FROM_CART, RemoveFromCartAction } from '../../types';
 import { updateCartAction } from '../../actions/updateCartAction';
+import { userApiService } from '../../../../services/userApiService';
 
 export function* watchCartUpdates() {
   yield takeEvery([ADD_TO_CART, REMOVE_FROM_CART], cartUpdatesWorker);
@@ -26,4 +27,5 @@ function* cartUpdatesWorker({
   }
   
   yield put(updateCartAction(newCartProducts));
+  yield call(userApiService.patchCart, newCartProducts);
 }

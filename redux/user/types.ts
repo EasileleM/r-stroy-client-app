@@ -1,26 +1,16 @@
 import { User } from '../../interfaces/User';
-import { SignInData } from '../../interfaces/SignInData';
-import { SignUpData } from '../../interfaces/SignUpData';
 import { Product } from '../../interfaces/Product';
 import { Order } from '../../interfaces/Order';
 import { PersonalData } from '../../interfaces/PersonalData';
-import { Credentials } from '../../interfaces/Credentials';
 
 // AUTHORIZATION FLOW
-export const SIGN_IN = 'SIGN_IN';
-export const SIGN_UP = 'SIGN_UP';
+export const AUTHORIZE_USER = 'AUTHORIZE_USER';
 export const LOGOUT = 'LOGOUT';
 
 // USER COMMONS
 export const INIT_USER = 'INIT_USER';
 export const UPDATE_USER_PERSONAL_DATA = 'UPDATE_USER_PERSONAL_DATA';
-export const UPDATE_USER_CREDENTIALS = 'UPDATE_USER_CREDENTIALS';
-export const SET_USER_PERSONAL_DATA = 'SET_USER_PERSONAL_DATA';
-export const SET_USER_CREDENTIALS = 'SET_USER_CREDENTIALS';
-export const SET_PERSONAL_DATA_UPDATE_STATE = 'SET_PERSONAL_DATA_UPDATE_STATE';
-export const SET_CREDENTIALS_UPDATE_STATE = 'SET_CREDENTIALS_UPDATE_STATE';
-export const SET_PERSONAL_DATA_UPDATE_ERROR = 'SET_PERSONAL_DATA_UPDATE_ERROR';
-export const SET_CREDENTIALS_UPDATE_ERROR = 'SET_CREDENTIALS_UPDATE_ERROR';
+export const UPDATE_USER_LOGIN = 'UPDATE_USER_LOGIN';
 
 // CART
 export const ADD_TO_CART = 'ADD_TO_CART';
@@ -37,27 +27,22 @@ export const CANCEL_ORDER = 'CANCEL_ORDER';
 export const CREATE_ORDER = 'CREATE_ORDER';
 export const UPDATE_ORDERS = 'UPDATE_ORDERS';
 
-export interface UserState extends User {
-  isPersonalDataUpdates: boolean;
-  personalDataUpdateError: string;
-  areCredentialsUpdate: boolean;
-  credentialsUpdateError: string;
-}
+export interface UserState extends User {}
 
 // AUTHORIZATION FLOW
-export interface SignInAction {
-  type: typeof SIGN_IN;
-  payload: SignInData;
+export interface InitUserAction {
+  type: typeof INIT_USER;
+  payload: User;
 }
 
-export interface SignUpAction {
-  type: typeof SIGN_UP;
-  payload: SignUpData;
+export interface AuthorizeUserAction {
+  type: typeof AUTHORIZE_USER;
 }
 
 export interface LogoutAction {
   type: typeof LOGOUT;
 }
+
 
 // CART
 export interface UpdateCartAction {
@@ -110,52 +95,16 @@ export interface CancelOrderAction {
 // USER COMMONS
 export interface UpdateUserPersonalDataAction {
   type: typeof UPDATE_USER_PERSONAL_DATA;
-  payload: SignUpData;
-}
-
-export interface SetUserPersonalDataAction {
-  type: typeof SET_USER_PERSONAL_DATA;
   payload: PersonalData;
 }
 
-export interface UpdateUserCredentialsAction {
-  type: typeof UPDATE_USER_CREDENTIALS;
-  payload: Credentials;
-}
-
-export interface SetUserCredentialsAction {
-  type: typeof SET_USER_CREDENTIALS;
-  payload: Credentials;
-}
-
-export interface SetCredentialsUpdateStateAction {
-  type: typeof SET_CREDENTIALS_UPDATE_STATE;
-  payload: boolean;
-}
-
-export interface SetCredentialsUpdateErrorAction {
-  type: typeof SET_CREDENTIALS_UPDATE_ERROR;
+export interface UpdateUserLoginAction {
+  type: typeof UPDATE_USER_LOGIN;
   payload: string;
-}
-
-export interface SetPersonalDataUpdateStateAction {
-  type: typeof SET_PERSONAL_DATA_UPDATE_STATE;
-  payload: boolean;
-}
-
-export interface SetPersonalDataUpdateErrorAction {
-  type: typeof SET_PERSONAL_DATA_UPDATE_ERROR;
-  payload: string;
-}
-
-export interface InitUserAction {
-  type: typeof INIT_USER;
-  payload: User;
 }
 
 export type UserActionTypes =
-  SignInAction |
-  SignUpAction |
+  AuthorizeUserAction |
   LogoutAction |
   InitUserAction |
   UpdateCartAction |
@@ -163,15 +112,9 @@ export type UserActionTypes =
   UpdateOrdersAction |
   CreateOrderAction |
   CancelOrderAction |
-  UpdateUserCredentialsAction |
+  UpdateUserLoginAction |
   UpdateUserPersonalDataAction |
   AddToFavoritesAction |
   RemoveFromFavoritesAction |
   AddToCartAction |
-  RemoveFromCartAction |
-  SetCredentialsUpdateStateAction |
-  SetCredentialsUpdateErrorAction |
-  SetPersonalDataUpdateErrorAction |
-  SetPersonalDataUpdateStateAction |
-  SetUserPersonalDataAction |
-  SetUserCredentialsAction;
+  RemoveFromCartAction;

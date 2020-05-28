@@ -1,6 +1,7 @@
-import { put, select, takeEvery } from '@redux-saga/core/effects';
+import { call, put, select, takeEvery } from '@redux-saga/core/effects';
 import { ADD_TO_FAVORITES, AddToFavoritesAction, REMOVE_FROM_FAVORITES, RemoveFromFavoritesAction } from '../../types';
 import { updateFavoritesAction } from '../../actions/updateFavoritesAction';
+import { userApiService } from '../../../../services/userApiService';
 
 export function* watchFavoritesUpdates() {
   yield takeEvery(
@@ -29,4 +30,5 @@ function* favoritesUpdatesWorker({
   }
 
   yield put(updateFavoritesAction(newFavoritesProducts));
+  yield call(userApiService.patchFavorites, newFavoritesProducts);
 }

@@ -7,18 +7,23 @@ export class LocalStorageService {
    * and returns it.
    */
   getUser(): User {
-    const rawUser = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
-    if (!rawUser) {
-      return this.createUser();
+    if (localStorage) {
+      const rawUser = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
+      if (!rawUser) {
+        return this.createUser();
+      }
+      return JSON.parse(rawUser);
     }
-    return JSON.parse(rawUser);
+    return null;
   }
 
   /**
    * Deletes user's record
    */
   deleteUser() {
-    localStorage.removeItem(LOCAL_STORAGE_USER_KEY);
+    if (localStorage) {
+      localStorage.removeItem(LOCAL_STORAGE_USER_KEY);
+    }
   }
 
   /**
@@ -26,7 +31,9 @@ export class LocalStorageService {
    * @param newUser
    */
   updateUser(newUser: User) {
-    localStorage.setItem(LOCAL_STORAGE_USER_KEY, JSON.stringify(newUser));
+    if (localStorage) {
+      localStorage.setItem(LOCAL_STORAGE_USER_KEY, JSON.stringify(newUser));
+    }
   }
 
   /**

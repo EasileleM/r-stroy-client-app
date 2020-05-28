@@ -1,11 +1,11 @@
 import { Credentials } from '../../../interfaces/Credentials';
-import { UPDATE_USER_CREDENTIALS, UpdateUserCredentialsAction } from '../types';
+import { UPDATE_USER_LOGIN, UpdateUserLoginAction } from '../types';
 
 export function updateUserCredentialsAction(
   credentials: Credentials
-): UpdateUserCredentialsAction {
+): UpdateUserLoginAction {
   return {
-    type: UPDATE_USER_CREDENTIALS,
+    type: UPDATE_USER_LOGIN,
     payload: credentials
   };
 }

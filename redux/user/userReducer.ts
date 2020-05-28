@@ -1,30 +1,23 @@
 import {
   INIT_USER,
-  SET_CREDENTIALS_UPDATE_ERROR,
-  SET_CREDENTIALS_UPDATE_STATE,
-  SET_PERSONAL_DATA_UPDATE_ERROR,
-  SET_PERSONAL_DATA_UPDATE_STATE,
-  SET_USER_CREDENTIALS,
-  SET_USER_PERSONAL_DATA,
   UPDATE_CART,
   UPDATE_FAVORITES,
   UPDATE_ORDERS,
+  UPDATE_USER_LOGIN,
+  UPDATE_USER_PERSONAL_DATA,
   UserActionTypes,
   UserState
 } from './types';
 import { DEFAULT_USER } from '../../contants/const';
+import { SYNC_CART, SYNC_FAVORITES, SYNC_ORDERS, SyncActionTypes } from '../productsSync/types';
 
 const initialState: UserState = {
-  ...DEFAULT_USER,
-  isPersonalDataUpdates: false,
-  personalDataUpdateError: null,
-  areCredentialsUpdate: false,
-  credentialsUpdateError: null
+  ...DEFAULT_USER
 };
 
 export function userReducer(
   state: UserState = initialState,
-  action: UserActionTypes
+  action: UserActionTypes | SyncActionTypes
 ): UserState {
   switch (action.type) {
     case INIT_USER:
@@ -47,32 +40,27 @@ export function userReducer(
         ...state,
         orders: action.payload
       };
-    case SET_PERSONAL_DATA_UPDATE_STATE:
+    case SYNC_CART:
       return {
         ...state,
-        isPersonalDataUpdates: action.payload
+        cartProducts: action.payload
       };
-    case SET_PERSONAL_DATA_UPDATE_ERROR:
+    case SYNC_FAVORITES:
       return {
         ...state,
-        personalDataUpdateError: action.payload
+        favoritesProducts: action.payload
       };
-    case SET_CREDENTIALS_UPDATE_STATE:
+    case SYNC_ORDERS:
       return {
         ...state,
-        areCredentialsUpdate: action.payload
+        orders: action.payload
       };
-    case SET_CREDENTIALS_UPDATE_ERROR:
+    case UPDATE_USER_LOGIN:
       return {
         ...state,
-        credentialsUpdateError: action.payload
+        login: action.payload
       };
-    case SET_USER_CREDENTIALS:
-      return {
-        ...state,
-        credentials: action.payload
-      };
-    case SET_USER_PERSONAL_DATA:
+    case UPDATE_USER_PERSONAL_DATA:
       return {
         ...state,
         personalData: action.payload

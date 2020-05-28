@@ -1,8 +1,8 @@
 import { UPDATE_USER_PERSONAL_DATA, UpdateUserPersonalDataAction } from '../types';
-import { SignUpData } from '../../../interfaces/SignUpData';
+import { PersonalData } from '../../../interfaces/PersonalData';
 
 export function updateUserPersonalDataAction(
-  data: SignUpData
+  data: PersonalData
 ): UpdateUserPersonalDataAction {
   return {
     type: UPDATE_USER_PERSONAL_DATA,

@@ -8,6 +8,7 @@ import {
   UPDATE_FILTERS,
   UPDATE_PRODUCTS
 } from './types';
+import { SYNC_CATALOG, SyncActionTypes } from '../productsSync/types';
 
 const initialState: CatalogState = {
   products: [],
@@ -20,10 +21,15 @@ const initialState: CatalogState = {
 
 export function catalogReducer(
   state: CatalogState = initialState,
-  action: CatalogActionTypes
+  action: CatalogActionTypes | SyncActionTypes
 ): CatalogState {
   switch (action.type) {
     case UPDATE_PRODUCTS:
+      return {
+        ...state,
+        products: action.payload
+      };
+    case SYNC_CATALOG:
       return {
         ...state,
         products: action.payload

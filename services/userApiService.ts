@@ -4,7 +4,6 @@ import { SignInData } from '../interfaces/SignInData';
 import { Product } from '../interfaces/Product';
 import { Order } from '../interfaces/Order';
 import { Credentials } from '../interfaces/Credentials';
-import { PersonalData } from '../interfaces/PersonalData';
 
 export class UserApiService {
   /**
