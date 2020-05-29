@@ -7,7 +7,9 @@ import { loadProducts } from './loadProducts';
 import { applyFiltersAction } from '../actions/applyFiltersAction';
 import { applySearchAction } from '../actions/applySearchAction';
 import { getSearchValueFromQuery } from '../../../utils/getSearchValueFromQuery';
-import { catalogApiService } from '../../../services/catalogApiService';
+import { productsApiService } from '../../../services/productsApiService';
+import { getPageFromQuery } from '../../../utils/getPageFromQuery';
+import { changePageAction } from '../actions/changePageAction';
 
 /**
  * Loads initial filters with loading indicator - areFiltersLoading.
@@ -17,16 +19,18 @@ import { catalogApiService } from '../../../services/catalogApiService';
 export function* catalogInit() {
   yield take(CATALOG_INIT);
   yield put(changeFiltersLoadingStateAction(true));
-  const filters = yield call(catalogApiService.getFilters);
+  const filters = yield call(productsApiService.getFilters);
   yield put(updateFiltersAction(filters));
 
   const appliedFilters = getAppliedFiltersFromQuery(filters);
   const searchQuery = getSearchValueFromQuery();
+  const page = getPageFromQuery();
 
   yield put(applyFiltersAction(appliedFilters));
   yield put(applySearchAction(searchQuery));
+  yield put(changePageAction(page));
 
   yield put(changeFiltersLoadingStateAction(false));
 
-  yield loadProducts(appliedFilters, searchQuery);
+  yield loadProducts(appliedFilters, searchQuery, page);
 }

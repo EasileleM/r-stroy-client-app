@@ -1,16 +1,16 @@
 import { Filters } from '../interfaces/Filters';
 import { Product } from '../interfaces/Product';
+import { Pagination } from '../interfaces/Pagination';
 
 const productsArray: Array<Product> = [
   {
-    id: '1',
+    id: '4',
     name: 'first',
     description: 'here',
-    amount: 12,
+    amount: 6,
     types: ['yes', 'da', 'norm'],
     price: 120,
     imageURL: 'fasdfasd',
-    inCart: false,
     inFavorites: false
   },
   {
@@ -21,7 +21,6 @@ const productsArray: Array<Product> = [
     types: ['yes', 'da', 'norm'],
     price: 120,
     imageURL: 'fasdfasd',
-    inCart: false,
     inFavorites: false
   },
   {
@@ -32,7 +31,6 @@ const productsArray: Array<Product> = [
     types: ['yes', 'da', 'norm'],
     price: 120,
     imageURL: 'fasdfasd',
-    inCart: false,
     inFavorites: false
   }
 ];
@@ -43,7 +41,7 @@ const filters: Filters = {
   highestPrice: 1000
 };
 
-export class CatalogApiService {
+export class ProductsApiService {
   /**
    * Fetches initial filters.
    */
@@ -60,17 +58,33 @@ export class CatalogApiService {
    *
    * @param appliedFilters
    * @param searchQuery
+   * @param currentPage
    */
   async getProducts(
-    appliedFilters: Filters, searchQuery: string
+    appliedFilters: Filters, searchQuery: string, currentPage: number
+  ): Promise<Pagination> {
+
+    return new Promise((resolve) => { // TODO make request real
+      setTimeout(() => {
+        resolve({ products: productsArray, pagesAmount: 10 });
+      }, 1000);
+    });
+  }
+
+  /**
+   *
+   * @param idArray
+   */
+  async getProductsById(
+    idArray: Array<string>
   ): Promise<Array<Product>> {
 
     return new Promise((resolve) => { // TODO make request real
       setTimeout(() => {
-        resolve(productsArray);
+        resolve(productsArray.filter(({ id }) => idArray.includes(id)));
       }, 1000);
     });
   }
 }
 
-export const catalogApiService = new CatalogApiService();
+export const productsApiService = new ProductsApiService();

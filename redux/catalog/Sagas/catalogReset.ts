@@ -21,7 +21,7 @@ export function* catalogReset(updateTask = null) {
   yield put(applyFiltersAction(null));
   yield put(updateFiltersAction(null));
   yield put(applySearchAction(''));
-  yield put(updateProductsAction([]));
+  yield put(updateProductsAction({ products: [], pagesAmount: 0 }));
   yield put(changeFiltersLoadingStateAction(true));
   yield put(changeProductsLoadingStateAction(true));
 }

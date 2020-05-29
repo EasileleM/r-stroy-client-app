@@ -27,13 +27,16 @@ export function Catalog(
     catalogReset,
     areFiltersLoading,
     areProductsLoading,
+    currentPage,
+    pagesAmount
   }: Props
 ) {
   useEffect(() => {
     catalogInit();
     return () => catalogReset();
   }, []);
-  
+
+
   return (
     <div className={cn(styles.container, className)}>
       {
@@ -46,7 +49,12 @@ export function Catalog(
               areProductsLoading ?
                 <p>Loading</p>
                 :
-                <ProductContainer products={products} />
+                <ProductContainer
+                  pagination
+                  products={products}
+                  currentPage={currentPage}
+                  pagesAmount={pagesAmount}
+                />
             }
           </>
       }
@@ -57,6 +65,8 @@ export function Catalog(
 
 const mapStateToProps = (state: RootState) => ({
   products: state.catalog.products,
+  currentPage: state.catalog.currentPage,
+  pagesAmount: state.catalog.pagesAmount,
   areFiltersLoading: state.catalog.areFiltersLoading,
   areProductsLoading: state.catalog.areProductsLoading
 });

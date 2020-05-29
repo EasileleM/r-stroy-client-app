@@ -18,7 +18,6 @@ export const LOCAL_STORAGE_USER_KEY = 'user';
 // USER
 export const DEFAULT_USER: User = {
   isGuest: true,
-  orders: [],
   cartProducts: [],
   favoritesProducts: []
 };

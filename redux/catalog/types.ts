@@ -1,5 +1,6 @@
 import { Product } from '../../interfaces/Product';
 import { Filters } from '../../interfaces/Filters';
+import { Pagination } from '../../interfaces/Pagination';
 
 export const CATALOG_INIT = 'CATALOG_INIT';
 export const CATALOG_RESET = 'CATALOG_RESET';
@@ -7,6 +8,7 @@ export const CATALOG_RESET = 'CATALOG_RESET';
 export const UPDATE_FILTERS = 'LOAD_FILTERS';
 export const APPLY_SEARCH = 'APPLY_SEARCH';
 export const APPLY_FILTERS = 'APPLY_FILTERS';
+export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const UPDATE_PRODUCTS = 'LOAD_PRODUCTS';
 
 export const CHANGE_FILTERS_LOADING_STATE = 'CHANGE_FILTERS_LOADING_STATE';
@@ -19,6 +21,8 @@ export interface CatalogState {
   searchQuery: string;
   areFiltersLoading: boolean;
   areProductsLoading: boolean;
+  currentPage: number;
+  pagesAmount: number;
 }
 
 export interface CatalogInitAction {
@@ -46,7 +50,7 @@ export interface UpdateFiltersAction {
 
 export interface UpdateProductsAction {
   type: typeof UPDATE_PRODUCTS;
-  payload: Array<Product>;
+  payload: Pagination;
 }
 
 export interface ApplySearchAction {
@@ -59,6 +63,11 @@ export interface ApplyFiltersAction {
   payload: Filters;
 }
 
+export interface ChangePageAction {
+  type: typeof CHANGE_PAGE;
+  payload: number;
+}
+
 export type CatalogActionTypes =
   UpdateFiltersAction |
   UpdateProductsAction |
@@ -67,4 +76,5 @@ export type CatalogActionTypes =
   ChangeFiltersLoadingStateAction |
   ChangeProductsLoadingStateAction |
   CatalogInitAction |
-  CatalogResetAction;
+  CatalogResetAction |
+  ChangePageAction;

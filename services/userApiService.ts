@@ -5,6 +5,7 @@ import { Product } from '../interfaces/Product';
 import { Order } from '../interfaces/Order';
 import { Credentials } from '../interfaces/Credentials';
 
+// TODO write serializers and deserializers
 export class UserApiService {
   /**
    * Fetches authorized user by GET request. Returns User data if user
@@ -17,10 +18,6 @@ export class UserApiService {
         resolve(null);
       }, 1000);
     });
-  }
-
-  async patchUser(newUser: User): Promise<void> {
-    return Promise.resolve();
   }
 
   async patchPersonalData(
@@ -41,15 +38,15 @@ export class UserApiService {
     return Promise.resolve();
   }
 
-  async putOrder(newOrder: Order): Promise<void> {
+  async createOrder(newOrder: Order): Promise<void> {
+    return Promise.resolve();
+  }
+
+  async cancelOrder(newOrder: Order): Promise<void> {
     return Promise.resolve();
   }
 
   async getOrders(): Promise<void> {
-    return Promise.resolve();
-  }
-
-  async deleteOrder(newOrder: Order): Promise<void> {
     return Promise.resolve();
   }
 

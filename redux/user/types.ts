@@ -2,6 +2,7 @@ import { User } from '../../interfaces/User';
 import { Product } from '../../interfaces/Product';
 import { Order } from '../../interfaces/Order';
 import { PersonalData } from '../../interfaces/PersonalData';
+import { CartProduct } from '../../interfaces/CartProduct';
 
 // AUTHORIZATION FLOW
 export const AUTHORIZE_USER = 'AUTHORIZE_USER';
@@ -15,6 +16,7 @@ export const UPDATE_USER_LOGIN = 'UPDATE_USER_LOGIN';
 // CART
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const CHANGE_CART_PRODUCT_AMOUNT = 'CHANGE_CART_PRODUCT_AMOUNT';
 export const UPDATE_CART = 'UPDATE_CART';
 
 // FAVORITES
@@ -23,8 +25,6 @@ export const REMOVE_FROM_FAVORITES = 'REMOVE_FROM_FAVORITES';
 export const UPDATE_FAVORITES = 'UPDATE_FAVORITES';
 
 // ORDERS
-export const CANCEL_ORDER = 'CANCEL_ORDER';
-export const CREATE_ORDER = 'CREATE_ORDER';
 export const UPDATE_ORDERS = 'UPDATE_ORDERS';
 
 export interface UserState extends User {}
@@ -43,16 +43,20 @@ export interface LogoutAction {
   type: typeof LOGOUT;
 }
 
-
 // CART
 export interface UpdateCartAction {
   type: typeof UPDATE_CART;
-  payload: Array<Product>;
+  payload: Array<CartProduct>;
 }
 
 export interface AddToCartAction {
   type: typeof ADD_TO_CART;
   payload: Product;
+}
+
+export interface ChangeCartProductAmountAction {
+  type: typeof CHANGE_CART_PRODUCT_AMOUNT;
+  payload: CartProduct;
 }
 
 export interface RemoveFromCartAction {
@@ -82,16 +86,6 @@ export interface UpdateOrdersAction {
   payload: Array<Order>;
 }
 
-export interface CreateOrderAction {
-  type: typeof CREATE_ORDER;
-  payload: Order;
-}
-
-export interface CancelOrderAction {
-  type: typeof CANCEL_ORDER;
-  payload: Order;
-}
-
 // USER COMMONS
 export interface UpdateUserPersonalDataAction {
   type: typeof UPDATE_USER_PERSONAL_DATA;
@@ -110,11 +104,10 @@ export type UserActionTypes =
   UpdateCartAction |
   UpdateFavoritesAction |
   UpdateOrdersAction |
-  CreateOrderAction |
-  CancelOrderAction |
   UpdateUserLoginAction |
   UpdateUserPersonalDataAction |
   AddToFavoritesAction |
   RemoveFromFavoritesAction |
   AddToCartAction |
-  RemoveFromCartAction;
+  RemoveFromCartAction |
+  ChangeCartProductAmountAction;

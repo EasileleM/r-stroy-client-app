@@ -1,5 +1,5 @@
 import { select, takeLatest } from 'redux-saga/effects';
-import { APPLY_FILTERS, APPLY_SEARCH } from '../types';
+import { APPLY_FILTERS, APPLY_SEARCH, CHANGE_PAGE } from '../types';
 import { syncPageURLWithCatalog } from '../../../utils/syncPageURLWithCatalog';
 import { loadProducts } from './loadProducts';
 
@@ -9,7 +9,11 @@ import { loadProducts } from './loadProducts';
  * APPLY_FILTERS or APPLY_SEARCH dispatch.
  */
 export function* watchCatalogUpdates() {
-  yield takeLatest([APPLY_FILTERS, APPLY_SEARCH], watchCatalogUpdate);
+  yield takeLatest([
+    APPLY_FILTERS,
+    APPLY_SEARCH,
+    CHANGE_PAGE
+  ], watchCatalogUpdate);
 }
 
 /**
@@ -20,9 +24,8 @@ export function* watchCatalogUpdates() {
  */
 function* watchCatalogUpdate() {
   const {
-    filters, appliedFilters, searchQuery
+    filters, appliedFilters, searchQuery, currentPage
   } = yield select((state) => state.catalog);
-  syncPageURLWithCatalog(appliedFilters, searchQuery, filters);
-
-  yield loadProducts(appliedFilters, searchQuery);
+  syncPageURLWithCatalog(appliedFilters, searchQuery, currentPage, filters);
+  yield loadProducts(appliedFilters, searchQuery, currentPage);
 }

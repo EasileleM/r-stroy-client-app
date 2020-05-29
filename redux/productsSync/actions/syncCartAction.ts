@@ -1,7 +1,7 @@
 import { SYNC_CART, SyncCartAction } from '../types';
-import { Product } from '../../../interfaces/Product';
+import { CartProduct } from '../../../interfaces/CartProduct';
 
-export function syncCartAction(newCart: Array<Product>): SyncCartAction {
+export function syncCartAction(newCart: Array<CartProduct>): SyncCartAction {
   return {
     type: SYNC_CART,
     payload: newCart

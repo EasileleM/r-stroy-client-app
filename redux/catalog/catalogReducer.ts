@@ -4,6 +4,7 @@ import {
   CatalogActionTypes,
   CatalogState,
   CHANGE_FILTERS_LOADING_STATE,
+  CHANGE_PAGE,
   CHANGE_PRODUCTS_LOADING_STATE,
   UPDATE_FILTERS,
   UPDATE_PRODUCTS
@@ -16,7 +17,9 @@ const initialState: CatalogState = {
   appliedFilters: null,
   searchQuery: '',
   areFiltersLoading: true,
-  areProductsLoading: true
+  areProductsLoading: true,
+  currentPage: 0,
+  pagesAmount: 0
 };
 
 export function catalogReducer(
@@ -27,7 +30,7 @@ export function catalogReducer(
     case UPDATE_PRODUCTS:
       return {
         ...state,
-        products: action.payload
+        ...action.payload
       };
     case SYNC_CATALOG:
       return {
@@ -48,6 +51,11 @@ export function catalogReducer(
       return {
         ...state,
         areProductsLoading: action.payload
+      };
+    case CHANGE_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload
       };
     case APPLY_SEARCH:
       return {

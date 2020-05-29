@@ -7,6 +7,7 @@ import styles from './Filters.module.scss';
 import { AppDispatch, RootState } from '../../redux/types';
 import { applyFiltersAction } from '../../redux/catalog/actions/applyFiltersAction';
 import { applySearchAction } from '../../redux/catalog/actions/applySearchAction';
+import { changePageAction } from '../../redux/catalog/actions/changePageAction';
 
 export interface FiltersProps {
   className?: string;
@@ -21,7 +22,8 @@ export function Filters({
   filters,
   applyFilters,
   appliedFilters,
-  applySearch
+  applySearch,
+  changePage
 }: Props) {
   const [nonAppliedFilters, setNonAppliedFilters] = useState({
     types: [],
@@ -60,6 +62,7 @@ export function Filters({
     const emptySearch = '';
     applyFilters(initialFilters);
     applySearch(emptySearch);
+    changePage(1);
   };
 
   return (
@@ -113,6 +116,9 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   },
   applySearch: (searchQuery) => {
     dispatch(applySearchAction(searchQuery));
+  },
+  changePage: (page) => {
+    dispatch(changePageAction(page));
   }
 });
 

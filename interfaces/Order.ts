@@ -1,9 +1,9 @@
-import { Product } from './Product';
 import { OrderStatus } from '../enums/OrderStatus';
+import { CartProduct } from './CartProduct';
 
 export interface Order {
   id: string;
-  products: Array<Product>;
+  products: Array<CartProduct>;
   status: OrderStatus;
   startDate: Date;
   completedDate: Date;

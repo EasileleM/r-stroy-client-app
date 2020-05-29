@@ -1,5 +1,6 @@
 import { Product } from '../../interfaces/Product';
 import { Order } from '../../interfaces/Order';
+import { CartProduct } from '../../interfaces/CartProduct';
 
 export const SYNC_CART = 'SYNC_CART';
 export const SYNC_FAVORITES = 'SYNC_FAVORITES';
@@ -8,7 +9,7 @@ export const SYNC_ORDERS = 'SYNC_ORDERS';
 
 export interface SyncCartAction {
   type: typeof SYNC_CART;
-  payload: Array<Product>;
+  payload: Array<CartProduct>;
 }
 
 export interface SyncFavoritesAction {
