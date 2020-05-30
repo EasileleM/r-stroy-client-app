@@ -10,7 +10,7 @@ export function* loadCurrentUser() {
   const remoteUser: User = yield call(userApiService.getUser);
   const isGuest = !remoteUser;
 
-  const localUser = yield call(getFreshLocalUser);
+  const localUser: User = yield call(getFreshLocalUser);
 
   let user;
   if (!isGuest) {

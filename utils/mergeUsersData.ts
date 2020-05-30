@@ -2,14 +2,13 @@ import { User } from '../interfaces/User';
 import { CartProduct } from '../interfaces/CartProduct';
 import { Order } from '../interfaces/Order';
 import { Product } from '../interfaces/Product';
-import { sortOrders } from './sortOrders';
 
-function mergeArrayOfItemsWithId<T extends Product | Order>(
-  firstArray: Array<T>,
-  secondArray: Array<T>
+function mergeFavorites<T extends Product | Order>(
+  remoteFavorites: Array<T>,
+  localFavorites: Array<T>
 ): Array<T> {
-  const newArray = [...firstArray];
-  for (const item of secondArray) {
+  const newArray = [...remoteFavorites];
+  for (const item of localFavorites) {
     const isAlreadyAdded =
       Boolean(newArray.find(({ id }) => id === item.id));
 
@@ -21,17 +20,18 @@ function mergeArrayOfItemsWithId<T extends Product | Order>(
 }
 
 function mergeCarts(
-  firstArray: Array<CartProduct>,
-  secondArray: Array<CartProduct>
+  remoteCart: Array<CartProduct>,
+  localCart: Array<CartProduct>
 ): Array<CartProduct> {
-  const newArray = [...firstArray];
-  for (const item of secondArray) {
+  const newArray = [...remoteCart];
+  for (const item of localCart) {
     const existedItem = newArray.find(({ id }) => id === item.id);
 
     if (!existedItem) {
       newArray.push(item);
     } else {
-      existedItem.amountInCart += item.amountInCart;
+      const newAmount = existedItem.amountInCart + item.amountInCart;
+      existedItem.amountInCart = Math.min(newAmount, existedItem.amount);
     }
   }
   return newArray;
@@ -45,15 +45,10 @@ export function mergeUsersData(remoteUser: User, localUser: User) {
     localUser.cartProducts
   );
 
-  newUser.favoritesProducts = mergeArrayOfItemsWithId(
+  newUser.favoritesProducts = mergeFavorites(
     remoteUser.favoritesProducts,
     localUser.favoritesProducts
   );
-
-  newUser.orders = sortOrders(mergeArrayOfItemsWithId(
-    remoteUser.orders,
-    localUser.orders
-  ));
 
   return newUser;
 }

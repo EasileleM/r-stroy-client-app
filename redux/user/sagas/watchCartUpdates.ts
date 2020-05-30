@@ -10,6 +10,8 @@ import {
 import { updateCartAction } from '../actions/updateCartAction';
 import { userApiService } from '../../../services/userApiService';
 import { localStorageService } from '../../../services/localStorageService';
+import { CartProduct } from '../../../interfaces/CartProduct';
+import { CART_MAX_PRODUCT_AMOUNT_MSG, CART_PRODUCT_ADDED_MSG } from '../../../contants/const';
 
 export function* watchCartUpdates() {
   yield takeEvery([
@@ -32,26 +34,32 @@ function* cartUpdatesWorker({
 
   const newCartProducts = cartProducts.slice();
 
-  const productIndex = newCartProducts
+  const existingProduct = newCartProducts
     .findIndex((item) => item.id === product.id);
+
   const newProduct = { ...product };
 
   if (type === ADD_TO_CART) {
-    if (productIndex === -1) {
+
+    if (existingProduct === -1) {
       newCartProducts.push({ ...newProduct, amountInCart: 1 });
     } else {
-      const newAmount = newCartProducts[productIndex].amountInCart + 1;
-      if (newAmount > newCartProducts[productIndex].amount) {
-        toast.error('В вашей корзине содержится максимальное количество данного товара!');
+      const newAmount = newCartProducts[existingProduct].amountInCart + 1;
+
+      if (newAmount > newCartProducts[existingProduct].amount) {
+        toast.error(CART_MAX_PRODUCT_AMOUNT_MSG);
         return;
       }
-      newCartProducts[productIndex].amountInCart = newAmount;
+
+      newCartProducts[existingProduct].amountInCart = newAmount;
     }
-    toast.info('Добавлено в корзину!');
+
+    toast.info(CART_PRODUCT_ADDED_MSG);
   } else if (type === CHANGE_CART_PRODUCT_AMOUNT) {
-    newCartProducts[productIndex].amountInCart = newProduct.amount;
-  } else if (productIndex !== -1) {
-    newCartProducts.splice(productIndex, 1);
+    newCartProducts[existingProduct].amountInCart = Math
+      .min((newProduct as CartProduct).amountInCart, newProduct.amount);
+  } else if (existingProduct !== -1) {
+    newCartProducts.splice(existingProduct, 1);
   }
   
   yield put(updateCartAction(newCartProducts));

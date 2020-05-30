@@ -22,15 +22,14 @@ function* favoritesUpdatesWorker({
 
   const newFavoritesProducts = favoritesProducts.slice();
 
-  const productIndex = newFavoritesProducts
+  const existingProductIndex = newFavoritesProducts
     .findIndex((item) => item.id === product.id);
   const newProduct = { ...product };
 
-  if (type === ADD_TO_FAVORITES && productIndex === -1) {
-    newProduct.inFavorites = true;
+  if (type === ADD_TO_FAVORITES && existingProductIndex === -1) {
     newFavoritesProducts.push(newProduct);
-  } else if (productIndex !== -1) {
-    newFavoritesProducts.splice(productIndex, 1);
+  } else if (existingProductIndex !== -1) {
+    newFavoritesProducts.splice(existingProductIndex, 1);
   }
 
   yield put(updateFavoritesAction(newFavoritesProducts));

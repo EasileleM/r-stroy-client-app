@@ -21,3 +21,8 @@ export const DEFAULT_USER: User = {
   cartProducts: [],
   favoritesProducts: []
 };
+
+// MESSAGES TO USER
+export const NUMBER_COPIED_MSG = 'Номер скопирован в буфер обмена';
+export const CART_MAX_PRODUCT_AMOUNT_MSG = 'В вашей корзине содержится максимальное количество данного товара!';
+export const CART_PRODUCT_ADDED_MSG = 'Добавлено в корзину!';
