@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export interface SignInFormProps {
   changeModal: (type: ModalType) => void;
 }

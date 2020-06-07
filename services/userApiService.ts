@@ -4,6 +4,7 @@ import { SignInData } from '../interfaces/SignInData';
 import { Product } from '../interfaces/Product';
 import { Order } from '../interfaces/Order';
 import { PatchUserData } from '../interfaces/PatchUserData';
+import { CreateOrderData } from '../interfaces/CreateOrderData';
 
 const mockUser: User = {
   isGuest: false,
@@ -45,7 +46,7 @@ export class UserApiService {
     return Promise.resolve();
   }
 
-  async createOrder(newOrder: Order): Promise<void> {
+  async createOrder(newOrder: CreateOrderData): Promise<void> {
     return Promise.resolve();
   }
 

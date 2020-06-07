@@ -1,10 +1,10 @@
-import { call, put, select, takeEvery } from '@redux-saga/core/effects';
+import { all, call, put, select, takeEvery } from '@redux-saga/core/effects';
 import { toast } from 'react-toastify';
 import {
   ADD_TO_CART,
   AddToCartAction,
   CHANGE_CART_PRODUCT_AMOUNT,
-  ChangeCartProductAmountAction,
+  ChangeCartProductAmountAction, CLEAN_CART,
   REMOVE_FROM_CART,
   RemoveFromCartAction
 } from '../types';
@@ -14,17 +14,39 @@ import { localStorageService } from '../../../services/localStorageService';
 import { CART_MAX_PRODUCT_AMOUNT_MSG, CART_PRODUCT_ADDED_MSG } from '../../../contants/const';
 
 export function* watchCartUpdates() {
-  yield takeEvery([
-    ADD_TO_CART,
-    REMOVE_FROM_CART,
-    CHANGE_CART_PRODUCT_AMOUNT
-  ], cartUpdatesWorker);
+  yield all([
+    takeEvery([
+      ADD_TO_CART,
+      REMOVE_FROM_CART,
+      CHANGE_CART_PRODUCT_AMOUNT
+    ], cartUpdatesWorker),
+    takeEvery([
+      CLEAN_CART
+    ], cartCleanWorker),
+  ]);
+}
+
+function* cartCleanWorker() {
+  const {
+    user: {
+      isGuest
+    }
+  } = yield select();
+  
+  yield put(updateCartAction([]));
+  if (isGuest) {
+    localStorageService.updateCart([]);
+  } else {
+    yield call(userApiService.patchCart, []);
+  }
 }
 
 function* cartUpdatesWorker({
   type,
   payload: product
-}: AddToCartAction | RemoveFromCartAction | ChangeCartProductAmountAction) {
+}: AddToCartAction |
+RemoveFromCartAction |
+ChangeCartProductAmountAction) {
   const {
     user: {
       cartProducts,

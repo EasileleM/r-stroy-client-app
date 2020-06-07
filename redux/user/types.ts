@@ -17,6 +17,7 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const CHANGE_CART_PRODUCT_AMOUNT = 'CHANGE_CART_PRODUCT_AMOUNT';
 export const UPDATE_CART = 'UPDATE_CART';
+export const CLEAN_CART = 'CLEAN_CART';
 
 // FAVORITES
 export const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES';
@@ -63,6 +64,10 @@ export interface RemoveFromCartAction {
   payload: CartProduct;
 }
 
+export interface CleanCartAction {
+  type: typeof CLEAN_CART;
+}
+
 // FAVORITES
 export interface UpdateFavoritesAction {
   type: typeof UPDATE_FAVORITES;
@@ -103,4 +108,5 @@ export type UserActionTypes =
   RemoveFromFavoritesAction |
   AddToCartAction |
   RemoveFromCartAction |
-  ChangeCartProductAmountAction;
+  ChangeCartProductAmountAction |
+  CleanCartAction;

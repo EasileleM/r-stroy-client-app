@@ -42,9 +42,9 @@ export function CartModal({ isOpened, handleClose, products, isGuest }: Props) {
   }, [products]);
 
   const handleNewOrder = async () => {
-    if (isGuest) {
-      handleClose();
-    } else {
+    handleClose();
+
+    if (!isGuest) {
       await router.push(CREATE_ORDER_URL);
     }
   };

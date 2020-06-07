@@ -1,6 +1,11 @@
 import React from 'react';
 import { Layout } from '../components/Layout/Layout';
+import CreateOrder from '../components/CreateOrder/CreateOrder';
 
 export default function CreateOrderPage() {
-  return <Layout>Work in progress</Layout>;
+  return (
+    <Layout>
+      <CreateOrder />
+    </Layout>
+  );
 }
