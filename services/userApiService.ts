@@ -3,7 +3,20 @@ import { SignUpData } from '../interfaces/SignUpData';
 import { SignInData } from '../interfaces/SignInData';
 import { Product } from '../interfaces/Product';
 import { Order } from '../interfaces/Order';
-import { Credentials } from '../interfaces/Credentials';
+import { PatchUserData } from '../interfaces/PatchUserData';
+
+const mockUser: User = {
+  isGuest: false,
+  personalData: {
+    firstName: 'Савва',
+    lastName: 'Джумалиев',
+    email: 'pro100prosavva@gmail.com',
+    phoneNumber: '89616483800'
+  },
+  orders: [],
+  cartProducts: [],
+  favoritesProducts: []
+};
 
 // TODO write serializers and deserializers
 export class UserApiService {
@@ -15,21 +28,15 @@ export class UserApiService {
     // TODO set isGuest: false
     return new Promise((resolve) => { // TODO make request real
       setTimeout(() => {
-        resolve(null);
+        resolve(mockUser);
       }, 1000);
     });
   }
 
-  async patchPersonalData(
-    newPersonalData: SignUpData
-  ): Promise<void> {
+  async patchUserPersonalData(data: PatchUserData): Promise<void> {
     return Promise.resolve();
   }
 
-  async patchCredentials(newCredentials: Credentials): Promise<void> {
-    return Promise.resolve();
-  }
-  
   async patchCart(newCart: Array<Product>): Promise<void> {
     return Promise.resolve();
   }
@@ -52,12 +59,21 @@ export class UserApiService {
 
   // POST
   async signIn(data: SignInData): Promise<void> {
-    return Promise.resolve();
+    return new Promise((resolve, reject) => { // TODO make request real
+      setTimeout(() => {
+        reject({ data: { errors: { password: 'Меняй мыло' } } });
+      }, 1000);
+    });
   }
 
   // POST
   async signUp(data: SignUpData): Promise<void> {
-    return Promise.resolve();
+    return new Promise((resolve, reject) => { // TODO make request real
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
+
   }
 
   // POST

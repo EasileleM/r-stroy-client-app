@@ -6,7 +6,6 @@ import { CartProduct } from './CartProduct';
 export interface User {
   isGuest: boolean;
   personalData?: PersonalData;
-  login?: string;
   orders?: Array<Order>;
   cartProducts: Array<CartProduct>;
   favoritesProducts: Array<Product>;

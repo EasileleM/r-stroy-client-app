@@ -3,7 +3,6 @@ import {
   UPDATE_CART,
   UPDATE_FAVORITES,
   UPDATE_ORDERS,
-  UPDATE_USER_LOGIN,
   UPDATE_USER_PERSONAL_DATA,
   UserActionTypes,
   UserState
@@ -54,11 +53,6 @@ export function userReducer(
       return {
         ...state,
         orders: action.payload
-      };
-    case UPDATE_USER_LOGIN:
-      return {
-        ...state,
-        login: action.payload
       };
     case UPDATE_USER_PERSONAL_DATA:
       return {

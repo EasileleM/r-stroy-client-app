@@ -2,6 +2,8 @@ import React from 'react';
 import cn from 'classnames';
 import { connect, ConnectedProps } from 'react-redux';
 
+import { Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
+import Link from 'next/link';
 import styles from './ProductCard.module.scss';
 
 import { Product } from '../../interfaces/Product';
@@ -9,6 +11,8 @@ import { AppDispatch } from '../../redux/types';
 import { addToCartAction } from '../../redux/user/actions/addToCartAction';
 import { addToFavoritesAction } from '../../redux/user/actions/addToFavoritesAction';
 import { removeFromFavoritesAction } from '../../redux/user/actions/removeFromFavoritesAction';
+import { AddToFavoritesButton } from '../AddToFavoritesButton/AddToFavoritesButton';
+import { AddToCartButton } from '../AddToCartButton/AddToCartButton';
 
 export interface ProductCardProps {
   styleContainer?: string;
@@ -35,16 +39,45 @@ export function ProductCard({
   };
 
   return (
-    <div className={cn(styles.container, styleContainer)}>
-      name: {product.name} <br />
-      description: {product.description} <br />
-      types: {product.types.join(' ')} <br />
-      amount: {product.amount} <br />
-      price: {product.price} <br />
-      inFavorites: {String(product.inFavorites)} <br />
-      <button type='button' onClick={toggleFavorites}>в избранное</button>
-      <button type='button' onClick={() => addToCart(product)}>в корзину</button>
-    </div>
+    <Card className={cn(styles.container, styleContainer)}>
+      <Link href='item/[id]' as={`item/${product.id}`}>
+        <a className={cn(styles.link)}>
+          <CardActionArea>
+            <CardMedia
+              className={styles.image}
+              image={product.imageURL}
+              title="Contemplative Reptile"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {product.name}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {product.amount}шт. на складе
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </a>
+      </Link>
+
+      <CardActions classes={{ root: styles.actions }}>
+        <div className={styles.priceAndFavoritesWrapper}>
+          <p className={styles.price__text}>
+            <span className={styles.price}>{product.price}</span>
+            руб./шт.
+          </p>
+          <AddToFavoritesButton
+            handleClick={toggleFavorites}
+            active={product.inFavorites}
+          />
+        </div>
+        <AddToCartButton
+          handleClick={
+            () => addToCart({ ...product, amountInCart: 1 })
+          }
+        />
+      </CardActions>
+    </Card>
   );
 }
 

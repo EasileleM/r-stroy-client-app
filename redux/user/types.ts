@@ -11,7 +11,6 @@ export const LOGOUT = 'LOGOUT';
 // USER COMMONS
 export const INIT_USER = 'INIT_USER';
 export const UPDATE_USER_PERSONAL_DATA = 'UPDATE_USER_PERSONAL_DATA';
-export const UPDATE_USER_LOGIN = 'UPDATE_USER_LOGIN';
 
 // CART
 export const ADD_TO_CART = 'ADD_TO_CART';
@@ -51,7 +50,7 @@ export interface UpdateCartAction {
 
 export interface AddToCartAction {
   type: typeof ADD_TO_CART;
-  payload: Product;
+  payload: CartProduct;
 }
 
 export interface ChangeCartProductAmountAction {
@@ -61,7 +60,7 @@ export interface ChangeCartProductAmountAction {
 
 export interface RemoveFromCartAction {
   type: typeof REMOVE_FROM_CART;
-  payload: Product;
+  payload: CartProduct;
 }
 
 // FAVORITES
@@ -92,11 +91,6 @@ export interface UpdateUserPersonalDataAction {
   payload: PersonalData;
 }
 
-export interface UpdateUserLoginAction {
-  type: typeof UPDATE_USER_LOGIN;
-  payload: string;
-}
-
 export type UserActionTypes =
   AuthorizeUserAction |
   LogoutAction |
@@ -104,7 +98,6 @@ export type UserActionTypes =
   UpdateCartAction |
   UpdateFavoritesAction |
   UpdateOrdersAction |
-  UpdateUserLoginAction |
   UpdateUserPersonalDataAction |
   AddToFavoritesAction |
   RemoveFromFavoritesAction |

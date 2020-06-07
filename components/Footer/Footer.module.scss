@@ -4,8 +4,10 @@
 @import '../../styles/fonts';
 
 .footer {
+  position: relative;
   width: 100%;
   background-color: $main-color-light;
+  box-shadow: 1px -4px 10px -12px rgba(0,0,0,0.75);
 }
 
 .content {
@@ -22,7 +24,7 @@
 .copyright {
   margin: 0;
   font: 400 $xs-font-size $main-font;
-  color: $main-color-semi-dark;
+  color: $main-color-semi-light;
 }
 
 .logo {

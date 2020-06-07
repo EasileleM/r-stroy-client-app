@@ -2,6 +2,7 @@ import { select, takeLatest } from 'redux-saga/effects';
 import { APPLY_FILTERS, APPLY_SEARCH, CHANGE_PAGE } from '../types';
 import { syncPageURLWithCatalog } from '../../../utils/syncPageURLWithCatalog';
 import { loadProducts } from './loadProducts';
+import { scrollToTop } from '../../../utils/scrollToTop';
 
 /**
  * Watches for latest CATALOG_UPDATE action
@@ -26,6 +27,7 @@ function* watchCatalogUpdate() {
   const {
     filters, appliedFilters, searchQuery, currentPage
   } = yield select((state) => state.catalog);
+  scrollToTop();
   syncPageURLWithCatalog(appliedFilters, searchQuery, currentPage, filters);
   yield loadProducts(appliedFilters, searchQuery, currentPage);
 }

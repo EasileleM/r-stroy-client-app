@@ -1,14 +1,28 @@
+@import '../../styles/constants';
+@import '../../styles/colorsPallete';
+
 .container {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-
-  min-height: 100vh;
 }
 
 .main {
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
 
   width: 100%;
+  background-color: $main-content-background-color;
+
+  &__content {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: $max-content-width;
+    width: 100%;
+    padding: 0 $max-content-padding;
+    box-sizing: border-box;
+  }
 }

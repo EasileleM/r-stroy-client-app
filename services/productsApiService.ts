@@ -10,17 +10,17 @@ const productsArray: Array<Product> = [
     amount: 6,
     types: ['yes', 'da', 'norm'],
     price: 120,
-    imageURL: 'fasdfasd',
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
     inFavorites: false
   },
   {
     id: '2',
-    name: 'first',
+    name: 'second',
     description: 'here',
     amount: 12,
     types: ['yes', 'da', 'norm'],
     price: 120,
-    imageURL: 'fasdfasd',
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
     inFavorites: false
   },
   {
@@ -30,13 +30,173 @@ const productsArray: Array<Product> = [
     amount: 12,
     types: ['yes', 'da', 'norm'],
     price: 120,
-    imageURL: 'fasdfasd',
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '1',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '5',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '6',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '7',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '8',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '9',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '10',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '11',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '12',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '13',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '14',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '15',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '16',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '17',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '18',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+    inFavorites: false
+  },
+  {
+    id: '19',
+    name: 'first',
+    description: 'here',
+    amount: 12,
+    types: ['yes', 'da', 'norm'],
+    price: 120,
+    imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
     inFavorites: false
   }
 ];
 
 const filters: Filters = {
-  types: ['te', 'da', 'yes'],
+  types: ['te', 'da', 'yes', 'asd', 'dcca', 'yezxs', 'vcxzte', 'dasda', 'ye123s', 'dsfate', 'dffffa', 'yczxcves'],
   lowestPrice: 0,
   highestPrice: 1000
 };

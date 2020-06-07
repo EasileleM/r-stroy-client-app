@@ -1,65 +1,60 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import cn from 'classnames';
 
-import { connect, ConnectedProps } from 'react-redux';
+import Pagination from '@material-ui/lab/Pagination';
+import { CircularProgress } from '@material-ui/core';
 import styles from './ProductContainer.module.scss';
-import { Product } from '../../interfaces/Product';
 import ProductCard from '../ProductCard/ProductCard';
-import { AppDispatch } from '../../redux/types';
-import { changePageAction } from '../../redux/catalog/actions/changePageAction';
+import { Product } from '../../interfaces/Product';
 
 export interface ProductContainerProps {
   styleContainer?: string;
-  pagination?: boolean;
   products: Array<Product>;
-  currentPage?: number;
+  areProductsLoading?: boolean;
+  noProductsMessage?: string;
+  pagination?: boolean;
   pagesAmount?: number;
+  currentPage?: number;
+  changePage?: (e, page: number) => void;
 }
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = ProductContainerProps & PropsFromRedux;
 
 export function ProductContainer({
   styleContainer,
   products,
-  currentPage,
   pagesAmount,
+  changePage,
   pagination,
-  changePage
-}: Props) {
-  const [tempPage, setTempPage] = useState(currentPage);
-
-  useEffect(() => {
-    setTempPage(currentPage);
-  }, [currentPage]);
-
+  currentPage,
+  areProductsLoading,
+  noProductsMessage
+}: ProductContainerProps) {
   return (
     <div className={cn(styles.container, styleContainer)}>
+      <div className={styles.productsList}>
+        {
+          areProductsLoading &&
+            <div className={styles.productsLoadingIndicator}>
+              <CircularProgress />
+            </div>
+        }
+        {
+          (products.length > 0) ?
+            products.map(
+              product => <ProductCard key={product.id} product={product} />
+            )
+            :
+            (!areProductsLoading && (noProductsMessage || 'По данному запросу ничего не найдено!'))
+        }
+      </div>
       {
-        products
-          .map(product => <ProductCard key={product.id} product={product} />)
+        pagination && pagesAmount > 1 &&
+        <Pagination 
+          className={styles.pagination}
+          count={pagesAmount}
+          page={currentPage}
+          onChange={changePage}
+        />
       }
-      currentPage: {currentPage} <br />
-      pagesAmount: {pagesAmount}
-      <input
-        type='text'
-        value={tempPage}
-        onChange={(e) => setTempPage(Number(e.target.value))}
-      />
-      <button type='button' onClick={() => changePage(tempPage)}>
-        Изменить страницу
-      </button>
-
     </div>
   );
 }
-
-
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  changePage: (page) => dispatch(changePageAction(page))
-});
-
-const connector = connect(null, mapDispatchToProps);
-
-export default connector(ProductContainer);

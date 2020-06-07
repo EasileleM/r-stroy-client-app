@@ -1,3 +1,4 @@
-import { Credentials } from './Credentials';
-
-export interface SignInData extends Credentials{}
+export interface SignInData {
+  password: string;
+  email: string;
+}

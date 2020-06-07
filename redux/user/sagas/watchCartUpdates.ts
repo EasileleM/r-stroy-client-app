@@ -3,14 +3,14 @@ import { toast } from 'react-toastify';
 import {
   ADD_TO_CART,
   AddToCartAction,
-  CHANGE_CART_PRODUCT_AMOUNT, ChangeCartProductAmountAction,
+  CHANGE_CART_PRODUCT_AMOUNT,
+  ChangeCartProductAmountAction,
   REMOVE_FROM_CART,
   RemoveFromCartAction
 } from '../types';
 import { updateCartAction } from '../actions/updateCartAction';
 import { userApiService } from '../../../services/userApiService';
 import { localStorageService } from '../../../services/localStorageService';
-import { CartProduct } from '../../../interfaces/CartProduct';
 import { CART_MAX_PRODUCT_AMOUNT_MSG, CART_PRODUCT_ADDED_MSG } from '../../../contants/const';
 
 export function* watchCartUpdates() {
@@ -42,7 +42,7 @@ function* cartUpdatesWorker({
   if (type === ADD_TO_CART) {
 
     if (existingProduct === -1) {
-      newCartProducts.push({ ...newProduct, amountInCart: 1 });
+      newCartProducts.push(newProduct);
     } else {
       const newAmount = newCartProducts[existingProduct].amountInCart + 1;
 
@@ -56,8 +56,7 @@ function* cartUpdatesWorker({
 
     toast.info(CART_PRODUCT_ADDED_MSG);
   } else if (type === CHANGE_CART_PRODUCT_AMOUNT) {
-    newCartProducts[existingProduct].amountInCart = Math
-      .min((newProduct as CartProduct).amountInCart, newProduct.amount);
+    newCartProducts[existingProduct].amountInCart = newProduct.amountInCart;
   } else if (existingProduct !== -1) {
     newCartProducts.splice(existingProduct, 1);
   }

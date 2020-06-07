@@ -4,11 +4,13 @@
 @import '../../styles/breakpoints';
 
 .header {
+  position: relative;
   width: 100%;
   box-sizing: border-box;
   transition: 200ms ease;
 
   background-color: $main-color-light;
+  box-shadow: 1px 5px 10px -12px rgba(0,0,0,0.75);
 }
 
 .row {
@@ -18,7 +20,6 @@
   max-width: $max-content-width;
   padding: 0 $max-content-padding;
   box-sizing: border-box;
-
   background-color: $main-color-light;
 
   &_upper {
@@ -74,7 +75,7 @@
 
   text-decoration: none;
   font: 700 $l-font-size $main-font;
-  color: $main-color-dark;
+  color: $main-color-semi-light;
 
   outline: none;
 
@@ -89,6 +90,7 @@
 
   &:hover {
     opacity: 0.7;
+    text-decoration: none;
   }
 
   &_number {
@@ -139,7 +141,14 @@
   font-size: $xxl-font-size;
   font-family: $company-font;
   text-decoration: none;
-  color: $main-color-dark;
+  color: $main-color-semi-light;
+  transition: 200ms ease;
+
+  &:hover {
+    opacity: 0.7;
+    color: $main-color-semi-light;
+    text-decoration: none;
+  }
 
   @media screen and (max-width: $tablet-screen-size) {
     font-size: $xl-font-size;
@@ -157,6 +166,9 @@
 .specialButton {
   position: relative;
   transition: 200ms ease;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
 
   @media screen and (max-width: $mobile-screen-size) {
     &:hover {
@@ -175,21 +187,23 @@
   &__counter {
     position: absolute;
     top: 7px;
-    left: 11px;
+    left: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: $main-color-dark;
+    background: $main-color-semi-light;
 
-    font-size: 0.65em;
+    font-size: 0.75em;
     color: $counter-color;
 
     @media screen and (max-width: $mobile-screen-size) {
-      top: 12px;
-      left: 16px;
+      top: 11px;
+      left: 21px;
+      width: 15px;
+      height: 15px;
     }
   }
 }

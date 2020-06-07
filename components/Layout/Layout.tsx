@@ -9,16 +9,17 @@ import { Footer } from '../Footer/Footer';
 export function Layout({ children }) {
   return (
     <>
+      <Head>
+        <title>Р-cтрой</title>
+        <meta name="description" content="fill it" />
+      </Head>
       <div className={styles.container}>
-        <Head>
-          <title>Р-cтрой</title>
-          <meta name="description" content="fill it" />
-        </Head>
-
         <Header />
-
-        <main className={styles.main}>{children}</main>
-
+        <main className={styles.main}>
+          <div className={styles.main__content}>
+            {children}
+          </div>
+        </main>
         <Footer />
       </div>
       <ToastContainer
