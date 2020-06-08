@@ -11,8 +11,10 @@ export const CONTACT_NUMBER_TO_COPY: string = '+79616483800';
 // PAGE URLs
 export const CATALOG_URL = '/catalog';
 export const ERROR_URL = '/error';
+export const NOT_FOUND_URL = '/404';
 export const PROFILE_URL = '/profile';
 export const CREATE_ORDER_URL = '/createOrder';
+export const ORDERS_URL = '/orders';
 export const INDEX_URL = '/';
 
 // LOCAL STORAGE SERVICE
@@ -36,3 +38,4 @@ export const CART_PRODUCT_ADDED_MSG = 'Добавлено в корзину!';
 export const FAVORITES_EMPTY_MSG = 'Вы не добавили ни одного избранного товара!';
 export const CART_EMPTY_MSG = 'Корзина пуста!';
 export const USER_CHANGED_SUCCESSFULLY = 'Ваш профиль успешно изменен!';
+export const ORDER_CANCELED_SUCCESSFULLY = 'Ваш заказ успешно отменен!';

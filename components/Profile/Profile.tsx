@@ -57,12 +57,6 @@ export function Profile({
 
   useEffect(() => setIsComponentMounted(true), []);
 
-  useEffect(() => {
-    if (isGuest) {
-      router.push(INDEX_URL);
-    }
-  }, [isGuest]);
-
   const handleLogout = async () => {
     await router.push(INDEX_URL);
     logout();
@@ -107,6 +101,10 @@ export function Profile({
 
   if (!isComponentMounted) {
     return null;
+  }
+
+  if (isGuest) {
+    return <p>Войдите, чтобы воспользоваться личным кабинетом</p>;
   }
 
   return (

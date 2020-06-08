@@ -34,7 +34,8 @@ export function OrderProductCard({
   product,
   amount,
   removeFromOrder,
-  changeAmount
+  changeAmount,
+  changeable
 }: OrderProductCardProps) {
   const [amountInputValue, setAmountInputValue] =
     useState(amount);
@@ -85,31 +86,38 @@ export function OrderProductCard({
             руб./шт
           </p>
           <div className={styles.amountControls}>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={
-                () => handleChangeProductAmount(amount - 1)
-              }
-              aria-label="close"
-            >
-              <RemoveIcon fontSize='small' />
-            </IconButton>
+            {
+              changeable &&
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={
+                    () => handleChangeProductAmount(amount - 1)
+                  }
+                aria-label="close"
+              >
+                <RemoveIcon fontSize='small' />
+              </IconButton>
+            }
             <Input
               className={styles.amountInput}
               disabled
               value={amountInputValue}
             />
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={
-                () => handleChangeProductAmount(amount + 1)
-              }
-              aria-label="close"
-            >
-              <AddIcon fontSize='small' />
-            </IconButton>
+            {
+              changeable &&
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={
+                    () => handleChangeProductAmount(amount + 1)
+                  }
+                aria-label="close"
+              >
+                <AddIcon fontSize='small' />
+              </IconButton>
+            }
+            
           </div>
           <p className={styles.price__text}>
             <span className={styles.price}>
@@ -117,9 +125,12 @@ export function OrderProductCard({
             </span>
             руб.
           </p>
-          <IconButton edge="start" color="inherit" onClick={handleRemoveFromOrder} aria-label="close">
-            <CloseIcon fontSize='large' />
-          </IconButton>
+          {
+            changeable &&
+            <IconButton edge="start" color="inherit" onClick={handleRemoveFromOrder} aria-label="close">
+              <CloseIcon fontSize='large' />
+            </IconButton>
+          }
         </div>
       </CardActions>
     </Card>

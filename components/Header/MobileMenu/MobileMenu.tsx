@@ -8,6 +8,7 @@ import headerStyles from '../Header.module.scss';
 import Search from '../../Search/Search';
 import { Number } from '../../Number/Number';
 import { LocationLink } from '../LocationLink/LocationLink';
+import { ORDERS_URL } from '../../../contants/const';
 
 export interface MobileMenuProps {
   opened: boolean
@@ -49,7 +50,7 @@ export function MobileMenu({ opened }: MobileMenuProps) {
         </a>
       </Link>
 
-      <Link href="/">
+      <Link href={ORDERS_URL}>
         <a
           className={
             cn(

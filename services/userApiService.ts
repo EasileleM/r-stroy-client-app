@@ -5,6 +5,7 @@ import { Product } from '../interfaces/Product';
 import { Order } from '../interfaces/Order';
 import { PatchUserData } from '../interfaces/PatchUserData';
 import { CreateOrderData } from '../interfaces/CreateOrderData';
+import { OrderStatus } from '../enums/OrderStatus';
 
 const mockUser: User = {
   isGuest: false,
@@ -14,7 +15,79 @@ const mockUser: User = {
     email: 'pro100prosavva@gmail.com',
     phoneNumber: '89616483800'
   },
-  orders: [],
+  orders: [
+    {
+      id: '2',
+      description: 'something good',
+      products: [{
+        id: '18',
+        name: 'first',
+        description: 'here',
+        amount: 12,
+        types: ['yes', 'da', 'norm'],
+        price: 120,
+        imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+        inFavorites: false,
+        amountInOrder: 3
+      },
+      {
+        id: '19',
+        name: 'first',
+        description: 'here',
+        amount: 12,
+        types: ['yes', 'da', 'norm'],
+        price: 120,
+        imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+        inFavorites: false,
+        amountInOrder: 2
+      }],
+      arrivalPoint: 'Ул Пушкина дом колотушкина',
+      status: OrderStatus.inProgress,
+      startDate: new Date(),
+      completedDate: null
+    },
+    {
+      id: '4',
+      description: 'something really good',
+      products: [{
+        id: '18',
+        name: 'first',
+        description: 'here',
+        amount: 12,
+        types: ['yes', 'da', 'norm'],
+        price: 120,
+        imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+        inFavorites: false,
+        amountInOrder: 3
+      },
+      {
+        id: '19',
+        name: 'first',
+        description: 'here',
+        amount: 12,
+        types: ['yes', 'da', 'norm'],
+        price: 120,
+        imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+        inFavorites: false,
+        amountInOrder: 2
+      },
+      {
+        id: '132',
+        name: 'first',
+        description: 'here',
+        amount: 12,
+        types: ['yes', 'da', 'norm'],
+        price: 120,
+        imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
+        inFavorites: false,
+        amountInOrder: 2
+      }],
+      arrivalPoint: 'Ул Пушкина дом колотушкина',
+      status: OrderStatus.completed,
+      startDate: new Date(),
+      completedDate: new Date()
+    }
+  ],
   cartProducts: [],
   favoritesProducts: []
 };
@@ -46,8 +119,8 @@ export class UserApiService {
     return Promise.resolve();
   }
 
-  async createOrder(newOrder: CreateOrderData): Promise<void> {
-    return Promise.resolve();
+  async createOrder(newOrder: CreateOrderData): Promise<string> {
+    return Promise.resolve('tempId');
   }
 
   async cancelOrder(newOrder: Order): Promise<void> {

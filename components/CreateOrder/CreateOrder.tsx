@@ -15,6 +15,7 @@ import { OrderProductCard } from '../OrderProductCard/OrderProductCard';
 import { userApiService } from '../../services/userApiService';
 import { createOrderScheme } from '../../schemes/createOrderScheme';
 import { cleanCartAction } from '../../redux/user/actions/cleanCartAction';
+import { createOrderAction } from '../../redux/user/actions/createOrderAction';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -49,7 +50,8 @@ export function CreateOrder({
   className,
   cartProducts,
   isGuest,
-  clearCart
+  clearCart,
+  createOrder
 }: Props
 ) {
   const router = useRouter();
@@ -61,12 +63,6 @@ export function CreateOrder({
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
   useEffect(() => setIsComponentMounted(true), []);
-
-  useEffect(() => {
-    if (isGuest) {
-      router.push(INDEX_URL);
-    }
-  }, [isGuest]);
 
   useEffect(() => {
     setIsDataSettled(true);
@@ -89,8 +85,17 @@ export function CreateOrder({
   const onSubmit = async (data, { setStatus, setSubmitting }) => {
     setIsSubmitting(true);
     try {
-      await userApiService.createOrder(data);
+      const newOrderData = {
+        ...data,
+        products: orderProducts
+      };
+
+      const orderId = await userApiService.createOrder(newOrderData);
       clearCart();
+      createOrder({
+        ...newOrderData,
+        id: orderId
+      });
       setSubmissionSuccess(true);
     } catch (e) {
       if (e.code === 409 || e.code === 400) {
@@ -121,6 +126,10 @@ export function CreateOrder({
 
   if (!isComponentMounted) {
     return null;
+  }
+
+  if (isGuest) {
+    return <p>Войдите, чтобы создать заказ</p>;
   }
 
   return (
@@ -248,7 +257,8 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  clearCart: () => dispatch(cleanCartAction())
+  clearCart: () => dispatch(cleanCartAction()),
+  createOrder: (order) => dispatch(createOrderAction(order))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

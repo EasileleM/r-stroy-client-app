@@ -14,6 +14,7 @@ import { HamburgerMenuButton } from '../HamburgerMenuButton/HamburgerMenuButton'
 import { MobileMenu } from './MobileMenu/MobileMenu';
 import { Number } from '../Number/Number';
 import { LocationLink } from './LocationLink/LocationLink';
+import { ORDERS_URL } from '../../contants/const';
 
 export function Header() {
   const device = useResponsive();
@@ -129,7 +130,7 @@ export function Header() {
                 </a>
               </Link>
 
-              <Link href="/">
+              <Link href={ORDERS_URL}>
                 <a
                   className={cn(styles.link, styles.containerWithBigGap__item)}
                 >
