@@ -15,7 +15,7 @@ export interface OrderCard {
 export function OrderCard({ className, data }: OrderCard) {
   return (
     <Card className={cn(styles.container, className)}>
-      <Link href='order/[id]' as={`order/${data.id}`}>
+      <Link href='/order/[id]' as={`/order/${data.id}`}>
         <a className={cn(styles.link)}>
           <CardActionArea className={cn(styles.productContent)}>
             <CardContent>

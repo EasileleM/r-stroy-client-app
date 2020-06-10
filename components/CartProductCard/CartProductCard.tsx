@@ -61,7 +61,7 @@ export function CartProductCard({
 
   return (
     <Card className={cn(styles.container, styleContainer)}>
-      <Link href='product/[id]' as={`product/${product.id}`}>
+      <Link href='/product/[id]' as={`/product/${product.id}`}>
         <a className={cn(styles.link)}>
           <CardActionArea className={cn(styles.productContent)}>
             <CardMedia

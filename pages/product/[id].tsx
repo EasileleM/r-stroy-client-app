@@ -4,6 +4,7 @@ import { Layout } from '../../components/Layout/Layout';
 import { productsApiService } from '../../services/productsApiService';
 import { Product } from '../../interfaces/Product';
 import ProductCard from '../../components/ProductCard/ProductCard';
+import { RootState } from '../../redux/types';
 
 export interface ProductPageProps {
   product: Product
