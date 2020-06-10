@@ -19,9 +19,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import styles from './CartProductCard.module.scss';
 
 import { AppDispatch } from '../../redux/types';
-import { addToFavoritesAction } from '../../redux/user/actions/addToFavoritesAction';
-import { removeFromFavoritesAction } from '../../redux/user/actions/removeFromFavoritesAction';
-import { AddToFavoritesButton } from '../AddToFavoritesButton/AddToFavoritesButton';
+import AddToFavoritesButton from '../AddToFavoritesButton/AddToFavoritesButton';
 import { CartProduct } from '../../interfaces/CartProduct';
 import { removeFromCartAction } from '../../redux/user/actions/removeFromCartAction';
 import { changeCartProductAmountAction } from '../../redux/user/actions/changeCartProductAmountAction';
@@ -38,8 +36,6 @@ type Props = CartProductCardProps & PropsFromRedux;
 export function CartProductCard({
   styleContainer,
   product,
-  addToFavorites,
-  removeFromFavorites,
   removeFromCart,
   changeProductAmount
 }: Props) {
@@ -59,21 +55,13 @@ export function CartProductCard({
     }
   };
 
-  const toggleFavorites = () => {
-    if (product.inFavorites) {
-      removeFromFavorites(product);
-    } else {
-      addToFavorites(product);
-    }
-  };
-
   const handleRemoveFromCart = () => {
     removeFromCart(product);
   };
 
   return (
     <Card className={cn(styles.container, styleContainer)}>
-      <Link href='item/[id]' as={`item/${product.id}`}>
+      <Link href='product/[id]' as={`product/${product.id}`}>
         <a className={cn(styles.link)}>
           <CardActionArea className={cn(styles.productContent)}>
             <CardMedia
@@ -132,10 +120,7 @@ export function CartProductCard({
             </span>
             руб.
           </p>
-          <AddToFavoritesButton
-            handleClick={toggleFavorites}
-            active={product.inFavorites}
-          />
+          <AddToFavoritesButton product={product} />
           <IconButton edge="start" color="inherit" onClick={handleRemoveFromCart} aria-label="close">
             <CloseIcon fontSize='large' />
           </IconButton>
@@ -148,9 +133,7 @@ export function CartProductCard({
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   removeFromCart: (product) => dispatch(removeFromCartAction(product)),
   changeProductAmount:
-    (product) => dispatch(changeCartProductAmountAction(product)),
-  addToFavorites: (product) => dispatch(addToFavoritesAction(product)),
-  removeFromFavorites: (product) => dispatch(removeFromFavoritesAction(product))
+    (product) => dispatch(changeCartProductAmountAction(product))
 });
 
 const connector = connect(null, mapDispatchToProps);

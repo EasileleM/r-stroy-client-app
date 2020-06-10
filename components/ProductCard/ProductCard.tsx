@@ -9,13 +9,12 @@ import styles from './ProductCard.module.scss';
 import { Product } from '../../interfaces/Product';
 import { AppDispatch } from '../../redux/types';
 import { addToCartAction } from '../../redux/user/actions/addToCartAction';
-import { addToFavoritesAction } from '../../redux/user/actions/addToFavoritesAction';
-import { removeFromFavoritesAction } from '../../redux/user/actions/removeFromFavoritesAction';
-import { AddToFavoritesButton } from '../AddToFavoritesButton/AddToFavoritesButton';
+import AddToFavoritesButton from '../AddToFavoritesButton/AddToFavoritesButton';
 import { AddToCartButton } from '../AddToCartButton/AddToCartButton';
 
 export interface ProductCardProps {
   styleContainer?: string;
+  wide?: boolean;
   readonly product: Product;
 }
 
@@ -27,20 +26,13 @@ export function ProductCard({
   styleContainer,
   product,
   addToCart,
-  addToFavorites,
-  removeFromFavorites
+  wide
 }: Props) {
-  const toggleFavorites = () => {
-    if (product.inFavorites) {
-      removeFromFavorites(product);
-    } else {
-      addToFavorites(product);
-    }
-  };
-
   return (
-    <Card className={cn(styles.container, styleContainer)}>
-      <Link href='item/[id]' as={`item/${product.id}`}>
+    <Card
+      className={cn(styles.container, styleContainer, { [styles.wide]: wide })}
+    >
+      <Link href='product/[id]' as={`product/${product.id}`}>
         <a className={cn(styles.link)}>
           <CardActionArea>
             <CardMedia
@@ -52,6 +44,18 @@ export function ProductCard({
               <Typography gutterBottom variant="h5" component="h2">
                 {product.name}
               </Typography>
+              {
+                wide &&
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {product.description}
+                </Typography>
+              }
+              {
+                wide &&
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Категории: {product.types.join(' ')}
+                </Typography>
+              }
               <Typography variant="body2" color="textSecondary" component="p">
                 {product.amount}шт. на складе
               </Typography>
@@ -66,10 +70,7 @@ export function ProductCard({
             <span className={styles.price}>{product.price}</span>
             руб./шт.
           </p>
-          <AddToFavoritesButton
-            handleClick={toggleFavorites}
-            active={product.inFavorites}
-          />
+          <AddToFavoritesButton product={product} />
         </div>
         <AddToCartButton
           handleClick={
@@ -82,9 +83,7 @@ export function ProductCard({
 }
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  addToCart: (product) => dispatch(addToCartAction(product)),
-  addToFavorites: (product) => dispatch(addToFavoritesAction(product)),
-  removeFromFavorites: (product) => dispatch(removeFromFavoritesAction(product))
+  addToCart: (product) => dispatch(addToCartAction(product))
 });
 
 const connector = connect(null, mapDispatchToProps);
