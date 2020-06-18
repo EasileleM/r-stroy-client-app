@@ -9,8 +9,8 @@ export const signUpFormScheme = yup.object().shape({
     .min(2, 'Фамилия должна содержать больше двух символов')
     .max(50, 'Фамилия должна содержать меньше 50ти символов'),
   email: yup.string().required('Email обязателен').email('Некорректный email'),
-  phoneNumber: yup.string().required('Номер обязателен').matches(NUMBER_REGEX,
-    'Неверный номер телефона'
+  phoneNumber: yup.string().required('Номер телефона обязателен').matches(NUMBER_REGEX,
+    'Некорректный номер телефона'
   ),
   password: yup.string().required('Пароль обязателен').matches(PASSWORD_REGEX,
     'Пароль должен содержать минимум 8 латинских букв, в том числе одну цифру'
