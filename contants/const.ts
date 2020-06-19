@@ -39,3 +39,7 @@ export const FAVORITES_EMPTY_MSG = 'Вы не добавили ни одного
 export const CART_EMPTY_MSG = 'Корзина пуста!';
 export const USER_CHANGED_SUCCESSFULLY = 'Ваш профиль успешно изменен!';
 export const ORDER_CANCELED_SUCCESSFULLY = 'Ваш заказ успешно отменен!';
+
+// API
+export const GET_FILTERS_URL = 'http://localhost:3033/api/v1/filters';
+export const GET_PRODUCTS_URL = 'http://localhost:3033/api/v1/products';
