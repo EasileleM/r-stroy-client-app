@@ -13,7 +13,7 @@ import {
   LOGOUT_API_URL,
   ORDERS_API_URL,
   SIGN_IN_API_URL,
-  SIGN_UP_API_URL
+  SIGN_UP_API_URL, UPDATE_USER_API_URL
 } from '../contants/const';
 import { serializeCartProducts } from '../serializers/serializeCartProducts';
 import { CartProduct } from '../interfaces/CartProduct';
@@ -50,7 +50,11 @@ export class UserApiService {
   }
 
   async patchUserPersonalData(data: PatchUserData): Promise<void> {
-    return Promise.resolve();
+    const requestData = { ...data };
+    if (!requestData.newPassword) {
+      delete requestData.newPassword;
+    }
+    return axios.patch(UPDATE_USER_API_URL, requestData);
   }
 
   async patchCart(newCart: Array<CartProduct>): Promise<void> {

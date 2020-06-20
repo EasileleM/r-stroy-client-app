@@ -48,6 +48,7 @@ export const SIGN_IN_API_URL = 'http://localhost:3033/api/v1/commons/auth/login'
 export const LOGOUT_API_URL = 'http://localhost:3033/api/v1/commons/auth/logout';
 export const SIGN_UP_API_URL = 'http://localhost:3033/api/v1/commons/auth/registration';
 export const GET_USER_API_URL = 'http://localhost:3033/api/v1/commons/user';
+export const UPDATE_USER_API_URL = 'http://localhost:3033/api/v1/commons/user';
 export const FAVORITES_API_URL = 'http://localhost:3033/api/v1/commons/user/favorites';
 export const CART_API_URL = 'http://localhost:3033/api/v1/commons/user/cart';
 export const ORDERS_API_URL = 'http://localhost:3033/api/v1/commons/user/orders';

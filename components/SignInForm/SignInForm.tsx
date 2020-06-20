@@ -74,7 +74,7 @@ export function SignInForm({
         || e.response.status === 400) {
         setStatus(e.response.data);
       } else if (e.response.status === 403) {
-        setStatus({ badCredentials: 'Неправильная почта или пароль!' });
+        setStatus({ badCredentials: 'Неверная почта или пароль!' });
       } else {
         throw e;
       }

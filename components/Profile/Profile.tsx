@@ -70,7 +70,10 @@ export function Profile({
     setFormDisabled(true);
   };
 
-  const onSubmit = async (data, { setStatus, setErrors, setSubmitting }) => {
+  const onSubmit = async (
+    data,
+    { setStatus, setErrors, setSubmitting, setValues, resetForm }
+  ) => {
     setIsSubmitting(true);
     try {
       if (data.password === data.newPassword) {
@@ -79,18 +82,27 @@ export function Profile({
         });
       } else {
         await userApiService.patchUserPersonalData(data);
-        updateUserPersonalData({
+        const resultValues = {
           email: data.email,
           firstName: data.firstName,
           lastName: data.lastName,
           phoneNumber: data.phoneNumber
+        };
+        updateUserPersonalData(resultValues);
+        disableForm(resetForm);
+        setValues({
+          ...resultValues,
+          password: '',
+          newPassword: ''
         });
-        setFormDisabled(true);
         toast.info(USER_CHANGED_SUCCESSFULLY);
       }
     } catch (e) {
-      if (e.code === 403 || e.code === 409 || e.code === 400) {
-        setStatus(e.data.errors);
+      if (e.response.status === 409
+        || e.response.status === 400) {
+        setStatus(e.response.data);
+      } else if (e.response.status === 403) {
+        setStatus({ badCredentials: 'Неверный пароль!' });
       } else {
         throw e;
       }
@@ -259,6 +271,10 @@ export function Profile({
                       <Typography color='error'>{errors.newPassword}</Typography>)
                       || (!!status && status.newPassword &&
                       <Typography color='error'>{status.newPassword}</Typography>)
+                    }
+                    {
+                      (!!status && status.badCredentials &&
+                      <Typography color='error'>{status.badCredentials}</Typography>)
                     }
                   </>
                 </Collapse>
