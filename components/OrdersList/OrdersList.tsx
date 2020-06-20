@@ -5,6 +5,7 @@ import cn from 'classnames';
 import Typography from '@material-ui/core/Typography';
 import { RootState } from '../../redux/types';
 import { OrderCard } from '../OrderCard/OrderCard';
+import { sortOrders } from '../../utils/sortOrders';
 
 export interface OrdersListProps {
   className?: string;
@@ -40,7 +41,8 @@ export function OrdersList(
         </Typography>
       }
       {
-        orders.map(order => <OrderCard key={order.id} data={order} />)
+        sortOrders(orders)
+          .map(order => <OrderCard key={order.id} data={order} />)
       }
     </div>
   );

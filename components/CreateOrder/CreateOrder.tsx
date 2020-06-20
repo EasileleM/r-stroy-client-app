@@ -169,9 +169,9 @@ export function CreateOrder({
             <Typography variant="h6">
               Сумма:
               {
-                orderProducts.reduce((totalValue, product) => {
+                Number(orderProducts.reduce((totalValue, product) => {
                   return totalValue + product.price * product.amountInOrder;
-                }, 0)
+                }, 0)).toFixed(2)
               }
               руб.
             </Typography>

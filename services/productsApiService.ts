@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Filters } from '../interfaces/Filters';
 import { Product } from '../interfaces/Product';
 import { Pagination } from '../interfaces/Pagination';
-import { GET_FILTERS_URL, GET_PRODUCT_URL, GET_PRODUCTS_URL } from '../contants/const';
+import { GET_FILTERS_API_URL, GET_PRODUCT_API_URL, GET_PRODUCTS_API_URL } from '../contants/const';
 import { serializeParams } from '../serializers/serializeParams';
 import { deserializeProducts } from '../deserializers/deserializeProducts';
 
@@ -13,7 +13,7 @@ export class ProductsApiService {
    * Fetches initial filters.
    */
   async getFilters(): Promise<Filters> {
-    const { data } = await axios.get(GET_FILTERS_URL);
+    const { data } = await axios.get(GET_FILTERS_API_URL);
 
     data.types = data.types.map(type => type.name);
 
@@ -31,7 +31,7 @@ export class ProductsApiService {
     appliedFilters: Filters, searchQuery: string, currentPage: number
   ): Promise<Pagination> {
     const { data } = await axios.get(
-      GET_PRODUCTS_URL,
+      GET_PRODUCTS_API_URL,
       {
         params: {
           search: searchQuery,
@@ -58,7 +58,7 @@ export class ProductsApiService {
     idArray: Array<string>
   ): Promise<Array<Product>> {
     const { data } = await axios.get(
-      GET_PRODUCTS_URL,
+      GET_PRODUCTS_API_URL,
       {
         params: {
           id: idArray
@@ -77,7 +77,7 @@ export class ProductsApiService {
   async getProductById(
     id: string
   ): Promise<Product> {
-    const { data } = await axios.get(`${GET_PRODUCT_URL}/${id}`);
+    const { data } = await axios.get(`${GET_PRODUCT_API_URL}/${id}`);
 
     return deserializeProducts([data])[0];
   }

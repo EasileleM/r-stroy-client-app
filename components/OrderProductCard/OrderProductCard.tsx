@@ -59,7 +59,7 @@ export function OrderProductCard({
 
   return (
     <Card className={cn(styles.container, styleContainer)}>
-      <Link href='item/[id]' as={`item/${product.id}`}>
+      <Link href='/product/[id]' as={`/product/${product.id}`}>
         <a className={cn(styles.link)}>
           <CardActionArea className={cn(styles.productContent)}>
             <CardMedia
@@ -71,9 +71,12 @@ export function OrderProductCard({
               <Typography gutterBottom variant="h5" component="h2">
                 {product.name}
               </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {product.amount}шт. на складе
-              </Typography>
+              {
+                changeable &&
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {product.amount}шт. на складе
+                </Typography>
+              }
             </CardContent>
           </CardActionArea>
         </a>

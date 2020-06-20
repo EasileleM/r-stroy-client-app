@@ -1,6 +1,6 @@
 export enum OrderStatus {
-  registration,
-  inProgress,
-  completed,
-  canceled
+  REGISTRATION,
+  DELIVERING,
+  COMPLETED,
+  CANCELED
 }

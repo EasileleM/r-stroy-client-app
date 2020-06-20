@@ -2,10 +2,10 @@ import { OrderStatus } from '../enums/OrderStatus';
 
 export function orderStatusToString(status: OrderStatus): string {
   switch (status) {
-    case OrderStatus.canceled: return 'Закрыт';
-    case OrderStatus.inProgress: return 'Доставляется';
-    case OrderStatus.completed: return 'Доставлен';
-    case OrderStatus.registration: return 'Подтверждение';
+    case OrderStatus.CANCELED: return 'Закрыт';
+    case OrderStatus.DELIVERING: return 'Доставляется';
+    case OrderStatus.COMPLETED: return 'Доставлен';
+    case OrderStatus.REGISTRATION: return 'В обработке';
   }
 
   return null;

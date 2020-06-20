@@ -11,6 +11,7 @@ import { NOT_FOUND_URL, ORDER_CANCELED_SUCCESSFULLY, ORDERS_URL } from '../../co
 import { orderStatusToString } from '../../utils/orderStatusToString';
 import { OrderStatus } from '../../enums/OrderStatus';
 import { OrderProductCard } from '../../components/OrderProductCard/OrderProductCard';
+import { userApiService } from '../../services/userApiService';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -18,10 +19,12 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
   const router = useRouter();
   const { id } = router.query;
   const [order, setOrder] = useState(null);
+  const [removedState, setRemovedState] = useState(false);
   
   useEffect(() => {
-    if (orders) {
-      const currentOrder = orders.find(({ id: orderId }) => orderId === id);
+    if (orders && !removedState) {
+      const currentOrder =
+        orders.find(({ id: orderId }) => String(orderId) === id);
       if (!currentOrder) {
         router.push(NOT_FOUND_URL);
       } else {
@@ -31,8 +34,10 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
   }, [orders]);
 
   const handleCancelOrder = async () => {
-    await router.push(ORDERS_URL);
+    setRemovedState(true);
+    await userApiService.cancelOrder(order);
     cancelOrder(order);
+    await router.push(ORDERS_URL);
     toast.success(ORDER_CANCELED_SUCCESSFULLY);
   };
 
@@ -70,9 +75,12 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
         }
         </Typography>
       }
-      <Typography variant="body2" color="textSecondary" component="p">
-        Комментарий: {order.description}
-      </Typography>
+      {
+        Boolean(order.description.length) &&
+        <Typography variant="body2" color="textSecondary" component="p">
+          Комментарий: {order.description}
+        </Typography>
+      }
       <Typography variant="body2" color="textSecondary" component="p">
         Сумма заказа: {
           order.products.reduce((totalValue, product) => {
@@ -80,10 +88,6 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
           }, 0).toFixed(2)
         }
       </Typography>
-      {
-        (order.status === OrderStatus.registration) &&
-        <Button onClick={handleCancelOrder}>Отменить заказ</Button>
-      }
       <Grid
         container
         direction="column"
@@ -103,6 +107,10 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
           })
         }
       </Grid>
+      {
+        (order.status === OrderStatus.REGISTRATION) &&
+        <Button onClick={handleCancelOrder}>Отменить заказ</Button>
+      }
     </Layout>
   );
 }
