@@ -7,7 +7,7 @@ import { Order } from '../interfaces/Order';
 import { PatchUserData } from '../interfaces/PatchUserData';
 import { CreateOrderData } from '../interfaces/CreateOrderData';
 import {
-  CART_API_URL,
+  CART_API_URL, DEBOUNCE_TIMER,
   FAVORITES_API_URL,
   GET_USER_API_URL,
   LOGOUT_API_URL,
@@ -21,10 +21,15 @@ import { deserializeCartProducts } from '../deserializers/deserializeCartProduct
 import { serializeNewOrder } from '../serializers/serializeNewOrder';
 import { deserializeOrders } from '../deserializers/deserializeOrders';
 import { deserializeProducts } from '../deserializers/deserializeProducts';
+import { promiseTimer } from '../utils/promiseTimer';
 
 axios.defaults.withCredentials = true;
 
 export class UserApiService {
+  private lastCallPatchCartTimerCancellation = null;
+
+  private lastCallPatchFavoritesTimerCancellation = null;
+
   /**
    * Fetches authorized user by GET request. Returns User data if user
    * has corresponding cookies. Returns null otherwise.
@@ -57,13 +62,35 @@ export class UserApiService {
     return axios.patch(UPDATE_USER_API_URL, requestData);
   }
 
-  async patchCart(newCart: Array<CartProduct>): Promise<void> {
-    return axios.patch(CART_API_URL, serializeCartProducts(newCart));
-  }
+  patchCart = async (newCart: Array<CartProduct>): Promise<void> => {
+    if (this.lastCallPatchCartTimerCancellation) {
+      this.lastCallPatchCartTimerCancellation();
+    }
+    const requestFunction =
+      () => axios.patch(CART_API_URL, serializeCartProducts(newCart));
 
-  async patchFavorites(newFavorites: Array<Product>): Promise<void> {
-    return axios.patch(FAVORITES_API_URL, newFavorites);
-  }
+    const {
+      promise,
+      cancelTimeoutFunction
+    } = promiseTimer(requestFunction, DEBOUNCE_TIMER);
+    this.lastCallPatchCartTimerCancellation = cancelTimeoutFunction;
+    return promise;
+  };
+
+  patchFavorites = async (newFavorites: Array<Product>): Promise<void> => {
+    if (this.lastCallPatchFavoritesTimerCancellation) {
+      this.lastCallPatchFavoritesTimerCancellation();
+    }
+    const requestFunction =
+      () => axios.patch(FAVORITES_API_URL, newFavorites);
+
+    const {
+      promise,
+      cancelTimeoutFunction
+    } = promiseTimer(requestFunction, DEBOUNCE_TIMER);
+    this.lastCallPatchFavoritesTimerCancellation = cancelTimeoutFunction;
+    return promise;
+  };
 
   async createOrder(newOrder: CreateOrderData): Promise<string> {
     const { data } =

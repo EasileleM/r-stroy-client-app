@@ -52,3 +52,6 @@ export const UPDATE_USER_API_URL = 'http://localhost:3033/api/v1/commons/user';
 export const FAVORITES_API_URL = 'http://localhost:3033/api/v1/commons/user/favorites';
 export const CART_API_URL = 'http://localhost:3033/api/v1/commons/user/cart';
 export const ORDERS_API_URL = 'http://localhost:3033/api/v1/commons/user/orders';
+
+// TIMERS
+export const DEBOUNCE_TIMER = 2000;
