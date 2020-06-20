@@ -41,5 +41,12 @@ export const USER_CHANGED_SUCCESSFULLY = 'Ваш профиль успешно �
 export const ORDER_CANCELED_SUCCESSFULLY = 'Ваш заказ успешно отменен!';
 
 // API
-export const GET_FILTERS_URL = 'http://localhost:3033/api/v1/filters';
-export const GET_PRODUCTS_URL = 'http://localhost:3033/api/v1/products';
+export const GET_FILTERS_URL = 'http://localhost:3033/api/v1/commons/products/filters';
+export const GET_PRODUCTS_URL = 'http://localhost:3033/api/v1/commons/products';
+export const GET_PRODUCT_URL = 'http://localhost:3033/api/v1/commons/products';
+export const SIGN_IN_URL = 'http://localhost:3033/api/v1/commons/auth/login';
+export const LOGOUT_URL = 'http://localhost:3033/api/v1/commons/auth/logout';
+export const SIGN_UP_URL = 'http://localhost:3033/api/v1/commons/auth/registration';
+export const GET_USER_URL = 'http://localhost:3033/api/v1/commons/user';
+export const FAVORITES_URL = 'http://localhost:3033/api/v1/commons/user/favorites';
+export const CART_URL = 'http://localhost:3033/api/v1/commons/user/cart';

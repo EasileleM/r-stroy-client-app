@@ -68,7 +68,7 @@ export function CartModal({ isOpened, handleClose, products, isGuest }: Props) {
             {`Сумма: ${
               products.reduce((totalValue, product) => {
                 return totalValue + product.price * product.amountInCart;
-              }, 0)
+              }, 0).toFixed(2)
             } руб. ${
               isGuest ?
                 'Войдите, чтобы оформить заказ'

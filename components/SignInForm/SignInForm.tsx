@@ -43,13 +43,18 @@ const useStyles = makeStyles((theme) => ({
 
 export interface SignInFormProps {
   changeModal: (type: ModalType) => void;
+  handleCloseModal: () => void;
 }
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = SignInFormProps & PropsFromRedux;
 
-export function SignInForm({ changeModal, authorizeUser }: Props) {
+export function SignInForm({
+  changeModal,
+  authorizeUser,
+  handleCloseModal 
+}: Props) {
   const classes = useStyles();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -62,10 +67,14 @@ export function SignInForm({ changeModal, authorizeUser }: Props) {
     setIsSubmitting(true);
     try {
       await userApiService.signIn(data);
+      handleCloseModal();
       authorizeUser();
     } catch (e) {
-      if (e.code === 403 || e.code === 409 || e.code === 400) {
-        setStatus(e.data.errors);
+      if (e.response.status === 409
+        || e.response.status === 400) {
+        setStatus(e.response.data);
+      } else if (e.response.status === 403) {
+        setStatus({ badCredentials: 'Неправильная почта или пароль!' });
       } else {
         throw e;
       }
@@ -138,6 +147,10 @@ export function SignInForm({ changeModal, authorizeUser }: Props) {
                 <Typography color='error'>{errors.password}</Typography>)
                 || (!!status && status.password &&
                 <Typography color='error'>{status.password}</Typography>)
+              }
+              {
+                (!!status && status.badCredentials &&
+                <Typography color='error'>{status.badCredentials}</Typography>)
               }
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

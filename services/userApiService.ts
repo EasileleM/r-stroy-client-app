@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { User } from '../interfaces/User';
 import { SignUpData } from '../interfaces/SignUpData';
 import { SignInData } from '../interfaces/SignInData';
@@ -5,117 +6,48 @@ import { Product } from '../interfaces/Product';
 import { Order } from '../interfaces/Order';
 import { PatchUserData } from '../interfaces/PatchUserData';
 import { CreateOrderData } from '../interfaces/CreateOrderData';
+import { CART_URL, FAVORITES_URL, GET_USER_URL, LOGOUT_URL, SIGN_IN_URL, SIGN_UP_URL } from '../contants/const';
+import { serializeCartProducts } from '../serializers/serializeCartProducts';
+import { CartProduct } from '../interfaces/CartProduct';
+import { deserializeCartProducts } from '../deserializers/deserializeCartProducts';
 
-// const mockUser: User = {
-//   isGuest: false,
-//   personalData: {
-//     firstName: 'Савва',
-//     lastName: 'Джумалиев',
-//     email: 'pro100prosavva@gmail.com',
-//     phoneNumber: '89616483800'
-//   },
-//   orders: [
-//     {
-//       id: '2',
-//       description: 'something good',
-//       products: [{
-//         id: '18',
-//         name: 'first',
-//         description: 'here',
-//         amount: 12,
-//         types: ['yes', 'da', 'norm'],
-//         price: 120,
-//         imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
-//         inFavorites: false,
-//         amountInOrder: 3
-//       },
-//       {
-//         id: '19',
-//         name: 'first',
-//         description: 'here',
-//         amount: 12,
-//         types: ['yes', 'da', 'norm'],
-//         price: 120,
-//         imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
-//         inFavorites: false,
-//         amountInOrder: 2
-//       }],
-//       arrivalPoint: 'Ул Пушкина дом колотушкина',
-//       status: OrderStatus.inProgress,
-//       startDate: new Date(),
-//       completedDate: null
-//     },
-//     {
-//       id: '4',
-//       description: 'something really good',
-//       products: [{
-//         id: '18',
-//         name: 'first',
-//         description: 'here',
-//         amount: 12,
-//         types: ['yes', 'da', 'norm'],
-//         price: 120,
-//         imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
-//         inFavorites: false,
-//         amountInOrder: 3
-//       },
-//       {
-//         id: '19',
-//         name: 'first',
-//         description: 'here',
-//         amount: 12,
-//         types: ['yes', 'da', 'norm'],
-//         price: 120,
-//         imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
-//         inFavorites: false,
-//         amountInOrder: 2
-//       },
-//       {
-//         id: '132',
-//         name: 'first',
-//         description: 'here',
-//         amount: 12,
-//         types: ['yes', 'da', 'norm'],
-//         price: 120,
-//         imageURL: 'https://images.obi.ru/product/RU/1500x1500/304590_1.jpg',
-//         inFavorites: false,
-//         amountInOrder: 2
-//       }],
-//       arrivalPoint: 'Ул Пушкина дом колотушкина',
-//       status: OrderStatus.completed,
-//       startDate: new Date(),
-//       completedDate: new Date()
-//     }
-//   ],
-//   cartProducts: [],
-//   favoritesProducts: []
-// };
+axios.defaults.withCredentials = true;
 
-// TODO write serializers and deserializers
 export class UserApiService {
   /**
    * Fetches authorized user by GET request. Returns User data if user
    * has corresponding cookies. Returns null otherwise.
    */
   async getUser(): Promise<User> {
-    // TODO set isGuest: false
-    return new Promise((resolve) => { // TODO make request real
-      setTimeout(() => {
-        resolve(null);
-      }, 1000);
-    });
+    try {
+      const { data } = await axios.get(GET_USER_URL);
+      return {
+        personalData: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phoneNumber: data.phoneNumber
+        },
+        orders: data.orders,
+        cartProducts: deserializeCartProducts(data.cartProducts),
+        favoritesProducts: data.favoritesProducts,
+        isGuest: false
+      };
+    } catch (e) {
+      return null;
+    }
   }
 
   async patchUserPersonalData(data: PatchUserData): Promise<void> {
     return Promise.resolve();
   }
 
-  async patchCart(newCart: Array<Product>): Promise<void> {
-    return Promise.resolve();
+  async patchCart(newCart: Array<CartProduct>): Promise<void> {
+    return axios.patch(CART_URL, serializeCartProducts(newCart));
   }
 
   async patchFavorites(newFavorites: Array<Product>): Promise<void> {
-    return Promise.resolve();
+    return axios.patch(FAVORITES_URL, newFavorites);
   }
 
   async createOrder(newOrder: CreateOrderData): Promise<string> {
@@ -130,28 +62,16 @@ export class UserApiService {
     return Promise.resolve();
   }
 
-  // POST
-  async signIn(data: SignInData): Promise<void> {
-    return new Promise((resolve, reject) => { // TODO make request real
-      setTimeout(() => {
-        reject({ data: { errors: { password: 'Меняй мыло' } } });
-      }, 1000);
-    });
+  async signIn(data: SignInData) {
+    return axios.post(SIGN_IN_URL, data);
   }
 
-  // POST
-  async signUp(data: SignUpData): Promise<void> {
-    return new Promise((resolve, reject) => { // TODO make request real
-      setTimeout(() => {
-        resolve();
-      }, 1000);
-    });
-
+  async signUp(data: SignUpData) {
+    return axios.post(SIGN_UP_URL, data);
   }
 
-  // POST
-  async logout(): Promise<void> {
-    return Promise.resolve();
+  async logout() {
+    return axios.post(LOGOUT_URL);
   }
 }
 

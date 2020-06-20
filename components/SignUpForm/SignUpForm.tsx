@@ -58,8 +58,10 @@ export function SignUpForm({ changeModal }: SignInFormProps) {
       await userApiService.signUp(data);
       setSubmissionSuccess(true);
     } catch (e) {
-      if (e.code === 403 || e.code === 409 || e.code === 400) {
-        setStatus(e.data.errors);
+      if (e.response.status === 403
+        || e.response.status === 409
+        || e.response.status === 400) {
+        setStatus(e.response.data);
       } else {
         throw e;
       }

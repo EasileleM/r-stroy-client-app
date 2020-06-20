@@ -14,8 +14,12 @@ export async function getFreshLocalUser(): Promise<User> {
       ...localUser.cartProducts.map(({ id }) => id)
     ])];
 
-    const freshLocalProducts = await productsApiService
-      .getProductsById(savedLocalProductIds);
+    let freshLocalProducts = [];
+
+    if (savedLocalProductIds.length) {
+      freshLocalProducts = await productsApiService
+        .getProductsById(savedLocalProductIds);
+    }
 
     localUser.favoritesProducts =
       fillRawFavorites(localUser.favoritesProducts, freshLocalProducts);

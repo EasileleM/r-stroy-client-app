@@ -27,6 +27,8 @@ export function* loadCurrentUser() {
     user = localUser || localStorageService.createUser();
   }
 
+  user.isGuest = isGuest;
+
   yield put(initUserAction(user));
 
   return isGuest;

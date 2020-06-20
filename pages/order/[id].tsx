@@ -73,6 +73,13 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
       <Typography variant="body2" color="textSecondary" component="p">
         Комментарий: {order.description}
       </Typography>
+      <Typography variant="body2" color="textSecondary" component="p">
+        Сумма заказа: {
+          order.products.reduce((totalValue, product) => {
+            return totalValue + product.price * product.amountInOrder;
+          }, 0).toFixed(2)
+        }
+      </Typography>
       {
         (order.status === OrderStatus.registration) &&
         <Button onClick={handleCancelOrder}>Отменить заказ</Button>

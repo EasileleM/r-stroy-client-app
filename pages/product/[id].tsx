@@ -36,7 +36,7 @@ export function ProductPage({
 }
 
 export async function getServerSideProps({ params: { id } }) {
-  const [product] = await productsApiService.getProductsById([id]);
+  const product = await productsApiService.getProductById(id);
   
   return {
     props: {

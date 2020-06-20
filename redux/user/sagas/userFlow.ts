@@ -5,15 +5,17 @@ import { logout } from './logout';
 import { watchUserUpdates } from './watchUserUpdates';
 
 export function* userFlow() {
-  const isGuest = yield call(loadCurrentUser);
+  let isGuest = yield call(loadCurrentUser);
 
   yield fork(watchUserUpdates);
 
   while(true) {
     if (isGuest) {
       yield call(userAuthorization);
+      isGuest = false;
     }
 
     yield call(logout);
+    isGuest = true;
   }
 }

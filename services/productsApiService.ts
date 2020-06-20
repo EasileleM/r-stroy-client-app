@@ -2,9 +2,11 @@ import axios from 'axios';
 import { Filters } from '../interfaces/Filters';
 import { Product } from '../interfaces/Product';
 import { Pagination } from '../interfaces/Pagination';
-import { GET_FILTERS_URL, GET_PRODUCTS_URL } from '../contants/const';
+import { GET_FILTERS_URL, GET_PRODUCT_URL, GET_PRODUCTS_URL } from '../contants/const';
 import { serializeParams } from '../serializers/serializeParams';
 import { deserializeProducts } from '../deserializers/deserializeProducts';
+
+axios.defaults.withCredentials = true;
 
 export class ProductsApiService {
   /**
@@ -66,6 +68,18 @@ export class ProductsApiService {
     );
 
     return deserializeProducts(data);
+  }
+
+  /**
+   *
+   * @param id
+   */
+  async getProductById(
+    id: string
+  ): Promise<Product> {
+    const { data } = await axios.get(`${GET_PRODUCT_URL}/${id}`);
+
+    return deserializeProducts([data])[0];
   }
 }
 

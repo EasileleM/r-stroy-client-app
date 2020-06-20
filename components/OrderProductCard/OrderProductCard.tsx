@@ -121,7 +121,7 @@ export function OrderProductCard({
           </div>
           <p className={styles.price__text}>
             <span className={styles.price}>
-              {product.price * amount}
+              {(product.price * amount).toFixed(2)}
             </span>
             руб.
           </p>

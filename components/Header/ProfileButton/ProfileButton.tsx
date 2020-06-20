@@ -64,6 +64,7 @@ export function ProfileButton({ containerStyles, isGuest, firstName }: Props) {
           {
             currentModal === ModalType.signIn ?
               <SignInForm
+                handleCloseModal={handleCloseModal}
                 changeModal={changeModal}
               />
               :
