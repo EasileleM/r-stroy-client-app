@@ -42,7 +42,7 @@ export function OrderCard({ className, data }: OrderCard) {
               {
                 Boolean(data.description.length) &&
                 <Typography variant="body2" color="textSecondary" component="p">
-                    Комментарий: {data.description}
+                  Комментарий: {data.description}
                 </Typography>
               }
             </CardContent>
