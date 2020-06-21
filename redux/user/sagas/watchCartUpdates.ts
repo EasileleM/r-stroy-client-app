@@ -11,7 +11,11 @@ import {
 import { updateCartAction } from '../actions/updateCartAction';
 import { userApiService } from '../../../services/userApiService';
 import { localStorageService } from '../../../services/localStorageService';
-import { CART_MAX_PRODUCT_AMOUNT_MSG, CART_PRODUCT_ADDED_MSG } from '../../../contants/const';
+import {
+  CART_MAX_PRODUCT_AMOUNT_MSG,
+  CART_PRODUCT_ADDED_MSG,
+  CART_PRODUCT_OUT_OF_STOCK_MSG
+} from '../../../contants/const';
 
 export function* watchCartUpdates() {
   yield all([
@@ -62,6 +66,10 @@ ChangeCartProductAmountAction) {
   const newProduct = { ...product };
 
   if (type === ADD_TO_CART) {
+    if (newProduct.amount === 0) {
+      toast.error(CART_PRODUCT_OUT_OF_STOCK_MSG);
+      return;
+    }
 
     if (existingProduct === -1) {
       newCartProducts.push(newProduct);

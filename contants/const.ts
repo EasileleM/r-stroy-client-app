@@ -34,6 +34,7 @@ export const NUMBER_REGEX = '^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$';
 // MESSAGES TO USER
 export const NUMBER_COPIED_MSG = 'Номер скопирован в буфер обмена';
 export const CART_MAX_PRODUCT_AMOUNT_MSG = 'В вашей корзине содержится максимальное количество данного товара!';
+export const CART_PRODUCT_OUT_OF_STOCK_MSG = 'Данного товара нет в наличии!';
 export const CART_PRODUCT_ADDED_MSG = 'Добавлено в корзину!';
 export const FAVORITES_EMPTY_MSG = 'Вы не добавили ни одного избранного товара!';
 export const CART_EMPTY_MSG = 'Корзина пуста!';
