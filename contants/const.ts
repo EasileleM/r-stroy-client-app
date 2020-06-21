@@ -38,8 +38,10 @@ export const CART_PRODUCT_OUT_OF_STOCK_MSG = 'Данного товара нет
 export const CART_PRODUCT_ADDED_MSG = 'Добавлено в корзину!';
 export const FAVORITES_EMPTY_MSG = 'Вы не добавили ни одного избранного товара!';
 export const CART_EMPTY_MSG = 'Корзина пуста!';
-export const USER_CHANGED_SUCCESSFULLY = 'Ваш профиль успешно изменен!';
-export const ORDER_CANCELED_SUCCESSFULLY = 'Ваш заказ успешно отменен!';
+export const USER_CHANGED_SUCCESSFULLY_MSG = 'Ваш профиль успешно изменен!';
+export const ORDER_CANCELED_SUCCESSFULLY_MSG = 'Ваш заказ успешно отменен!';
+export const CANCELED_SUBSCRIPTION_SUCCESSFULLY_MSG = 'Вы отписались от рассылки!';
+export const ORDERED_SUBSCRIPTION_SUCCESSFULLY_MSG = 'Вы подписались на рассылку!';
 
 // API
 export const GET_FILTERS_API_URL = 'http://localhost:3033/api/v1/commons/products/filters';
@@ -53,6 +55,7 @@ export const UPDATE_USER_API_URL = 'http://localhost:3033/api/v1/commons/user';
 export const FAVORITES_API_URL = 'http://localhost:3033/api/v1/commons/user/favorites';
 export const CART_API_URL = 'http://localhost:3033/api/v1/commons/user/cart';
 export const ORDERS_API_URL = 'http://localhost:3033/api/v1/commons/user/orders';
+export const SUBSCRIPTION_API_URL = 'http://localhost:3033/api/v1/commons/user/subscription';
 
 // TIMERS
 export const DEBOUNCE_TIMER = 2000;

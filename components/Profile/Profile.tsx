@@ -16,9 +16,16 @@ import { useRouter } from 'next/router';
 import { userApiService } from '../../services/userApiService';
 import { AppDispatch, RootState } from '../../redux/types';
 import { changeUserScheme } from '../../schemes/changeUserScheme';
-import { INDEX_URL, USER_CHANGED_SUCCESSFULLY } from '../../contants/const';
+import {
+  CANCELED_SUBSCRIPTION_SUCCESSFULLY_MSG,
+  INDEX_URL,
+  ORDERED_SUBSCRIPTION_SUCCESSFULLY_MSG,
+  USER_CHANGED_SUCCESSFULLY_MSG
+} from '../../contants/const';
 import { updateUserPersonalDataAction } from '../../redux/user/actions/updateUserPersonalDataAction';
 import { logoutAction } from '../../redux/user/actions/logoutAction';
+
+import styles from './Profile.module.scss';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -70,6 +77,18 @@ export function Profile({
     setFormDisabled(true);
   };
 
+  const toggleSubscription = async () => {
+    await userApiService.toggleSubscription(!userData.isSubscribed);
+    updateUserPersonalData(
+      { ...userData, isSubscribed: !userData.isSubscribed }
+    );
+    if (userData.isSubscribed) {
+      toast.success(CANCELED_SUBSCRIPTION_SUCCESSFULLY_MSG);
+    } else {
+      toast.success(ORDERED_SUBSCRIPTION_SUCCESSFULLY_MSG);
+    }
+  };
+
   const onSubmit = async (
     data,
     { setStatus, setErrors, setSubmitting, setValues, resetForm }
@@ -95,7 +114,7 @@ export function Profile({
           password: '',
           newPassword: ''
         });
-        toast.info(USER_CHANGED_SUCCESSFULLY);
+        toast.info(USER_CHANGED_SUCCESSFULLY_MSG);
       }
     } catch (e) {
       if (e.response.status === 409
@@ -278,6 +297,17 @@ export function Profile({
                     }
                   </>
                 </Collapse>
+                <Typography
+                  className={styles.subscriptionButton}
+                  onClick={toggleSubscription}
+                >
+                  {
+                    userData.isSubscribed ?
+                      'Отказаться от почтовой рассылки'
+                      :
+                      'Подписаться на почтовую рассылку'
+                  }
+                </Typography>
                 <ButtonGroup
                   disableElevation
                   fullWidth

@@ -13,7 +13,7 @@ import {
   LOGOUT_API_URL,
   ORDERS_API_URL,
   SIGN_IN_API_URL,
-  SIGN_UP_API_URL, UPDATE_USER_API_URL
+  SIGN_UP_API_URL, SUBSCRIPTION_API_URL, UPDATE_USER_API_URL
 } from '../contants/const';
 import { serializeCartProducts } from '../serializers/serializeCartProducts';
 import { CartProduct } from '../interfaces/CartProduct';
@@ -42,7 +42,8 @@ export class UserApiService {
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
-          phoneNumber: data.phoneNumber
+          phoneNumber: data.phoneNumber,
+          isSubscribed: data.isSubscribed
         },
         orders: deserializeOrders(data.orders),
         cartProducts: deserializeCartProducts(data.cartProducts),
@@ -96,6 +97,10 @@ export class UserApiService {
     const { data } =
       await axios.post(ORDERS_API_URL, serializeNewOrder(newOrder));
     return data;
+  }
+
+  async toggleSubscription(isSubscribed: boolean): Promise<void> {
+    return axios.patch(`${SUBSCRIPTION_API_URL}?isSubscribed=${isSubscribed}`);
   }
 
   async cancelOrder(removedOrder: Order): Promise<void> {
