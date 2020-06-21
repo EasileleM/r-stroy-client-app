@@ -21,14 +21,14 @@ import { deserializeCartProducts } from '../deserializers/deserializeCartProduct
 import { serializeNewOrder } from '../serializers/serializeNewOrder';
 import { deserializeOrders } from '../deserializers/deserializeOrders';
 import { deserializeProducts } from '../deserializers/deserializeProducts';
-import { promiseTimer } from '../utils/promiseTimer';
+import { debounceFunction } from '../utils/debounceFunction';
 
 axios.defaults.withCredentials = true;
 
 export class UserApiService {
-  private lastCallPatchCartTimerCancellation = null;
+  private lastPatchCartTaskCancellation = null;
 
-  private lastCallPatchFavoritesTimerCancellation = null;
+  private lastPatchFavoritesTaskCancellation = null;
 
   /**
    * Fetches authorized user by GET request. Returns User data if user
@@ -63,32 +63,32 @@ export class UserApiService {
   }
 
   patchCart = async (newCart: Array<CartProduct>): Promise<void> => {
-    if (this.lastCallPatchCartTimerCancellation) {
-      this.lastCallPatchCartTimerCancellation();
+    if (this.lastPatchCartTaskCancellation) {
+      this.lastPatchCartTaskCancellation();
     }
     const requestFunction =
       () => axios.patch(CART_API_URL, serializeCartProducts(newCart));
 
     const {
       promise,
-      cancelTimeoutFunction
-    } = promiseTimer(requestFunction, DEBOUNCE_TIMER);
-    this.lastCallPatchCartTimerCancellation = cancelTimeoutFunction;
+      cancelDelayedTask
+    } = debounceFunction(requestFunction, DEBOUNCE_TIMER);
+    this.lastPatchCartTaskCancellation = cancelDelayedTask;
     return promise;
   };
 
   patchFavorites = async (newFavorites: Array<Product>): Promise<void> => {
-    if (this.lastCallPatchFavoritesTimerCancellation) {
-      this.lastCallPatchFavoritesTimerCancellation();
+    if (this.lastPatchFavoritesTaskCancellation) {
+      this.lastPatchFavoritesTaskCancellation();
     }
     const requestFunction =
       () => axios.patch(FAVORITES_API_URL, newFavorites);
 
     const {
       promise,
-      cancelTimeoutFunction
-    } = promiseTimer(requestFunction, DEBOUNCE_TIMER);
-    this.lastCallPatchFavoritesTimerCancellation = cancelTimeoutFunction;
+      cancelDelayedTask
+    } = debounceFunction(requestFunction, DEBOUNCE_TIMER);
+    this.lastPatchFavoritesTaskCancellation = cancelDelayedTask;
     return promise;
   };
 
