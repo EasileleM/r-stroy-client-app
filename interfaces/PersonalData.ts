@@ -3,4 +3,5 @@ export interface PersonalData {
   lastName: string;
   email: string;
   phoneNumber: string;
+  isSubscribed?: boolean;
 }

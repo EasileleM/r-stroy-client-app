@@ -152,10 +152,6 @@ export function SignInForm({
                 (!!status && status.badCredentials &&
                 <Typography color='error'>{status.badCredentials}</Typography>)
               }
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Запомнить меня"
-              />
               <Button
                 type="submit"
                 fullWidth

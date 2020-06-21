@@ -91,7 +91,7 @@ export function SignUpForm({ changeModal }: SignInFormProps) {
               firstName: '',
               lastName: '',
               phoneNumber: '',
-              subscription: false
+              isSubscribed: false
             }}
           >
             {({
@@ -197,10 +197,10 @@ export function SignUpForm({ changeModal }: SignInFormProps) {
                 }
                 <FormControlLabel
                   control={<Checkbox
-                    name="subscription"
+                    name="isSubscribed"
                     value="allowExtraEmails"
                     color="primary"
-                    checked={values.subscription}
+                    checked={values.isSubscribed}
                     onChange={handleChange}
                   />}
                   label="Я хочу получать информацию о скидках и других предложениях по почте"
