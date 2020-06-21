@@ -34,7 +34,9 @@ export function ProductCard({
     >
       <Link href='/product/[id]' as={`/product/${product.id}`}>
         <a className={cn(styles.link)}>
-          <CardActionArea>
+          <CardActionArea
+            className={cn({ [styles.outOfStock]: !product.amount })}
+          >
             <CardMedia
               className={styles.image}
               image={product.imageURL}
