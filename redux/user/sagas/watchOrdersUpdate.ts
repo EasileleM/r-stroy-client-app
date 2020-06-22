@@ -32,7 +32,12 @@ function* updateOrderWorker({
 
     newOrders.push(createdOrder);
   } else if (type === CANCEL_ORDER) {
-    newOrders.splice(newOrders.findIndex(({ id }) => id === payload.id), 1);
+    const removedOrderIndex = newOrders
+      .findIndex(({ id }) => id === payload.id);
+    newOrders[removedOrderIndex] = {
+      ...newOrders[removedOrderIndex],
+      status: OrderStatus.CANCELED
+    };
   }
   
   yield put(updateOrdersAction(newOrders));

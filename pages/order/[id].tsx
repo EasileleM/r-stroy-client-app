@@ -19,10 +19,9 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
   const router = useRouter();
   const { id } = router.query;
   const [order, setOrder] = useState(null);
-  const [removedState, setRemovedState] = useState(false);
-  
+
   useEffect(() => {
-    if (orders && !removedState) {
+    if (orders) {
       const currentOrder =
         orders.find(({ id: orderId }) => String(orderId) === id);
       if (!currentOrder) {
@@ -34,10 +33,8 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
   }, [orders]);
 
   const handleCancelOrder = async () => {
-    setRemovedState(true);
     await userApiService.cancelOrder(order);
     cancelOrder(order);
-    await router.push(ORDERS_URL);
     toast.success(ORDER_CANCELED_SUCCESSFULLY_MSG);
   };
 
