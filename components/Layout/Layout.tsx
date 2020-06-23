@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { ToastContainer } from 'react-toastify';
 
 import styles from './Layout.module.scss';
-import { Header } from '../Header/Header';
+import Header from '../Header/Header';
 import { Footer } from '../Footer/Footer';
 
 export function Layout({ children }) {

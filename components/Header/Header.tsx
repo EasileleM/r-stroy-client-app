@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import cn from 'classnames';
 
+import { connect, ConnectedProps } from 'react-redux';
 import styles from './Header.module.scss';
 
 import CartButton from './CartButton/CartButton';
@@ -14,9 +15,12 @@ import { HamburgerMenuButton } from '../HamburgerMenuButton/HamburgerMenuButton'
 import { MobileMenu } from './MobileMenu/MobileMenu';
 import { Number } from '../Number/Number';
 import { LocationLink } from './LocationLink/LocationLink';
-import { ORDERS_URL } from '../../contants/const';
+import {CREATE_PRODUCT_URL, ORDERS_URL} from '../../contants/const';
+import { RootState } from '../../redux/types';
 
-export function Header() {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export function Header({ isAdmin }: PropsFromRedux) {
   const device = useResponsive();
   const [menuOpened, setMenuOpened] = useState(false);
 
@@ -129,6 +133,18 @@ export function Header() {
                   Доставка
                 </a>
               </Link>
+              {
+                isAdmin &&
+                <Link href={CREATE_PRODUCT_URL}>
+                  <a
+                    className={
+                      cn(styles.link, styles.containerWithBigGap__item)
+                    }
+                  >
+                    Новый продукт
+                  </a>
+                </Link>
+              }
 
               <Link href={ORDERS_URL}>
                 <a
@@ -157,3 +173,11 @@ export function Header() {
     </>
   );
 }
+
+const mapStateToProps = (state: RootState) => ({
+  isAdmin: state.user.isAdmin
+});
+
+const connector = connect(mapStateToProps);
+
+export default connector(Header);

@@ -16,8 +16,12 @@ export function* loadCurrentUser() {
   if (!isGuest) {
     if (localUser) {
       user = mergeUsersData(remoteUser, localUser);
-      yield fork(userApiService.patchCart, user.cartProducts);
-      yield fork(userApiService.patchFavorites, user.favoritesProducts);
+      if (localUser.favoritesProducts.length) {
+        yield fork(userApiService.patchFavorites, user.favoritesProducts);
+      }
+      if (localUser.cartProducts.length) {
+        yield fork(userApiService.patchCart, user.cartProducts);
+      }
     } else {
       user = remoteUser;
     }

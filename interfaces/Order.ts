@@ -9,4 +9,5 @@ export interface Order {
   status: OrderStatus;
   startDate: Date;
   completedDate: Date;
+  price: String;
 }

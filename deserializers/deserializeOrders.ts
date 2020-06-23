@@ -7,6 +7,7 @@ export function deserializeOrders(orders): Array<Order> {
       ...order,
       status: OrderStatus[order.orderStatus],
       startDate: new Date(order.startedDate),
+      price: order.price.toFixed(2),
       products: order.stashedProducts.map(rawProduct => {
         return {
           ...rawProduct.product,

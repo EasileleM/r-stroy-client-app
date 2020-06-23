@@ -37,7 +37,7 @@ export class UserApiService {
   async getUser(): Promise<User> {
     try {
       const { data } = await axios.get(GET_USER_API_URL);
-      return {
+      const remoteUser: User = {
         personalData: {
           firstName: data.firstName,
           lastName: data.lastName,
@@ -48,8 +48,11 @@ export class UserApiService {
         orders: deserializeOrders(data.orders),
         cartProducts: deserializeCartProducts(data.cartProducts),
         favoritesProducts: deserializeProducts(data.favoritesProducts),
-        isGuest: false
+        isGuest: false,
+        isAdmin: Boolean(data.roles) && data.roles.some(({ name }) => name === 'ROLE_ADMIN')
       };
+
+      return remoteUser;
     } catch (e) {
       return null;
     }

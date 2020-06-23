@@ -27,7 +27,12 @@ function* updateOrderWorker({
       ...payload,
       status: OrderStatus.REGISTRATION,
       startDate: new Date(),
-      completedDate: null
+      completedDate: null,
+      price: payload.products
+        .reduce((total, current) => {
+          return total + current.price * current.amountInOrder;
+        }, 0)
+        .toFixed(2)
     };
 
     newOrders.push(createdOrder);

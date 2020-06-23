@@ -2,9 +2,18 @@ import axios from 'axios';
 import { Filters } from '../interfaces/Filters';
 import { Product } from '../interfaces/Product';
 import { Pagination } from '../interfaces/Pagination';
-import { GET_FILTERS_API_URL, GET_PRODUCT_API_URL, GET_PRODUCTS_API_URL } from '../contants/const';
+import {
+  CREATE_PRODUCT_API_URL,
+  GET_FILTERS_API_URL,
+  GET_PRODUCT_API_URL,
+  GET_PRODUCTS_API_URL,
+  PRODUCT_TYPES_API_URL,
+  UPDATE_PRODUCT_API_URL
+} from '../contants/const';
 import { serializeParams } from '../serializers/serializeParams';
 import { deserializeProducts } from '../deserializers/deserializeProducts';
+import { RawProduct } from '../interfaces/RawProduct';
+import { RawProductType } from '../interfaces/RawProductType';
 
 axios.defaults.withCredentials = true;
 
@@ -74,12 +83,27 @@ export class ProductsApiService {
    *
    * @param id
    */
-  async getProductById(
+  async getRawProductById(
     id: string
-  ): Promise<Product> {
+  ): Promise<RawProduct> {
     const { data } = await axios.get(`${GET_PRODUCT_API_URL}/${id}`);
 
-    return deserializeProducts([data])[0];
+    return data;
+  }
+
+
+  async getAllRawProductTypes(): Promise<Array<RawProductType>> {
+    const { data } = await axios.get(PRODUCT_TYPES_API_URL);
+
+    return data;
+  }
+
+  async updateProduct(product: RawProduct): Promise<void> {
+    await axios.patch(UPDATE_PRODUCT_API_URL, product);
+  }
+
+  async createProduct(product: RawProduct): Promise<void> {
+    await axios.post(CREATE_PRODUCT_API_URL, product);
   }
 }
 

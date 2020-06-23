@@ -80,9 +80,7 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
       }
       <Typography variant="body2" color="textSecondary" component="p">
         Сумма заказа: {
-          order.products.reduce((totalValue, product) => {
-            return totalValue + product.price * product.amountInOrder;
-          }, 0).toFixed(2)
+          order.price
         }
       </Typography>
       <Grid

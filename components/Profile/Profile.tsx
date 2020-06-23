@@ -54,7 +54,8 @@ export function Profile({
   userData,
   updateUserPersonalData,
   logout,
-  isGuest
+  isGuest,
+  isAdmin
 }: PropsFromRedux) {
   const classes = useStyles();
   const router = useRouter();
@@ -146,7 +147,9 @@ export function Profile({
           <PersonIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Личный кабинет
+          Личный кабинет {
+            isAdmin && 'администратора'
+          }
         </Typography>
         {
           !userData && <CircularProgress />
@@ -382,7 +385,8 @@ export function Profile({
 
 const mapStateToProps = (state: RootState) => ({
   userData: state.user.personalData,
-  isGuest: state.user.isGuest
+  isGuest: state.user.isGuest,
+  isAdmin: state.user.isAdmin
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({

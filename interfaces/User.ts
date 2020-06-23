@@ -5,6 +5,7 @@ import { CartProduct } from './CartProduct';
 
 export interface User {
   isGuest: boolean;
+  isAdmin?: boolean;
   personalData?: PersonalData;
   orders?: Array<Order>;
   cartProducts: Array<CartProduct>;
