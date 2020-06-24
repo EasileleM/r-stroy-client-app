@@ -7,7 +7,7 @@ import { Order } from '../interfaces/Order';
 import { PatchUserData } from '../interfaces/PatchUserData';
 import { CreateOrderData } from '../interfaces/CreateOrderData';
 import {
-  ACTIVATE_USER_API_URL,
+  ACTIVATE_USER_API_URL, ALL_ORDERS_API_URL,
   CART_API_URL, DEBOUNCE_TIMER,
   FAVORITES_API_URL,
   GET_USER_API_URL,
@@ -23,6 +23,8 @@ import { serializeNewOrder } from '../serializers/serializeNewOrder';
 import { deserializeOrders } from '../deserializers/deserializeOrders';
 import { deserializeProducts } from '../deserializers/deserializeProducts';
 import { debounceFunction } from '../utils/debounceFunction';
+import { OrderStatus } from '../enums/OrderStatus';
+import { PersonalData } from '../interfaces/PersonalData';
 
 axios.defaults.withCredentials = true;
 
@@ -125,6 +127,38 @@ export class UserApiService {
 
   async activateUser(uuid: number): Promise<void> {
     await axios.post(`${ACTIVATE_USER_API_URL}/${uuid}`);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async getAllOrders(page: number = 0): Promise<any> {
+    return axios.get(`${ALL_ORDERS_API_URL}?page=${page}`);
+  }
+
+  async getAnyOrder(id: string): Promise<Order> {
+    const { data } = await axios.get(`${ALL_ORDERS_API_URL}/${id}`);
+    return deserializeOrders([data])[0];
+  }
+
+  async updateOrderStatus(id: string, status: OrderStatus): Promise<Order> {
+    let orderStatus;
+    switch(status) {
+      case OrderStatus.REGISTRATION: orderStatus = 'REGISTRATION'; break;
+      case OrderStatus.CANCELED: orderStatus = 'CANCELED'; break;
+      case OrderStatus.COMPLETED: orderStatus = 'COMPLETED'; break;
+      case OrderStatus.DELIVERING: orderStatus = 'DELIVERING'; break;
+    }
+    const { data } = await axios.patch(`${ALL_ORDERS_API_URL}/${id}`, { orderStatus });
+    return deserializeOrders([data])[0];
+  }
+
+  async getOrderUser(id: string): Promise<PersonalData> {
+    const { data } = await axios.get(`${ALL_ORDERS_API_URL}/${id}/user`);
+    return {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phoneNumber: data.phoneNumber
+    };
   }
 }
 

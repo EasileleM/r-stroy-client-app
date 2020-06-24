@@ -15,27 +15,51 @@ import { userApiService } from '../../services/userApiService';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
+export function OrderPage(
+  {
+    orders,
+    cancelOrder,
+    isGuest,
+    isAdmin
+  }: PropsFromRedux) {
   const router = useRouter();
   const { id } = router.query;
   const [order, setOrder] = useState(null);
+  const [orderUser, setOrderUser] = useState(null);
 
   useEffect(() => {
+    loadOrder();
+  }, [orders]);
+  
+  const loadOrder = async () => {
     if (orders) {
-      const currentOrder =
-        orders.find(({ id: orderId }) => String(orderId) === id);
+      let currentOrder;
+      if (isAdmin) {
+        currentOrder = await userApiService.getAnyOrder(id as string);
+        const newOrderUser = await userApiService.getOrderUser(id as string);
+        setOrderUser(newOrderUser);
+      } else {
+        currentOrder =
+          orders.find(({ id: orderId }) => String(orderId) === id);
+      }
       if (!currentOrder) {
-        router.push(NOT_FOUND_URL);
+        await router.push(NOT_FOUND_URL);
       } else {
         setOrder(currentOrder);
       }
     }
-  }, [orders]);
+  };
 
   const handleCancelOrder = async () => {
     await userApiService.cancelOrder(order);
     cancelOrder(order);
     toast.success(ORDER_CANCELED_SUCCESSFULLY_MSG);
+  };
+
+  const handleChangeOrderStatus = async (status: OrderStatus) => {
+    const result = await userApiService.updateOrderStatus(id as string, status);
+    setOrder(result);
+    router.reload();
   };
 
   if (isGuest) {
@@ -46,7 +70,7 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
     );
   }
 
-  if (!order) {
+  if (!order || (isAdmin && !orderUser)) {
     return <Layout><CircularProgress /></Layout>;
   }
 
@@ -64,6 +88,23 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
       <Typography gutterBottom variant="h5" component="h2">
         Дата оформления заказа: {order.startDate.toLocaleDateString()}
       </Typography>
+      {
+        isAdmin &&
+          <>
+            <Typography gutterBottom variant="h5" component="h2">
+              Имя пользователя: {orderUser.firstName}
+            </Typography>
+            <Typography gutterBottom variant="h5" component="h2">
+              Фамилия пользователя: {orderUser.lastName}
+            </Typography>
+            <Typography gutterBottom variant="h5" component="h2">
+              Почта пользователя: {orderUser.email}
+            </Typography>
+            <Typography gutterBottom variant="h5" component="h2">
+              Номер пользователя: {orderUser.phoneNumber}
+            </Typography>
+          </>
+      }
       {
         order.completedDate &&
         <Typography gutterBottom variant="h5" component="h2">
@@ -103,8 +144,36 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
         }
       </Grid>
       {
-        (order.status === OrderStatus.REGISTRATION) &&
+        (order.status === OrderStatus.REGISTRATION && !isAdmin) &&
         <Button onClick={handleCancelOrder}>Отменить заказ</Button>
+      }
+      {
+        isAdmin &&
+          <div>
+            <Typography gutterBottom variant="h5" component="h2">
+              Изменить статус
+            </Typography>
+            <Button
+              onClick={() => handleChangeOrderStatus(OrderStatus.REGISTRATION)}
+            >
+              В обработке
+            </Button>
+            <Button
+              onClick={() => handleChangeOrderStatus(OrderStatus.DELIVERING)}
+            >
+              Доставляется
+            </Button>
+            <Button
+              onClick={() => handleChangeOrderStatus(OrderStatus.COMPLETED)}
+            >
+              Доставлен
+            </Button>
+            <Button
+              onClick={() => handleChangeOrderStatus(OrderStatus.CANCELED)}
+            >
+              Отменить заказ
+            </Button>
+          </div>
       }
     </Layout>
   );
@@ -112,7 +181,8 @@ export function OrderPage({ orders, cancelOrder, isGuest }: PropsFromRedux) {
 
 const mapStateToProps = (state: RootState) => ({
   orders: state.user.orders,
-  isGuest: state.user.isGuest
+  isGuest: state.user.isGuest,
+  isAdmin: state.user.isAdmin
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
