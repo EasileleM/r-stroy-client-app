@@ -7,5 +7,4 @@ export interface Product {
   price: number;
   imageURL: string;
   inFavorites: boolean;
-  inCart: boolean;
 }

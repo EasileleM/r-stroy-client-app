@@ -1,5 +1,5 @@
 import { Filters } from '../interfaces/Filters';
-import { router } from '../services/router';
+import { routerService } from '../services/RouterService';
 
 /**
  * Returns filters parsed from current query string
@@ -11,7 +11,7 @@ export function getAppliedFiltersFromQuery(initialFilters: Filters): Filters {
     ...initialFilters,
     types: []
   };
-  const query = router.getQuery();
+  const query = routerService.getQuery();
   
   if (query.get('lowestPrice')) {
     result.lowestPrice = Number(query.get('lowestPrice'));

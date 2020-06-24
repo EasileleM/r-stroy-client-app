@@ -1,11 +1,14 @@
-import { CatalogActionTypes, UPDATE_PRODUCTS } from '../types';
-import { Product } from '../../../interfaces/Product';
+import { UPDATE_PRODUCTS, UpdateProductsAction } from '../types';
+import { Pagination } from '../../../interfaces/Pagination';
 
-export function updateProductsAction(
-  products: Array<Product>
-): CatalogActionTypes {
+export function updateProductsAction({
+  products, pagesAmount 
+}: Pagination): UpdateProductsAction {
   return {
     type: UPDATE_PRODUCTS,
-    payload: products
+    payload: {
+      products,
+      pagesAmount
+    }
   };
 }

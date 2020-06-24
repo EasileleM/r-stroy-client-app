@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { changeProductsLoadingStateAction } from '../actions/changeProductsLoadingStateAction';
-import { fetchProducts } from '../../../utils/data/fetchProducts';
 import { updateProductsAction } from '../actions/updateProductsAction';
+import { productsApiService } from '../../../services/productsApiService';
 
 /**
  * Loads products with given appliedFilters and searchQuery.
@@ -9,10 +9,20 @@ import { updateProductsAction } from '../actions/updateProductsAction';
  *
  * @param appliedFilters
  * @param searchQuery
+ * @param currentPage
  */
-export function* loadProducts(appliedFilters, searchQuery) {
+export function* loadProducts(appliedFilters, searchQuery, currentPage) {
   yield put(changeProductsLoadingStateAction(true));
-  const products = yield call(fetchProducts, appliedFilters, searchQuery);
-  yield put(updateProductsAction(products));
+  const {
+    products,
+    pagesAmount
+  } = yield call(
+    productsApiService.getProducts,
+    appliedFilters,
+    searchQuery,
+    currentPage
+  );
+
+  yield put(updateProductsAction({ products, pagesAmount }));
   yield put(changeProductsLoadingStateAction(false));
 }

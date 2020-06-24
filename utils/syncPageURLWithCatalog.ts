@@ -1,21 +1,25 @@
 import { Filters } from '../interfaces/Filters';
 import { appliedFiltersToURLSearchParams } from './appliedFiltersToURLSearchParams';
-import { router } from '../services/router';
 import { clearQueryFromFilters } from './clearQueryFromFilters';
+import { routerService } from '../services/RouterService';
 
 /**
- * Synchronizes appliedFilters and searchQuery
+ * Synchronizes appliedFilters, searchQuery and pageNumber
  * with current page URL query.
  *
  * @param appliedFilters
  * @param searchQuery
+ * @param currentPage
  * @param initialFilters
  */
 export function syncPageURLWithCatalog(
-  appliedFilters: Filters, searchQuery: string, initialFilters: Filters
+  appliedFilters: Filters,
+  searchQuery: string,
+  currentPage: number,
+  initialFilters: Filters
 ) {
   const query: URLSearchParams = new URLSearchParams(
-    clearQueryFromFilters(router.getQuery(), initialFilters)
+    clearQueryFromFilters(routerService.getQuery(), initialFilters)
   );
 
   const filtersQuery = appliedFiltersToURLSearchParams(
@@ -30,5 +34,10 @@ export function syncPageURLWithCatalog(
     query.set('q', searchQuery);
   }
 
-  router.updateQuery(query);
+  query.delete('page');
+  if (currentPage !== 1) {
+    query.set('page', String(currentPage));
+  }
+
+  routerService.updateQuery(query);
 }

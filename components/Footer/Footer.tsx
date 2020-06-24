@@ -7,7 +7,7 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className={styles.content}>
         <p className={styles.copyright}>
-          &copy; 2020
+          &copy; { new Date().getFullYear() }
           <span className={styles.logo}> Р-строй</span>
         </p>
       </div>

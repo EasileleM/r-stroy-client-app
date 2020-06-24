@@ -1,0 +1,18 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  padding: 40px 0;
+  width: 100%;
+}
+
+.productsLoadingIndicator {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  opacity: .3;
+  background: #fff;
+}

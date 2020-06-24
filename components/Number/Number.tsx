@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import PhoneIcon from '../../public/images/phone.svg';
 
-import { CONTACT_NUMBER, CONTACT_NUMBER_TO_COPY } from '../../contants/const';
+import { CONTACT_NUMBER, CONTACT_NUMBER_TO_COPY, NUMBER_COPIED_MSG } from '../../contants/const';
 
 export interface ProfileButtonInterface {
   containerStyles?: string,
@@ -13,7 +13,7 @@ export interface ProfileButtonInterface {
 }
 
 const onCopy = () => {
-  toast.info('Номер скопирован в буфер обмена');
+  toast.info(NUMBER_COPIED_MSG);
 };
 
 export function Number({ containerStyles, iconStyles, textStyles }) {

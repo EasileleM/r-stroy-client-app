@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import cn from 'classnames';
 
+import { connect, ConnectedProps } from 'react-redux';
 import styles from './Header.module.scss';
 
-import { CartButton } from './CartButton/CartButton';
-import { FavoritesButton } from './FavoritesButton/FavoritesButton';
-import { ProfileButton } from './ProfileButton/ProfileButton';
+import CartButton from './CartButton/CartButton';
+import FavoritesButton from './FavoritesButton/FavoritesButton';
+import ProfileButton from './ProfileButton/ProfileButton';
 import Search from '../Search/Search';
 
 import useResponsive from '../../hooks/useResponsive';
@@ -14,8 +15,18 @@ import { HamburgerMenuButton } from '../HamburgerMenuButton/HamburgerMenuButton'
 import { MobileMenu } from './MobileMenu/MobileMenu';
 import { Number } from '../Number/Number';
 import { LocationLink } from './LocationLink/LocationLink';
+import {
+  ALL_ORDERS_URL,
+  CREATE_PRODUCT_URL,
+  NOTIFY_SUBSCRIBERS_URL,
+  ORDERS_URL,
+  PRODUCT_TYPE_URL
+} from '../../contants/const';
+import { RootState } from '../../redux/types';
 
-export function Header() {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export function Header({ isAdmin }: PropsFromRedux) {
   const device = useResponsive();
   const [menuOpened, setMenuOpened] = useState(false);
 
@@ -121,29 +132,95 @@ export function Header() {
                 </a>
               </Link>
 
-              <Link href="/">
-                <a
-                  className={cn(styles.link, styles.containerWithBigGap__item)}
-                >
-                  Доставка
-                </a>
-              </Link>
+              {
+                !isAdmin &&
+                <Link href="/">
+                  <a
+                    className={
+                      cn(styles.link, styles.containerWithBigGap__item)
+                    }
+                  >
+                    Доставка
+                  </a>
+                </Link>
+              }
+              {
+                isAdmin &&
+                  <>
+                    <Link href={CREATE_PRODUCT_URL}>
+                      <a
+                        className={
+                            cn(styles.link, styles.containerWithBigGap__item)
+                          }
+                      >
+                        Новый продукт
+                      </a>
+                    </Link>
+                    <Link href={PRODUCT_TYPE_URL}>
+                      <a
+                        className={
+                                cn(
+                                  styles.link,
+                                  styles.containerWithBigGap__item
+                                )
+                              }
+                      >
+                        Виды продуктов
+                      </a>
+                    </Link>
+                    <Link href={ALL_ORDERS_URL}>
+                      <a
+                        className={
+                                cn(
+                                  styles.link,
+                                  styles.containerWithBigGap__item
+                                )
+                              }
+                      >
+                        Заказы
+                      </a>
+                    </Link>
+                    <Link href={NOTIFY_SUBSCRIBERS_URL}>
+                      <a
+                        className={
+                                cn(
+                                  styles.link,
+                                  styles.containerWithBigGap__item
+                                )
+                              }
+                      >
+                        Рассылка
+                      </a>
+                    </Link>
+                  </>
+              }
 
-              <Link href="/">
-                <a
-                  className={cn(styles.link, styles.containerWithBigGap__item)}
-                >
-                  Ваши заказы
-                </a>
-              </Link>
-
-              <Link href="/">
-                <a
-                  className={cn(styles.link, styles.containerWithBigGap__item)}
-                >
-                  О нас
-                </a>
-              </Link>
+              {
+                !isAdmin && 
+                  <>
+                    <Link href="/">
+                      <a
+                        className={
+                          cn(styles.link, styles.containerWithBigGap__item)
+                        }
+                      >
+                        О нас
+                      </a>
+                    </Link>
+                    <Link href={ORDERS_URL}>
+                      <a
+                        className={
+                                cn(
+                                  styles.link,
+                                  styles.containerWithBigGap__item
+                                )
+                              }
+                      >
+                        Ваши заказы
+                      </a>
+                    </Link>
+                  </>
+              }
             </>
           }
           </nav>
@@ -156,3 +233,11 @@ export function Header() {
     </>
   );
 }
+
+const mapStateToProps = (state: RootState) => ({
+  isAdmin: state.user.isAdmin
+});
+
+const connector = connect(mapStateToProps);
+
+export default connector(Header);

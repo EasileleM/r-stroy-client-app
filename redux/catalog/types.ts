@@ -1,5 +1,6 @@
 import { Product } from '../../interfaces/Product';
 import { Filters } from '../../interfaces/Filters';
+import { Pagination } from '../../interfaces/Pagination';
 
 export const CATALOG_INIT = 'CATALOG_INIT';
 export const CATALOG_RESET = 'CATALOG_RESET';
@@ -7,12 +8,11 @@ export const CATALOG_RESET = 'CATALOG_RESET';
 export const UPDATE_FILTERS = 'LOAD_FILTERS';
 export const APPLY_SEARCH = 'APPLY_SEARCH';
 export const APPLY_FILTERS = 'APPLY_FILTERS';
+export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const UPDATE_PRODUCTS = 'LOAD_PRODUCTS';
 
 export const CHANGE_FILTERS_LOADING_STATE = 'CHANGE_FILTERS_LOADING_STATE';
 export const CHANGE_PRODUCTS_LOADING_STATE = 'CHANGE_PRODUCTS_LOADING_STATE';
-
-export const CATALOG_ERROR = 'CATALOG_ERROR';
 
 export interface CatalogState {
   products: Array<Product>;
@@ -21,7 +21,8 @@ export interface CatalogState {
   searchQuery: string;
   areFiltersLoading: boolean;
   areProductsLoading: boolean;
-  hasError: boolean;
+  currentPage: number;
+  pagesAmount: number;
 }
 
 export interface CatalogInitAction {
@@ -32,12 +33,7 @@ export interface CatalogResetAction {
   type: typeof CATALOG_RESET;
 }
 
-export interface CatalogErrorAction {
-  type: typeof CATALOG_ERROR;
-  payload: boolean;
-}
-
-export interface ChangeLoadingStateAction {
+export interface ChangeFiltersLoadingStateAction {
   type: typeof CHANGE_FILTERS_LOADING_STATE;
   payload: boolean;
 }
@@ -47,14 +43,14 @@ export interface ChangeProductsLoadingStateAction {
   payload: boolean;
 }
 
-export interface LoadFiltersAction {
+export interface UpdateFiltersAction {
   type: typeof UPDATE_FILTERS;
   payload: Filters;
 }
 
-export interface LoadProductsAction {
+export interface UpdateProductsAction {
   type: typeof UPDATE_PRODUCTS;
-  payload: Array<Product>;
+  payload: Pagination;
 }
 
 export interface ApplySearchAction {
@@ -67,12 +63,18 @@ export interface ApplyFiltersAction {
   payload: Filters;
 }
 
-export type CatalogActionTypes = LoadFiltersAction |
-LoadProductsAction | 
-ApplySearchAction |
-ApplyFiltersAction |
-ChangeLoadingStateAction |
-ChangeProductsLoadingStateAction |
-CatalogInitAction |
-CatalogResetAction |
-CatalogErrorAction;
+export interface ChangePageAction {
+  type: typeof CHANGE_PAGE;
+  payload: number;
+}
+
+export type CatalogActionTypes =
+  UpdateFiltersAction |
+  UpdateProductsAction |
+  ApplySearchAction |
+  ApplyFiltersAction |
+  ChangeFiltersLoadingStateAction |
+  ChangeProductsLoadingStateAction |
+  CatalogInitAction |
+  CatalogResetAction |
+  ChangePageAction;

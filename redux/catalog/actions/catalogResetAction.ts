@@ -1,6 +1,6 @@
-import { CATALOG_RESET, CatalogActionTypes } from '../types';
+import { CATALOG_RESET, CatalogResetAction } from '../types';
 
-export function catalogResetAction(): CatalogActionTypes {
+export function catalogResetAction(): CatalogResetAction {
   return {
     type: CATALOG_RESET
   };

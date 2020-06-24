@@ -1,0 +1,9 @@
+.subscriptionButton {
+  cursor: pointer;
+  text-decoration: underline;
+  transition: 200ms ease;
+
+  &:hover {
+    opacity: .7;
+  }
+}
