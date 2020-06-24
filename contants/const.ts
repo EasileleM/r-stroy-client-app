@@ -28,7 +28,8 @@ export const LOCAL_STORAGE_USER_KEY = 'user';
 export const DEFAULT_USER: User = {
   isGuest: true,
   cartProducts: [],
-  favoritesProducts: []
+  favoritesProducts: [],
+  isAdmin: false
 };
 
 // REGEX
