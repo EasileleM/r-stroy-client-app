@@ -3,6 +3,7 @@ import { Filters } from '../interfaces/Filters';
 import { Product } from '../interfaces/Product';
 import { Pagination } from '../interfaces/Pagination';
 import {
+  ACTIVATE_USER_API_URL,
   CREATE_PRODUCT_API_URL,
   GET_FILTERS_API_URL,
   GET_PRODUCT_API_URL,
@@ -104,6 +105,10 @@ export class ProductsApiService {
 
   async createProduct(product: RawProduct): Promise<void> {
     await axios.post(CREATE_PRODUCT_API_URL, product);
+  }
+
+  async activateUser(uuid: number): Promise<void> {
+    await axios.post(`${ACTIVATE_USER_API_URL}/${uuid}`);
   }
 }
 

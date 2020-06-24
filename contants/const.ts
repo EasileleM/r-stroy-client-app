@@ -60,6 +60,7 @@ export const SUBSCRIPTION_API_URL = 'http://localhost:3033/api/v1/commons/user/s
 export const PRODUCT_TYPES_API_URL = 'http://localhost:3033/api/v1/admin/productTypes';
 export const UPDATE_PRODUCT_API_URL = 'http://localhost:3033/api/v1/admin/products';
 export const CREATE_PRODUCT_API_URL = 'http://localhost:3033/api/v1/admin/products';
+export const ACTIVATE_USER_API_URL = 'http://localhost:3033/api/v1/commons/user/activate';
 
 // TIMERS
 export const DEBOUNCE_TIMER = 2000;

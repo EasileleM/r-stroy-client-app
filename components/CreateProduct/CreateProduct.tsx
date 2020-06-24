@@ -145,7 +145,7 @@ export function CreateProduct({ isAdmin }: PropsFromRedux) {
           {
               (touched.name && errors.name &&
               <Typography color='error'>{errors.name}</Typography>)
-              || (!!status && status.email &&
+              || (!!status && status.name &&
               <Typography color='error'>{status.name}</Typography>)
             }
           <TextField
@@ -221,7 +221,7 @@ export function CreateProduct({ isAdmin }: PropsFromRedux) {
               <Typography color='error'>{status.imageURL}</Typography>)
             }
           <FormControl className={classes.formControl}>
-            <InputLabel>Chip</InputLabel>
+            <InputLabel>Виды товара</InputLabel>
             <Select
               multiple
               value={values.productTypes}
