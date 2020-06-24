@@ -3,7 +3,6 @@ import { Filters } from '../interfaces/Filters';
 import { Product } from '../interfaces/Product';
 import { Pagination } from '../interfaces/Pagination';
 import {
-  ACTIVATE_USER_API_URL,
   CREATE_PRODUCT_API_URL,
   GET_FILTERS_API_URL,
   GET_PRODUCT_API_URL,
@@ -92,11 +91,18 @@ export class ProductsApiService {
     return data;
   }
 
-
   async getAllRawProductTypes(): Promise<Array<RawProductType>> {
     const { data } = await axios.get(PRODUCT_TYPES_API_URL);
 
     return data;
+  }
+
+  async updateProductType(data: RawProductType): Promise<void> {
+    await axios.patch(PRODUCT_TYPES_API_URL, data);
+  }
+
+  async createProductType(data: RawProductType): Promise<void> {
+    await axios.post(`${PRODUCT_TYPES_API_URL}`, data);
   }
 
   async updateProduct(product: RawProduct): Promise<void> {
@@ -105,10 +111,6 @@ export class ProductsApiService {
 
   async createProduct(product: RawProduct): Promise<void> {
     await axios.post(CREATE_PRODUCT_API_URL, product);
-  }
-
-  async activateUser(uuid: number): Promise<void> {
-    await axios.post(`${ACTIVATE_USER_API_URL}/${uuid}`);
   }
 }
 

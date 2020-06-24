@@ -1,4 +1,4 @@
 export interface RawProductType {
-  id: string;
+  id?: string;
   name: string;
 }

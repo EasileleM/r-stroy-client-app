@@ -7,6 +7,7 @@ import { Order } from '../interfaces/Order';
 import { PatchUserData } from '../interfaces/PatchUserData';
 import { CreateOrderData } from '../interfaces/CreateOrderData';
 import {
+  ACTIVATE_USER_API_URL,
   CART_API_URL, DEBOUNCE_TIMER,
   FAVORITES_API_URL,
   GET_USER_API_URL,
@@ -120,6 +121,10 @@ export class UserApiService {
 
   async logout() {
     return axios.post(LOGOUT_API_URL);
+  }
+
+  async activateUser(uuid: number): Promise<void> {
+    await axios.post(`${ACTIVATE_USER_API_URL}/${uuid}`);
   }
 }
 

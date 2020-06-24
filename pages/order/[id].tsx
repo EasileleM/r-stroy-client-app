@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { Layout } from '../../components/Layout/Layout';
 import { AppDispatch, RootState } from '../../redux/types';
 import { cancelOrderAction } from '../../redux/user/actions/cancelOrderAction';
-import { NOT_FOUND_URL, ORDER_CANCELED_SUCCESSFULLY_MSG, ORDERS_URL } from '../../contants/const';
+import { NOT_FOUND_URL, ORDER_CANCELED_SUCCESSFULLY_MSG } from '../../contants/const';
 import { orderStatusToString } from '../../utils/orderStatusToString';
 import { OrderStatus } from '../../enums/OrderStatus';
 import { OrderProductCard } from '../../components/OrderProductCard/OrderProductCard';

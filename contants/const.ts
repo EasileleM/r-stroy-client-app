@@ -17,6 +17,7 @@ export const CREATE_ORDER_URL = '/createOrder';
 export const ORDERS_URL = '/orders';
 export const INDEX_URL = '/';
 export const CREATE_PRODUCT_URL = '/product/create';
+export const PRODUCT_TYPE_URL = '/product/types';
 
 // LOCAL STORAGE SERVICE
 export const LOCAL_STORAGE_USER_KEY = 'user';
