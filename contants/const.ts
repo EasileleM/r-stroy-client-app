@@ -19,6 +19,7 @@ export const INDEX_URL = '/';
 export const CREATE_PRODUCT_URL = '/product/create';
 export const PRODUCT_TYPE_URL = '/product/types';
 export const ALL_ORDERS_URL = '/order/all';
+export const NOTIFY_SUBSCRIBERS_URL = '/notify';
 
 // LOCAL STORAGE SERVICE
 export const LOCAL_STORAGE_USER_KEY = 'user';
@@ -64,6 +65,7 @@ export const UPDATE_PRODUCT_API_URL = 'http://localhost:3033/api/v1/admin/produc
 export const CREATE_PRODUCT_API_URL = 'http://localhost:3033/api/v1/admin/products';
 export const ACTIVATE_USER_API_URL = 'http://localhost:3033/api/v1/commons/user/activate';
 export const ALL_ORDERS_API_URL = 'http://localhost:3033/api/v1/admin/orders';
+export const NOTIFY_SUBSCRIBERS_API_URL = 'http://localhost:3033/api/v1/admin/user/subscribers/notify';
 
 // TIMERS
 export const DEBOUNCE_TIMER = 2000;

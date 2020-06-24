@@ -15,7 +15,13 @@ import { HamburgerMenuButton } from '../HamburgerMenuButton/HamburgerMenuButton'
 import { MobileMenu } from './MobileMenu/MobileMenu';
 import { Number } from '../Number/Number';
 import { LocationLink } from './LocationLink/LocationLink';
-import { ALL_ORDERS_URL, CREATE_PRODUCT_URL, ORDERS_URL, PRODUCT_TYPE_URL } from '../../contants/const';
+import {
+  ALL_ORDERS_URL,
+  CREATE_PRODUCT_URL,
+  NOTIFY_SUBSCRIBERS_URL,
+  ORDERS_URL,
+  PRODUCT_TYPE_URL
+} from '../../contants/const';
 import { RootState } from '../../redux/types';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -174,18 +180,20 @@ export function Header({ isAdmin }: PropsFromRedux) {
                         Заказы
                       </a>
                     </Link>
+                    <Link href={NOTIFY_SUBSCRIBERS_URL}>
+                      <a
+                        className={
+                                cn(
+                                  styles.link,
+                                  styles.containerWithBigGap__item
+                                )
+                              }
+                      >
+                        Рассылка
+                      </a>
+                    </Link>
                   </>
               }
-
-              <Link href={ORDERS_URL}>
-                <a
-                  className={
-                          cn(styles.link, styles.containerWithBigGap__item)
-                        }
-                >
-                  Ваши заказы
-                </a>
-              </Link>
 
               {
                 !isAdmin && 
@@ -197,6 +205,18 @@ export function Header({ isAdmin }: PropsFromRedux) {
                         }
                       >
                         О нас
+                      </a>
+                    </Link>
+                    <Link href={ORDERS_URL}>
+                      <a
+                        className={
+                                cn(
+                                  styles.link,
+                                  styles.containerWithBigGap__item
+                                )
+                              }
+                      >
+                        Ваши заказы
                       </a>
                     </Link>
                   </>

@@ -11,7 +11,7 @@ import {
   CART_API_URL, DEBOUNCE_TIMER,
   FAVORITES_API_URL,
   GET_USER_API_URL,
-  LOGOUT_API_URL,
+  LOGOUT_API_URL, NOTIFY_SUBSCRIBERS_API_URL,
   ORDERS_API_URL,
   SIGN_IN_API_URL,
   SIGN_UP_API_URL, SUBSCRIPTION_API_URL, UPDATE_USER_API_URL
@@ -159,6 +159,10 @@ export class UserApiService {
       email: data.email,
       phoneNumber: data.phoneNumber
     };
+  }
+
+  async notifySubscribers(subject, message): Promise<void> {
+    await axios.post(NOTIFY_SUBSCRIBERS_API_URL, { subject, message });
   }
 }
 
