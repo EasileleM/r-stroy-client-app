@@ -50,20 +50,21 @@ export function ProductTypeCard(
       <CardActionArea className={cn(styles.productContent)}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Вид продукта {data.id}
+            Категория {data.id}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions classes={{ root: styles.actions }}>
         <TextField
+          className={cn(styles.textField)}
           variant="outlined"
           margin="normal"
           required
           fullWidth
-          id="name"
+          id={data.id}
           label="Название"
-          name="name"
-          autoComplete="name"
+          name={data.id}
+          autoComplete={data.id}
           autoFocus
           value={currentName}
           onChange={handleChange}

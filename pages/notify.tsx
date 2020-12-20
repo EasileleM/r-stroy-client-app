@@ -56,13 +56,14 @@ export function NotifyPage({ isAdmin }: PropsFromRedux) {
             id="message"
             label="Сообщение"
             name="message"
+            multiline
             autoComplete="message"
             autoFocus
             value={currentMessage}
             onChange={(e) => setCurrentMessage(e.target.value)}
           />
           <Button onClick={handleSubmit}>
-            Создать
+            Отправить
           </Button>
         </div>
       </div>

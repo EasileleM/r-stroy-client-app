@@ -90,7 +90,7 @@ export function CreateOrder({
         products: orderProducts
       };
 
-      const orderId = await userApiService.createOrder(newOrderData);
+      const { data: orderId } = await userApiService.createOrder(newOrderData);
       clearCart();
       createOrder({
         ...newOrderData,
@@ -98,8 +98,8 @@ export function CreateOrder({
       });
       setSubmissionSuccess(true);
     } catch (e) {
-      if (e.code === 409 || e.code === 400) {
-        setStatus(e.data.errors);
+      if (e.response.status === 409 || e.response.status === 400) {
+        setStatus(e.response.data);
       } else {
         throw e;
       }
@@ -179,7 +179,9 @@ export function CreateOrder({
               validationSchema={createOrderScheme}
               onSubmit={onSubmit}
               initialValues={{
-                arrivalPoint: '',
+                city: '',
+                street: '',
+                house: '',
                 description: ''
               }}
             >
@@ -192,24 +194,61 @@ export function CreateOrder({
                 status
               }) => (
                 <form onSubmit={handleSubmit} className={classes.form}>
+                  <Typography>Доставка возможно только в города России.</Typography>
                   <TextField
-                    autoComplete="arrivalPoint"
-                    name="arrivalPoint"
+                    autoComplete="city"
+                    name="city"
                     margin="normal"
                     variant="outlined"
                     required
                     fullWidth
-                    id="arrivalPoint"
-                    label="Адресс Доставки"
+                    id="city"
+                    label="Город"
                     autoFocus
-                    value={values.arrivalPoint}
+                    value={values.city}
                     onChange={handleChange}
                   />
                   {
-                    (touched.arrivalPoint && errors.arrivalPoint &&
-                    <Typography color='error'>{errors.arrivalPoint}</Typography>)
-                    || (!!status && status.arrivalPoint &&
-                    <Typography color='error'>{status.arrivalPoint}</Typography>)
+                    (touched.city && errors.city &&
+                    <Typography color='error'>{errors.city}</Typography>)
+                    || (!!status && status.city &&
+                    <Typography color='error'>{status.city}</Typography>)
+                  }
+                  <TextField
+                    autoComplete="street"
+                    name="street"
+                    margin="normal"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="street"
+                    label="Улица"
+                    value={values.street}
+                    onChange={handleChange}
+                  />
+                  {
+                    (touched.street && errors.street &&
+                    <Typography color='error'>{errors.street}</Typography>)
+                    || (!!status && status.street &&
+                    <Typography color='error'>{status.street}</Typography>)
+                  }
+                  <TextField
+                    autoComplete="house"
+                    name="house"
+                    margin="normal"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="house"
+                    label="Дом"
+                    value={values.house}
+                    onChange={handleChange}
+                  />
+                  {
+                    (touched.house && errors.house &&
+                    <Typography color='error'>{errors.house}</Typography>)
+                    || (!!status && status.house &&
+                    <Typography color='error'>{status.house}</Typography>)
                   }
                   <TextField
                     variant="outlined"

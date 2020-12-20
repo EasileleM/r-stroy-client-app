@@ -16,6 +16,7 @@ export const PROFILE_URL = '/profile';
 export const CREATE_ORDER_URL = '/createOrder';
 export const ORDERS_URL = '/orders';
 export const INDEX_URL = '/';
+export const ANALYTICS_URL = '/analytics';
 export const CREATE_PRODUCT_URL = '/product/create';
 export const PRODUCT_TYPE_URL = '/product/types';
 export const ALL_ORDERS_URL = '/order/all';
@@ -34,7 +35,7 @@ export const DEFAULT_USER: User = {
 
 // REGEX
 export const PASSWORD_REGEX = '^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$';
-export const NUMBER_REGEX = '^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$';
+export const NUMBER_REGEX = '^[+]?[78][-\\(]?\\d{3}\\)?-?\\d{3}-?\\d{2}-?\\d{2}$';
 
 // MESSAGES TO USER
 export const NUMBER_COPIED_MSG = 'Номер скопирован в буфер обмена';

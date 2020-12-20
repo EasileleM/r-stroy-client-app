@@ -83,7 +83,7 @@ export function OrderPage(
         Статус: {orderStatusToString(order.status)}
       </Typography>
       <Typography gutterBottom variant="h5" component="h2">
-        Место доставки: {order.arrivalPoint}
+        Место доставки: {`${order.city} ${order.street} ${order.house}`}
       </Typography>
       <Typography gutterBottom variant="h5" component="h2">
         Дата оформления заказа: {order.startDate.toLocaleDateString()}

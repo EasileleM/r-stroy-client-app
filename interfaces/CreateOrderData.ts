@@ -4,5 +4,7 @@ export interface CreateOrderData {
   id: string;
   products: Array<OrderProduct>;
   description: string;
-  arrivalPoint: string;
+  city: string;
+  street: string;
+  house: string;
 }

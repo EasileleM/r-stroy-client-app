@@ -20,7 +20,8 @@ import {
   CREATE_PRODUCT_URL,
   NOTIFY_SUBSCRIBERS_URL,
   ORDERS_URL,
-  PRODUCT_TYPE_URL
+  PRODUCT_TYPE_URL,
+  ANALYTICS_URL
 } from '../../contants/const';
 import { RootState } from '../../redux/types';
 
@@ -165,7 +166,7 @@ export function Header({ isAdmin }: PropsFromRedux) {
                                 )
                               }
                       >
-                        Виды продуктов
+                        Категории
                       </a>
                     </Link>
                     <Link href={ALL_ORDERS_URL}>
@@ -190,6 +191,18 @@ export function Header({ isAdmin }: PropsFromRedux) {
                               }
                       >
                         Рассылка
+                      </a>
+                    </Link>
+                    <Link href={ANALYTICS_URL}>
+                      <a
+                        className={
+                                cn(
+                                  styles.link,
+                                  styles.containerWithBigGap__item
+                                )
+                              }
+                      >
+                        Аналитика
                       </a>
                     </Link>
                   </>

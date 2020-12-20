@@ -99,10 +99,8 @@ export class UserApiService {
     return promise;
   };
 
-  async createOrder(newOrder: CreateOrderData): Promise<string> {
-    const { data } =
-      await axios.post(ORDERS_API_URL, serializeNewOrder(newOrder));
-    return data;
+  createOrder(newOrder: CreateOrderData): Promise<any> {
+    return axios.post(ORDERS_API_URL, serializeNewOrder(newOrder));
   }
 
   async toggleSubscription(isSubscribed: boolean): Promise<void> {
@@ -130,8 +128,11 @@ export class UserApiService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async getAllOrders(page: number = 0): Promise<any> {
-    return axios.get(`${ALL_ORDERS_API_URL}?page=${page}`);
+  async getAllOrders(page: number = 0, loadAll = false): Promise<any> {
+    if (loadAll) {
+      return axios.get(`${ALL_ORDERS_API_URL}?page=${page}`);
+    }
+    return axios.get(`${ALL_ORDERS_API_URL}/pageable?page=${page}`);
   }
 
   async getAnyOrder(id: string): Promise<Order> {

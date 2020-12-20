@@ -5,7 +5,9 @@ export interface Order {
   id: string;
   description: string;
   products: Array<OrderProduct>;
-  arrivalPoint: string;
+  city: string;
+  street: string;
+  house: string;
   status: OrderStatus;
   startDate: Date;
   completedDate: Date;

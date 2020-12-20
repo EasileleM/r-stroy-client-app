@@ -155,6 +155,7 @@ export function CreateProduct({ isAdmin }: PropsFromRedux) {
             fullWidth
             name="description"
             label="Описание"
+            multiline
             id="description"
             autoComplete="product-description"
             value={values.description}

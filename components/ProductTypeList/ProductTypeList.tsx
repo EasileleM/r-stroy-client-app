@@ -44,7 +44,7 @@ export function ProductTypeList({ isAdmin }: PropsFromRedux){
   return (
     <div>
       <Typography gutterBottom component="h1" variant="h1">
-        Виды товара
+        Категории товара
       </Typography>
       <div>
         <TextField
@@ -52,10 +52,10 @@ export function ProductTypeList({ isAdmin }: PropsFromRedux){
           margin="normal"
           required
           fullWidth
-          id="name"
-          label="Имя товара"
-          name="name"
-          autoComplete="name"
+          id="newProductType"
+          label="Имя категории"
+          name="newProductType"
+          autoComplete="newProductType"
           autoFocus
           value={currentName}
           onChange={handleChange}
@@ -68,7 +68,7 @@ export function ProductTypeList({ isAdmin }: PropsFromRedux){
       {
         !productTypes.length &&
         <Typography component="h1" variant="h5">
-          Нет видов товаров!
+          Нет категорий товаров!
         </Typography>
       }
       {

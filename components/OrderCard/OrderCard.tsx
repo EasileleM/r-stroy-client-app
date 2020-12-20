@@ -26,7 +26,7 @@ export function OrderCard({ className, data }: OrderCard) {
                 Статус: {orderStatusToString(data.status)}
               </Typography>
               <Typography gutterBottom variant="h5" component="h2">
-                Место доставки: {data.arrivalPoint}
+                Место доставки: {`${data.city} ${data.street} ${data.house}`}
               </Typography>
               <Typography gutterBottom variant="h5" component="h2">
                 Дата оформления заказа: {data.startDate.toLocaleDateString()}

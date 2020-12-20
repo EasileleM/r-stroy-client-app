@@ -26,6 +26,7 @@ import { AddToCartButton } from '../AddToCartButton/AddToCartButton';
 import { productsApiService } from '../../services/productsApiService';
 import { RawProduct } from '../../interfaces/RawProduct';
 import { RawProductType } from '../../interfaces/RawProductType';
+import { shortString } from '../../utils/shortString';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -156,12 +157,17 @@ export function ProductCard({
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                {product.name}
+                {
+                  wide ?
+                    product.name
+                    :
+                    shortString(product.name)
+                }
               </Typography>
               {
                 wide &&
                 <Typography variant="body2" color="textSecondary" component="p">
-                  {product.description}
+                  <span dangerouslySetInnerHTML={Object({ __html: product.description })} />
                 </Typography>
               }
               {
@@ -247,6 +253,7 @@ export function ProductCard({
                 name="description"
                 label="Описание"
                 id="description"
+                multiline
                 autoComplete="product-description"
                 value={values.description}
                 onChange={handleChange}
